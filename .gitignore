@@ -1,0 +1,25 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# Build artifacts
+*.log
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+node_modules/
+
+# Local config
+.env
+.env.local
+*.local
+
+# Generated outputs (user artifacts, not source)
+output/
+bundle-*.md
+s2s-bundle-*.md
+generated/

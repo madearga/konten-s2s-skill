@@ -1,0 +1,143 @@
+# /s2s motion — Step 3: Seedance 2.0 Motion Prompt
+
+Generates a **complete Seedance 2.0 motion prompt** with 5-part spine, panel beats, director strip text, and audio strategy. Uses previously-saved storyboard + character/product references.
+
+---
+
+## Trigger
+
+- Manual: `/s2s motion`
+- Auto-detect: "motion prompt", "Seedance prompt", "video prompt", "bikinin prompt video"
+
+If user has no storyboard yet, redirect to `/s2s storyboard` (Step 1).
+
+---
+
+## Required Inputs
+
+| Input | Source | Required? |
+|-------|--------|-----------|
+| Storyboard image path/URL | Step 1 output | Required |
+| Character ref path/URL | Step 2a output | Required if video has human |
+| Product ref path/URL | Step 2b output | Required if video has product |
+| Brief (duration, energy, audio) | User | Required |
+
+**Q-template (only if not already in bundle from `/s2s pipeline`):**
+
+```
+Q1: Where are the images?
+    A) I'll provide paths (please paste)
+    B) I have URLs (please paste)
+    C) Use defaults from previous /s2s run
+
+Q2: Duration?
+    A) 4s (snappy)
+    B) 8s (smooth, recommended for product)
+    C) 12s (atmospheric)
+    D) 15s (full sequence)
+
+Q3: Audio strategy?
+    A) Silent (diegetic foley only — RECOMMENDED for editability)
+    B) Music baked in (specify genre + BPM)
+
+Q4: Energy?
+    A) High-rhythm (smash cuts, loopable)
+    B) Mid-rhythm (build, cooking montage)
+    C) Slow cinematic (master + beauty)
+```
+
+---
+
+## Behavior
+
+1. Verify image paths/URLs exist
+2. Load `references/seedance-motion-prompt.md` (the 5-part spine)
+3. Load `references/director-strip-7-track.md` (vocabulary)
+4. Load `../references/seedance-2-best-practices-2026.md` (broader context)
+5. Pull **director strip text + panel beats from Step 1 output** (the real signal — storyboard image alone is unreadable at panel resolution)
+6. Build the 5-part spine:
+   - **SUBJECT** (1-2 sentences, identity)
+   - **ACTION** (2-4 sentences, story in prose)
+   - **CAMERA** (per-panel P## / focal length / shot type)
+   - **STYLE** (visual signature)
+   - **CONSTRAINTS** (what to avoid)
+7. Add **Emotional Guidance 2-axis** (Valence + Arousal)
+8. Add **Audio strategy** (default: silent, diegetic foley only)
+9. Add **Panel beats per P##** with shot + motion + foley + emotional beat + audio cue
+10. Add **Negative prompts** (no music, no logo, no text, no watermark, no frame numbers)
+11. Run QC checklist (11 items)
+12. Output: copy-paste-ready prompt + checklist + attachment list
+
+---
+
+## Output Format
+
+```
+## Motion Prompt (Seedance 2.0)
+
+```
+<prompt text — full 5-part spine + director strip + panel beats + emotional guidance + audio + negative>
+```
+
+## QC Checklist
+- [✓] `@[storyboard ref]` referenced at top
+- [✓] `@[character ref]` or `@[product ref]` referenced
+- [✓] Subject line (1-2 sentences) — identity
+- [✓] Action line (2-4 sentences) — story in prose
+- [✓] Camera line — per-panel P## / focal length / shot type
+- [✓] Style line — visual signature
+- [✓] Constraints line — what to avoid
+- [✓] **Emotional Guidance 2-axis** (Valence + Arousal)
+- [✓] Audio strategy explicit (silent/diegetic OR music+specs)
+- [✓] **Panel beats per P##** with shot + motion + foley + emotional beat + audio cue
+- [✓] Negative prompts: no music, no logo, no text, no watermark, no frame numbers
+
+## Attachments Needed
+- @[storyboard ref]: <path or URL>
+- @[character ref]: <path or URL>  [if applicable]
+- @[product ref]: <path or URL>    [if applicable]
+
+## Cost & Time
+- Seedance 2.0 Standard: ~$0.05/s, 8-15s clip = $0.40-0.75
+- Seedance 2.0 Fast (for iteration): ~half cost
+- Generation: ~2-3 min per clip
+- Total Step 3: ~5-10 min (including image uploads + first review)
+
+## Suggested Next Step
+- Generate, review for drift + emotion + audio sync
+- If something off → re-roll with same prompt (cheap)
+- If structural issue → re-check the 5-part spine + director strip text
+- For multi-clip sequences → run `/s2s motion` again with new storyboard (modular 2-storyboard strategy)
+```
+
+---
+
+## Common Errors
+
+| User Input | Error | Fix |
+|------------|-------|-----|
+| "Just the prompt text" (no image paths) | Can't generate without refs | Force user to provide storyboard.png + character.png / product.png |
+| "Make it 60 seconds" | Out of scope (drift risk) | Split into 4-6 short clips, use multi-cut strategy |
+| "Add dramatic music" | Locks pacing, hard to re-edit | Push back: generate silent, add music in post (CapCut/DaVinci) |
+| No panel beats in prompt | Image is unreadable at panel resolution | Force-write panel beats from Step 1's director strip |
+| "Use just the image, no text" | Director strip text is the actual signal | Re-explain: image = documentation, text = contract |
+
+---
+
+## Critical Rule (Reinforced)
+
+**The storyboard image is documentation. The text in this prompt is the contract.**
+
+When Seedance 2.0 processes the storyboard image, it gets downsampled to ~30px per panel. Essentially unreadable. The model relies on the **director strip text + panel beats written in this prompt** to know what each panel should do.
+
+If you skip writing the panel beats, the video will be generic, not match your storyboard intent.
+
+---
+
+## Related
+
+- `../references/seedance-motion-prompt.md` — full 5-part spine template
+- `../references/director-strip-7-track.md` — vocabulary
+- `../references/seedance-2-best-practices-2026.md` — broader context
+- `storyboard.md` — Step 1 (storyboard)
+- `character-ref.md` / `product-ref.md` — Step 2a/2b (reference images)
