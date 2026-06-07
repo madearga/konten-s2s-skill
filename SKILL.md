@@ -1,7 +1,7 @@
 ---
 name: storyboard-to-seedance-suite
 description: "3-step procedural workflow for AI video production: (1) GPT Image 2 storyboard prompt using 12-Section template, (2) GPT Image 2 character OR product reference prompt (separate commands), (3) Seedance 2.0 motion prompt. Slash commands: /s2s storyboard, /s2s character-ref, /s2s product-ref, /s2s motion, /s2s pipeline. Use when creating storyboards for video, generating reference images for consistency, or building motion prompts for Seedance-class models."
-version: 1.0.0
+version: 1.1.0
 author: Hermes Agent
 license: Internal
 triggers:
@@ -19,6 +19,7 @@ triggers:
   - "s2s product-ref"
   - "s2s motion"
   - "s2s pipeline"
+  - "s2s cinematic-variations"
   - "character sheet"
   - "product sheet"
   - "product reference"
@@ -28,6 +29,12 @@ triggers:
   - "bikin video AI"
   - "AI video pipeline"
   - "Seedance 2.0 prompt"
+  - "cinematic composition"
+  - "cinematic variations"
+  - "10 compositions"
+  - "pre-visualization"
+  - "film still"
+  - "cinematic realism"
 ---
 
 # storyboard-to-seedance-suite
@@ -114,6 +121,7 @@ The skill will:
 
 | Command | Step | When to Use | Output |
 |---------|------|-------------|--------|
+| `/s2s cinematic-variations` | pre | Want to explore 10 composition options for a key moment | 10 single-image prompts (different compositions) |
 | `/s2s storyboard` | 1 | Need storyboard image | 12-section prompt → storyboard.png |
 | `/s2s character-ref` | 2a | Human in video | 3-angle sheet → character.png |
 | `/s2s product-ref` | 2b | Product in video | 3 variants → product.png |
@@ -132,16 +140,20 @@ User Intent Detected
 Q: Has brief for single video?
 ├─ YES → /s2s pipeline  (master, runs all 3 steps)
 │
-└─ NO, has storyboard image already?
-   ├─ YES → /s2s motion  (Step 3 only)
+└─ NO, wants to explore visual language first?
+   ├─ YES → /s2s cinematic-variations  (10 composition sweep)
+   │        → pick winner → /s2s storyboard (or /s2s pipeline)
    │
-   └─ NO, needs reference image first?
-      ├─ Has human character?
-      │  ├─ YES → /s2s character-ref  (Step 2a)
-      │  └─ NO  → /s2s product-ref   (Step 2b)
+   └─ NO, has storyboard image already?
+      ├─ YES → /s2s motion  (Step 3 only)
       │
-      └─ Just needs storyboard?
-         └─ /s2s storyboard  (Step 1 only)
+      └─ NO, needs reference image first?
+         ├─ Has human character?
+         │  ├─ YES → /s2s character-ref  (Step 2a)
+         │  └─ NO  → /s2s product-ref   (Step 2b)
+         │
+         └─ Just needs storyboard?
+            └─ /s2s storyboard  (Step 1 only)
 ```
 
 ---
@@ -187,15 +199,17 @@ storyboard-to-seedance-suite/
 │   ├── product-ref-prompt.md          # 3 variants: hero, multi-angle, lifestyle
 │   ├── seedance-motion-prompt.md      # 5-part spine + worked example
 │   ├── director-strip-7-track.md      # RHYTHM + ESCALATION vocabulary
+│   ├── cinematic-composition-vocabulary.md  # 19 cinematic styles + texture pack
 │   └── banana-bread-worked-example.md # anonymized real-world case study
 ├── commands/
 │   ├── storyboard.md                  # /s2s storyboard
 │   ├── character-ref.md               # /s2s character-ref
 │   ├── product-ref.md                 # /s2s product-ref
 │   ├── motion.md                      # /s2s motion
-│   └── pipeline.md                    # /s2s pipeline (master)
+│   ├── pipeline.md                    # /s2s pipeline (master)
+│   └── cinematic-variations.md        # /s2s cinematic-variations (pre-vis)
 └── tests/
-    └── test-cases.md                  # 5 test cases (TC1-TC5)
+    └── test-cases.md                  # 6 test cases (TC1-TC6)
 ```
 
 ---
@@ -282,6 +296,15 @@ In the parent `ai-video-production` skill:
 ---
 
 ## Version History
+
+- **1.1.0** (2026-06-07) — Cinematic composition vocabulary
+  - NEW: `references/cinematic-composition-vocabulary.md` (19 styles + texture pack + base style)
+  - NEW: `commands/cinematic-variations.md` (`/s2s cinematic-variations` — 10-composition sweep)
+  - UPDATED: `seedance-motion-prompt.md` — added imperfect realism texture pack + cinematic negatives
+  - UPDATED: `commands/storyboard.md` — added cinematic-variations as optional pre-step
+  - UPDATED: `commands/character-ref.md` + `product-ref.md` — added cinematic-composition-vocabulary references
+  - UPDATED: `tests/test-cases.md` — added TC6 for cinematic-variations
+  - NEW triggers: cinematic composition, cinematic variations, 10 compositions, pre-visualization, film still, cinematic realism
 
 - **1.0.0** (2026-06-07) — Initial release
   - 3-step procedural workflow

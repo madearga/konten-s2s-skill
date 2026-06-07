@@ -54,6 +54,24 @@ Q4: Duration?
 
 ---
 
+## Optional Pre-Step: Composition Sweep
+
+Before building the full storyboard, optionally run `/s2s cinematic-variations <subject>` to explore **10 different cinematic compositions** of the key moment. Pick the most striking → use it as P01 of the storyboard.
+
+```
+# Optional workflow:
+/s2s cinematic-variations Indonesian girl holding finished banana bread --pick=3
+# → generates 10 single-image prompts, picks top 3
+# → use top 3 as P01, P02, P## anchors
+
+/s2s storyboard Indonesian girl in kitchen making banana bread, energetic, 15s
+# → builds full 12-section prompt, using picked compositions as anchor panels
+```
+
+This is **optional** — for tight budgets, skip and go directly to `/s2s storyboard` (1 image at $0.07). Use the sweep when you want to explore visual language before committing.
+
+---
+
 ## Behavior
 
 1. Parse brief + clarifying answers → build the 12 sections

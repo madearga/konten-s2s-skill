@@ -53,6 +53,7 @@ C1: [brief identity, e.g., "Maya, 25, Indonesian woman, dark brown wavy hair, cr
 [STYLE — visual signature, 1-2 sentences]
 [Visual style: "warm cinematic, golden hour, shallow depth of field"]
 [Final-video intent: "soft daylight bloom, soft steam, glossy batter folds, appetizing close-ups"]
+[Imperfect realism textures — pick 1-2: film grain, haze, soft focus falloff, motion blur, natural lighting, practical light sources, weather, dust motes, reflections on wet surface, shadows with character, environmental texture]
 
 [CONSTRAINTS — what to AVOID]
 No music. No logo. No text on screen. No watermark. No frame numbers.
@@ -77,6 +78,7 @@ P##: [Final shot]. [Loop match if applicable: "the new crumb lands near her lip 
 
 [NEGATIVE PROMPTS]
 No music. No logo. No text on screen. No watermark. No frame numbers. No subtitles. No voiceover.
+[Cinematic negatives: no clean digital sharpness, no CGI look, no poster composition, no centered portrait, no black bars]
 ```
 
 ---
@@ -169,13 +171,14 @@ No music. No logo. No text on screen. No watermark. No frame numbers. No subtitl
 - [ ] `@[character ref]` or `@[product ref]` referenced
 - [ ] Subject line (1-2 sentences) — identity
 - [ ] Action line (2-4 sentences) — story in prose
-- [ ] Camera line — per-panel P## / focal length / shot type
-- [ ] Style line — visual signature
+- [ ] Camera line — per-panel P## / focal length / shot type / [composition style]
+- [ ] Style line — visual signature + **imperfect realism textures** (1-2 from texture pack)
 - [ ] Constraints line — what to avoid
 - [ ] **Emotional Guidance 2-axis** (Valence + Arousal)
 - [ ] Audio strategy explicit (silent/diegetic OR music+specs)
 - [ ] **Panel beats per P##** with shot + motion + foley + emotional beat + audio cue
 - [ ] Negative prompts: no music, no logo, no text, no watermark, no frame numbers
+- [ ] **Cinematic negatives:** no clean digital sharpness, no CGI look, no poster composition, no centered portrait, no black bars
 
 ---
 
@@ -215,5 +218,6 @@ Q: Do you want to edit pacing in post?
 - `references/storyboard-prompt-template.md` — Step 1 (storyboard image)
 - `references/character-ref-prompt.md` — Step 2a (character ref)
 - `references/product-ref-prompt.md` — Step 2b (product ref)
-- `references/director-strip-7-track.md` — vocabulary reference for the panel beats
+- `references/director-strip-7-track.md` — vocabulary
+- `references/cinematic-composition-vocabulary.md` — 19 cinematic styles + texture pack
 - `commands/motion.md` — slash command spec

@@ -63,14 +63,16 @@ Q2: Which variant?
 <prompt text — variant-specific template with all 4 sections filled>
 ```
 
-## QC Checklist
-- [✓] Product name + category specified
-- [✓] Material, color, key features described
-- [✓] Style locked (studio, lighting, background)
-- [✓] Composition specified (angle, padding, camera)
-- [✓] Consistency locks present (no redesign, no recolor, no extra parts)
-- [✓] **"No human hands" in negative** ← most common failure
-- [✓] **"No text, no logos, no watermarks" in negative**
+## QC Checklist (All Variants)
+
+- [ ] Product name + category specified
+- [ ] Material, color, key features described
+- [ ] Style locked (studio, lighting, background)
+- [ ] Composition specified (angle, padding, camera)
+- [ ] Consistency locks present (no redesign, no recolor, no extra parts)
+- [ ] **"No human hands" in negative** ← most common failure
+- [ ] **"No text, no logos, no watermarks" in negative**
+- [ ] **Default cinematic negatives appended:** `no clean digital sharpness, no CGI look, no poster composition, no centered portrait, no black bars`
 
 ## Save the Output
 - Generate the image in GPT Image 2
@@ -118,5 +120,7 @@ Q2: Which variant?
 ## Related
 
 - `../references/product-ref-prompt.md` — full template + 3 variants
+- `../references/cinematic-composition-vocabulary.md` — 19 cinematic styles for the product hero shot
 - `character-ref.md` — for character-driven videos
 - `motion.md` — uses this as @[product ref]
+- `cinematic-variations.md` — pre-visualize the product shot with 10 compositions first

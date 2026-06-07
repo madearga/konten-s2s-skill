@@ -107,5 +107,7 @@ Q3: Outfit/vibe?
 ## Related
 
 - `../references/character-ref-prompt.md` — full template + worked example
+- `../references/cinematic-composition-vocabulary.md` — 19 cinematic styles for the 3-angle layout
 - `product-ref.md` — for product-only videos
 - `motion.md` — uses this as @[character ref]
+- `cinematic-variations.md` — pre-visualize the 3-angle layout with 10 compositions first

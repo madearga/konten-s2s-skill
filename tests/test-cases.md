@@ -121,6 +121,35 @@
 
 ---
 
+## TC6: `/s2s cinematic-variations` (pre-visualization sweep)
+
+**Input:** `/s2s cinematic-variations Indonesian girl in kitchen holding finished banana bread`
+
+**Expected Output:**
+- 10 distinct cinematic image prompts
+- Each prompt uses a different composition style (from 19 in `cinematic-composition-vocabulary.md`)
+- All 10 share the same subject (Indonesian girl, banana bread)
+- Each prompt includes:
+  - Title (short, evocative, 2-4 words)
+  - Composition concept (1-line camera/position)
+  - Full image prompt (1 clean paragraph, ~80-120 words)
+  - Base style: `cinematic realism, film stock grain, film still`
+  - Texture pack (1-2 textures)
+  - Default negatives: `no clean digital sharpness, no CGI look, no poster composition, no centered portrait, no black bars`
+
+**Pass criteria:**
+- All 10 prompts use different compositions (no two the same)
+- Each prompt specifies mid-action verb (not static posing)
+- 10 compositions cover variety: at least 2 wide/establishing, 2 close/intimate, 2 high/low angle, 2 stylistic, 2 architectural
+- 11/11 QC checklist pass per prompt
+
+**With `--pick=3` flag:**
+- 10 prompts generated
+- Top 3 recommendations section appended
+- Recommendations include "use as P01", "use as P02", "use as P## anchor" guidance
+
+---
+
 ## Manual Verification Process
 
 After running each test case manually:
@@ -154,6 +183,12 @@ After running each test case manually:
    - All 3 prompts present in bundle
    - QC summary aggregated correctly
    - Cost + time summary accurate
+
+6. **TC6 (cinematic-variations):** Verify:
+   - All 10 prompts use different compositions
+   - Each prompt specifies mid-action verb
+   - Each prompt includes base style + texture + negatives
+   - `--pick=3` produces 3 recommendations (if flag used)
 
 ---
 
