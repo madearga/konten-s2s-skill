@@ -1,6 +1,6 @@
 # /s2s product-ref — Step 2b: Product Reference Image Prompt
 
-Generates a **product reference image** with 3 variants: `hero`, `multi-angle`, `lifestyle`. For product-only videos (FMCG, beauty, fashion, electronics, food).
+Generates a **product reference image** with 4 variants: `hero`, `multi-angle`, `lifestyle`, `sheet`. For product-only videos (FMCG, beauty, fashion, electronics, food).
 
 ---
 
@@ -18,7 +18,7 @@ If user is asking for a character reference (human), use `/s2s character-ref` in
 | Field | Example | Required? |
 |-------|---------|-----------|
 | Product type | "blue sneakers" / "skincare serum" / "protein bar" | Required |
-| Variant (or pick via --type) | hero / multi-angle / lifestyle | Required |
+| Variant (or pick via --type) | hero / multi-angle / lifestyle / sheet | Required |
 | Material + color | "mesh upper, deep blue, white midsole" | Required |
 | Key features | "logo placement, distinctive texture" | Recommended |
 | Ad vibe | "premium" / "lifestyle" / "energetic UGC" | Recommended |
@@ -35,6 +35,7 @@ Q2: Which variant?
     A) Hero (clean studio, single product, white background) — best for: hero shots, beauty, e-commerce
     B) Multi-angle (4-angle grid, identity for cuts) — best for: FMCG, beauty, health
     C) Lifestyle (product in setting) — best for: aspirational UGC, contextual ads
+    D) Sheet (6-panel comprehensive reference, 21:9) — best for: brand kit, multi-video asset library, all-angle coverage in 1 generation
 ```
 
 ---
@@ -44,10 +45,12 @@ Q2: Which variant?
 1. Parse product brief + variant
 2. Load `references/product-ref-prompt.md`
 3. Fill in the appropriate variant template
-4. **Always add to negative prompts: "no human hands, no human fingers, no human body parts"** (most common failure)
-5. **Always add to negative prompts: "no logos added by AI, no watermarks, no text"**
-6. Run QC checklist
-7. Output: copy-paste-ready prompt + checklist + variant rationale
+4. **If variant = `sheet`**: load the sheet-specific template (6-panel 21:9 layout)
+5. **Always add to negative prompts: "no human hands, no human fingers, no human body parts"** (most common failure)
+6. **Always add to negative prompts: "no logos added by AI, no watermarks, no text"**
+7. Run QC checklist
+8. Output: copy-paste-ready prompt + checklist + variant rationale
+9. **If variant = `sheet`**: remind user they can crop individual panels as separate `@[product ref]` for different videos
 
 ---
 
@@ -103,6 +106,9 @@ Q2: Which variant?
 | Food/cooking (the dish) | `lifestyle` | Dish in kitchen context |
 | e-commerce product page | `multi-angle` | Full coverage for buyer confidence |
 | Quick UGC ad | `lifestyle` | Fastest to one usable frame |
+| Brand kit / multi-video asset | `sheet` | 6 panels in 1 generation, crop per-panel for different @[product ref] |
+| Product with important back/side details | `sheet` | Captures front, back, side, texture, hero, in-use all at once |
+| Budget optimization (6 videos, 1 product) | `sheet` | $0.07 total vs $0.42 for 6 separate generations |
 
 ---
 

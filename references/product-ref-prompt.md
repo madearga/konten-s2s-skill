@@ -1,6 +1,6 @@
 # Product Reference Prompt (GPT Image 2)
 
-Generates a **product reference image** for consistency across video generations. Three variants via `--type` flag: `hero`, `multi-angle`, `lifestyle`. Use this as `@[product ref]` when running Seedance motion prompts.
+Generates a **product reference image** for consistency across video generations. Four variants via `--type` flag: `hero`, `multi-angle`, `lifestyle`, `sheet`. Use this as `@[product ref]` when running Seedance motion prompts.
 
 ---
 
@@ -167,6 +167,142 @@ No distorted proportions, no warped product surfaces.
 Use when the **setting IS the message**. E.g., perfume on a vanity = luxury. Sneakers on a trail = adventure. Skincare in a sunlit bathroom = self-care ritual.
 
 **Pitfall:** Lifestyle variant has the **highest re-roll rate** because GPT Image sometimes adds human hands, makes the product too small, or invents distracting background elements. Budget 2-3 re-rolls.
+
+---
+
+## Variant 4: SHEET (`/s2s product-ref --type=sheet`)
+
+6-panel comprehensive reference sheet in 21:9 wide layout. All angles + texture + in-use in a single generation. Best for: **brand kits, multi-video asset libraries, products with important details on multiple sides**.
+
+### Why Sheet
+
+- **Cost efficient**: 1 generation ($0.07) covers 6 angles vs 6 separate generations ($0.42)
+- **Multi-video**: Crop individual panels as separate `@[product ref]` for different Seedance videos
+- **Complete documentation**: Front, back, side, hero, texture, and in-use all captured
+- **Consistency guarantee**: All 6 panels are generated simultaneously — zero drift between angles
+
+### Template
+
+```
+Create a 21:9 wide product reference sheet for [PRODUCT_NAME] — [brief description: "pastel pink skincare pump bottle with white cap, 150ml, matte finish"].
+
+6 panels in a clean evenly-spaced grid, soft neutral studio background with even lighting, minimal shadows.
+
+PANEL 1 — FRONT VIEW:
+Show the product standing upright, shot from directly front. Label must be fully visible, centered, and readable. Packaging colors must be accurate. Place the label "FRONT VIEW" centered below.
+
+PANEL 2 — BACK VIEW:
+Show the product from the back with accurate rear packaging details (ingredients list area, barcode region, secondary text). Maintain color consistency. Place the label "BACK VIEW" centered below.
+
+PANEL 3 — SIDE PROFILE:
+Show a strict side profile of the product. Silhouette must be clean and readable. Show cap/pump/spout detail from the side. Place the label "SIDE PROFILE" centered below.
+
+PANEL 4 — HERO ANGLE:
+Show the product from a 45-degree elevated angle. Reveal both front label and top/cap detail simultaneously. This is the most flattering composition. Place the label "HERO ANGLE" centered below.
+
+PANEL 5 — MATERIAL DETAIL:
+Show a macro close-up of the product surface. Reveal material texture: matte vs glossy finish, embossed text, pump mechanism detail, cap threading, label laminate, or any surface detail. Place the label "MATERIAL DETAIL" centered below.
+
+PANEL 6 — IN-USE CONTEXT:
+Show the product in a realistic use scenario — held by a hand mid-application (skincare), on a bathroom shelf among other real products, next to a filled glass (beverage), in a child's hand (toy), or on a kitchen counter (food). Environment must feel natural and lived-in, not studio-lit. Hands only — no human faces. Place the label "IN-USE CONTEXT" centered below.
+
+[PRODUCT]
+[PRODUCT_NAME]: [category — same spec as hero variant]
+Material: [material details]
+Color: [primary], [secondary accents]
+Size cues: [relative size]
+Key features: [logo, texture, branding, distinctive details]
+
+[STYLE]
+Photorealistic studio product photography, clean white-to-neutral gradient backdrop.
+Panels 1-5: consistent 3-point studio lighting, soft neutral background.
+Panel 6: natural environment lighting, lived-in feel.
+Sharp focus on product in every panel.
+Ultra-detailed, professional reference sheet, clean presentation.
+
+[CONSISTENCY LOCKS]
+Same product identity across ALL panels — zero redesign allowed.
+Product colors, label text, logo, and proportions must remain IDENTICAL in every panel.
+Packaging shape and cap/pump style must be consistent — no variation between views.
+Lighting and color temperature consistent across panels 1-5 (panel 6 natural lighting allowed).
+Labels must appear only below each panel and be centered.
+Layout must be clean, evenly spaced, and easy to read.
+
+[NEGATIVE]
+No human faces (hands only for panel 6).
+No background clutter, no overlapping panels.
+No inconsistent packaging color, no inconsistent label design.
+No mixed styles, no motion blur, no dramatic shadows.
+No warped proportions, no fictional packaging details.
+No logos added by AI, no watermarks, no extra text.
+No competing brand logos.
+```
+
+### Fill-In Example (Pigeon Teens Skincare)
+
+```
+Create a 21:9 wide product reference sheet for Pigeon Teens BB Cream — pastel pink skincare pump bottle with white cap, 150ml, matte finish, "BB Cream" text on front label.
+
+6 panels in a clean evenly-spaced grid, soft neutral studio background with even lighting, minimal shadows.
+
+PANEL 1 — FRONT VIEW:
+Show the product standing upright, shot from directly front. "Pigeon Teens" and "BB Cream" label must be fully visible, centered, and readable. Pastel pink bottle body with white pump cap. Place the label "FRONT VIEW" centered below.
+
+PANEL 2 — BACK VIEW:
+Show the product from the back with accurate rear packaging details — ingredients list area, directions text, barcode region. Maintain pastel pink color. Place the label "BACK VIEW" centered below.
+
+PANEL 3 — SIDE PROFILE:
+Show a strict side profile. Clean silhouette showing the slim cylindrical shape and white pump mechanism from the side. Place the label "SIDE PROFILE" centered below.
+
+PANEL 4 — HERO ANGLE:
+Show from a 45-degree elevated angle. Reveal both "Pigeon Teens" front label and the white pump top simultaneously. Most flattering angle. Place the label "HERO ANGLE" centered below.
+
+PANEL 5 — MATERIAL DETAIL:
+Macro close-up of the bottle surface. Reveal the matte soft-touch finish, subtle embossed dots pattern on the pink body, white pump mechanism with precise threading detail. Place the label "MATERIAL DETAIL" centered below.
+
+PANEL 6 — IN-USE CONTEXT:
+Show the product on a white bathroom shelf next to a small succulent plant and a folded white hand towel. Warm natural daylight from a window camera-left. No human body parts. Place the label "IN-USE CONTEXT" centered below.
+
+[CONSISTENCY LOCKS]
+Same product identity across ALL panels — pastel pink bottle, white pump, "Pigeon Teens" label.
+Colors, label text, proportions identical in every panel.
+Packaging shape consistent — slim cylinder with white pump cap.
+Lighting consistent across panels 1-5, panel 6 natural daylight.
+
+[NEGATIVE]
+No human faces, no human hands (panel 6 exception).
+No background clutter, no overlapping panels.
+No inconsistent packaging color, no inconsistent label.
+No mixed styles, no motion blur, no dramatic shadows.
+No warped proportions, no fictional details.
+No logos added by AI, no watermarks.
+```
+
+### Usage After Generation
+
+The sheet can be used in 2 ways:
+
+**Option A: Use entire sheet as `@[product ref]`**
+- Seedance sees all 6 angles and picks the most relevant view per shot
+- Best for: multi-angle video with product rotating
+
+**Option B: Crop individual panels**
+- Crop panel 1 (front) → use as `@[product ref]` for front-facing shots
+- Crop panel 4 (hero) → use as `@[product ref]` for 45-degree shots
+- Crop panel 6 (in-use) → use as `@[product ref]` for lifestyle shots
+- Best for: targeted videos where you need 1 specific angle
+
+### Sheet vs Other Variants
+
+| Aspect | Hero | Multi-angle | Lifestyle | Sheet |
+|--------|------|-------------|-----------|-------|
+| Panels | 1 | 4 (2×2) | 1 | 6 (1×6 or 2×3) |
+| Layout | 16:9 | 16:9 | 16:9 | 21:9 |
+| Cost | $0.07 | $0.07 | $0.07 | $0.07 |
+| Re-rolls | 1x | 1-2x | 2-3x | 1-2x |
+| Best for | Single shot | 4-angle coverage | Context/story | **All-in-one asset** |
+| Multi-video | ❌ | ⚠️ 4 angles | ❌ | ✅ 6 crops |
+| Budget-friendly | ✅ | ✅ | ❌ | ✅✅ |
 
 ---
 

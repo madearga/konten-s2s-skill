@@ -1,9 +1,9 @@
 ---
 name: storyboard-to-seedance-suite
 description: "3-step procedural workflow for AI video production: (1) GPT Image 2 storyboard prompt using 12-Section template, (2) GPT Image 2 character OR product reference prompt (separate commands), (3) Seedance 2.0 motion prompt. Slash commands: /s2s storyboard, /s2s character-ref, /s2s product-ref, /s2s motion, /s2s pipeline. Use when creating storyboards for video, generating reference images for consistency, or building motion prompts for Seedance-class models."
-version: 1.1.0
+version: 1.2.0
 author: Hermes Agent
-license: Internal
+license: MIT
 triggers:
   - "storyboard prompt"
   - "12-section storyboard"
@@ -35,6 +35,14 @@ triggers:
   - "pre-visualization"
   - "film still"
   - "cinematic realism"
+  - "analyze video"
+  - "reverse engineer video"
+  - "video analysis"
+  - "extract prompt from video"
+  - "analisa video"
+  - "bikin prompt dari video"
+  - "s2s analyze"
+  - "competitor analysis"
 ---
 
 # storyboard-to-seedance-suite
@@ -56,6 +64,8 @@ Part of the `ai-video-production` umbrella skill. Tuned for **Seedance 2.0** as 
 | User says "full video pipeline" / "storyboard to seedance" | Auto | `/s2s pipeline` |
 | User wants 1 step only | Manual | Subcommand (`/s2s storyboard`, etc.) |
 | User wants all 3 steps with checkpoints | Manual | `/s2s pipeline` |
+| User says "analyze video" / "reverse engineer" / "extract prompt" | Auto | `/s2s analyze` |
+| User uploads a video file | Auto | `/s2s analyze` |
 
 **Do NOT use for:**
 - First+Last frame simple videos (use `ai-video-production` section 2.7 instead)
@@ -64,7 +74,30 @@ Part of the `ai-video-production` umbrella skill. Tuned for **Seedance 2.0** as 
 
 ---
 
-## The 3 Steps (Overview)
+## The 3 Steps + Reverse-Engineering
+
+The skill supports **two directions**:
+
+### Forward: Brief → Video (3 steps)
+Create new video from a text brief.
+
+### Reverse: Video → Brief (1 step)
+Analyze existing video, extract prompts, optionally feed back into forward pipeline.
+
+```
+Existing video (competitor / reference)
+   ↓
+/s2s analyze [video-path]
+   → Output: 10-section analysis + reverse-engineered prompt
+   → Auto-detect: can this feed into /s2s pipeline?
+   ↓ (if yes)
+Auto-generated brief → /s2s pipeline "[brief]"
+   → Standard 3-step workflow
+```
+
+---
+
+## The 3 Steps (Forward Direction)
 
 ```
 Brief (free text)
@@ -95,13 +128,21 @@ Bundle file: s2s-bundle-YYYYMMDD-HHMMSS.md
 
 ## Quick Start
 
-One-liner for the full workflow:
+### Forward (create new video):
 
 ```
 /s2s pipeline Indonesian girl in kitchen making banana bread, 15s, high-rhythm smash cuts
 ```
 
-The skill will:
+### Reverse (analyze existing video):
+
+```
+/s2s analyze competitor-video.mp4
+/s2s analyze --seedance reference-ugc.mp4
+/s2s analyze --quick viral-tiktok.mp4
+```
+
+### Forward workflow (what happens):
 1. Ask 1-3 clarifying Qs (concept, character, location, duration, energy)
 2. Run Step 1 → pause for review
 3. Run Step 2 → pause for review
@@ -127,6 +168,9 @@ The skill will:
 | `/s2s product-ref` | 2b | Product in video | 3 variants → product.png |
 | `/s2s motion` | 3 | Have storyboard + ref, need motion prompt | 5-part spine → video.mp4 |
 | `/s2s pipeline` | 1+2+3 | Have brief, want full workflow | All 3 prompts + bundle |
+| `/s2s analyze` | 0 (reverse) | Have video, want to reverse-engineer | 10-section analysis + prompts |
+| `/s2s analyze --quick` | 0 (reverse) | Fast triage of competitor video | Classification + beat list |
+| `/s2s analyze --seedance` | 0 (reverse) | Analyze + generate Seedance motion | Analysis + R2V prompt |
 
 Each subcommand has a dedicated spec in `commands/`. The pipeline command chains them with checkpoints.
 
@@ -137,23 +181,29 @@ Each subcommand has a dedicated spec in `commands/`. The pipeline command chains
 ```
 User Intent Detected
    ↓
-Q: Has brief for single video?
-├─ YES → /s2s pipeline  (master, runs all 3 steps)
+Q: Has a VIDEO FILE to analyze?
+├─ YES → /s2s analyze [video-path]
+│        ├─ Quick triage? → /s2s analyze --quick
+│        ├─ Want Seedance prompt? → /s2s analyze --seedance
+│        └─ After analysis → auto-feeds brief into /s2s pipeline if possible
 │
-└─ NO, wants to explore visual language first?
-   ├─ YES → /s2s cinematic-variations  (10 composition sweep)
-   │        → pick winner → /s2s storyboard (or /s2s pipeline)
+└─ NO, has text BRIEF for new video?
+   ├─ YES → /s2s pipeline  (master, runs all 3 steps)
    │
-   └─ NO, has storyboard image already?
-      ├─ YES → /s2s motion  (Step 3 only)
+   └─ NO, wants to explore visual language first?
+      ├─ YES → /s2s cinematic-variations  (10 composition sweep)
+      │        → pick winner → /s2s storyboard (or /s2s pipeline)
       │
-      └─ NO, needs reference image first?
-         ├─ Has human character?
-         │  ├─ YES → /s2s character-ref  (Step 2a)
-         │  └─ NO  → /s2s product-ref   (Step 2b)
+      └─ NO, has storyboard image already?
+         ├─ YES → /s2s motion  (Step 3 only)
          │
-         └─ Just needs storyboard?
-            └─ /s2s storyboard  (Step 1 only)
+         └─ NO, needs reference image first?
+            ├─ Has human character?
+            │  ├─ YES → /s2s character-ref  (Step 2a)
+            │  └─ NO  → /s2s product-ref   (Step 2b)
+            │
+            └─ Just needs storyboard?
+               └─ /s2s storyboard  (Step 1 only)
 ```
 
 ---
@@ -201,15 +251,17 @@ storyboard-to-seedance-suite/
 │   ├── director-strip-7-track.md      # RHYTHM + ESCALATION vocabulary
 │   ├── cinematic-composition-vocabulary.md  # 19 cinematic styles + texture pack
 │   └── banana-bread-worked-example.md # anonymized real-world case study
+│   └── video-analysis-template.md     # 10-section fill-in template for /s2s analyze
 ├── commands/
 │   ├── storyboard.md                  # /s2s storyboard
 │   ├── character-ref.md               # /s2s character-ref
 │   ├── product-ref.md                 # /s2s product-ref
 │   ├── motion.md                      # /s2s motion
 │   ├── pipeline.md                    # /s2s pipeline (master)
-│   └── cinematic-variations.md        # /s2s cinematic-variations (pre-vis)
+│   ├── cinematic-variations.md        # /s2s cinematic-variations (pre-vis)
+│   └── analyze.md                     # /s2s analyze (reverse-engineer video)
 └── tests/
-    └── test-cases.md                  # 6 test cases (TC1-TC6)
+    └── test-cases.md                  # 6 test cases (TC1-TC6) + TC7 for analyze
 ```
 
 ---
@@ -297,6 +349,17 @@ In the parent `ai-video-production` skill:
 
 ## Version History
 
+- **1.2.0** (2026-06-08) — Video reverse-engineering (analyze command)
+  - NEW: `commands/analyze.md` (`/s2s analyze` — reverse-engineer existing videos)
+  - NEW: `references/video-analysis-template.md` (10-section fill-in template)
+  - NEW: 3 modes — full analysis, quick scan, seedance-ready
+  - NEW: Auto-pipeline detection — analysis can auto-feed into `/s2s pipeline`
+  - NEW: UGC Indonesia context (Section 8) — audience, setting, skin tone, cultural cues
+  - NEW: Product continuity lock — track product appearance consistency across beats
+  - NEW: Pipeline recommendation engine — auto-detect Kling vs Seedance vs Veo based on content
+  - UPDATED: SKILL.md — added reverse-engineering direction + analyze to decision tree + slash commands table
+  - UPDATED: triggers — added analyze, reverse-engineer, competitor analysis keywords
+  - NEW triggers: analyze video, reverse engineer video, video analysis, extract prompt from video, analisa video, bikin prompt dari video, s2s analyze, competitor analysis
 - **1.1.0** (2026-06-07) — Cinematic composition vocabulary
   - NEW: `references/cinematic-composition-vocabulary.md` (19 styles + texture pack + base style)
   - NEW: `commands/cinematic-variations.md` (`/s2s cinematic-variations` — 10-composition sweep)
