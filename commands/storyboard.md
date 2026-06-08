@@ -72,6 +72,53 @@ This is **optional** — for tight budgets, skip and go directly to `/s2s storyb
 
 ---
 
+## Specialized Templates (v1.2.0)
+
+Some briefs trigger auto-injected safety / regulatory templates. Detection happens in the Behavior section, injection happens in the Output Format section.
+
+### Pregnancy / Maternal Content Safety (auto-trigger)
+
+**Detection keywords (case-insensitive, EN + ID):**
+- `pregnant`, `pregnancy`, `expecting`, `prenatal`, `maternal`, `bumil`, `hamil`, `baby-bump`, `trimester`, `mengandung`, `hamil muda/besar`
+
+**When detected, auto-append this block to CONSTRAINTS section of the storyboard prompt:**
+
+```
+[MUST READ — PREGNANCY/MATERNAL SAFETY]
+- No high-impact stunts, jumps, sudden direction changes
+- No exercises requiring balance on uneven surfaces
+- Avoid poses that compress the abdomen (deep twists, prone positions)
+- No extreme heat exposure (hot yoga, sauna, hot baths)
+- No contact sports or activities with fall risk
+- Show modifications for different trimesters when applicable
+- This is educational/lifestyle content, NOT medical advice
+- Include disclaimer: "Always consult your healthcare provider before starting any new exercise or diet during pregnancy"
+- Show inclusive body representation (different body types, not just one "ideal")
+- Movement should feel supported, gentle, intentional — not jarring
+```
+
+**For motion prompt, also add to EMOTIONAL GUIDANCE / PANEL BEATS:**
+- Match motion intensity to subject's energy level
+- Avoid sudden direction changes or impact beats in body movement
+- Use settle/breath/rest vocabulary from RHYTHM TRACK (calm UGC variant)
+
+**For Seedance 2.0 motion generation, add to NEGATIVE PROMPTS:**
+- "No contact sports, no high-impact motion, no extreme body compression, no sudden direction changes"
+
+**Disclaimer block (always include in caption/description for published content):**
+> "Educational content. Always consult your healthcare provider before starting any new exercise, diet, or wellness routine during pregnancy."
+
+### Other Specialized Templates (future)
+
+- Pet/Animal Safety (auto-detect "puppy", "kitten", "pet")
+- Children's Content Safety (auto-detect "kid", "child", "balita", "anak")
+- Medical/Health Claims (auto-detect "cure", "treat", "diagnose", "obat")
+- Financial Claims (auto-detect "guaranteed return", "risk-free", "pasti profit")
+
+These are placeholders for future expansion. v1.2.0 ships with pregnancy safety as the canonical example.
+
+---
+
 ## Behavior
 
 1. Parse brief + clarifying answers → build the 12 sections

@@ -43,6 +43,20 @@ triggers:
   - "bikin prompt dari video"
   - "s2s analyze"
   - "competitor analysis"
+  - "pregnancy safe"
+  - "maternal content"
+  - "bumil"
+  - "hamil"
+  - "in-use shot"
+  - "product in use"
+  - "product tutorial"
+  - "calm UGC"
+  - "soft pacing"
+  - "settle beat"
+  - "breathe beat"
+  - "human plus product"
+  - "human dan product"
+  - "kedua referensi"
 ---
 
 # storyboard-to-seedance-suite
@@ -194,16 +208,20 @@ Q: Has a VIDEO FILE to analyze?
       ├─ YES → /s2s cinematic-variations  (10 composition sweep)
       │        → pick winner → /s2s storyboard (or /s2s pipeline)
       │
-      └─ NO, has storyboard image already?
-         ├─ YES → /s2s motion  (Step 3 only)
+      └─ NO, needs reference image(s) first?
          │
-         └─ NO, needs reference image first?
-            ├─ Has human character?
-            │  ├─ YES → /s2s character-ref  (Step 2a)
-            │  └─ NO  → /s2s product-ref   (Step 2b)
-            │
-            └─ Just needs storyboard?
-               └─ /s2s storyboard  (Step 1 only)
+         ├─ Brief has BOTH human + product?  ← v1.2.0 fix
+         │  → /s2s character-ref  (Step 2a, parallel)
+         │  + /s2s product-ref    (Step 2b, parallel)
+         │
+         ├─ Has human only?
+         │  → /s2s character-ref  (Step 2a)
+         │
+         ├─ Has product only?
+         │  → /s2s product-ref   (Step 2b, --type=hero|multi-angle|lifestyle|in-use|sheet)
+         │
+         └─ No human, no product (landscape/abstract)?
+            → skip Step 2, go directly to Step 3
 ```
 
 ---
@@ -349,17 +367,21 @@ In the parent `ai-video-production` skill:
 
 ## Version History
 
-- **1.2.0** (2026-06-08) — Video reverse-engineering (analyze command)
-  - NEW: `commands/analyze.md` (`/s2s analyze` — reverse-engineer existing videos)
-  - NEW: `references/video-analysis-template.md` (10-section fill-in template)
-  - NEW: 3 modes — full analysis, quick scan, seedance-ready
-  - NEW: Auto-pipeline detection — analysis can auto-feed into `/s2s pipeline`
-  - NEW: UGC Indonesia context (Section 8) — audience, setting, skin tone, cultural cues
-  - NEW: Product continuity lock — track product appearance consistency across beats
-  - NEW: Pipeline recommendation engine — auto-detect Kling vs Seedance vs Veo based on content
-  - UPDATED: SKILL.md — added reverse-engineering direction + analyze to decision tree + slash commands table
-  - UPDATED: triggers — added analyze, reverse-engineer, competitor analysis keywords
-  - NEW triggers: analyze video, reverse engineer video, video analysis, extract prompt from video, analisa video, bikin prompt dari video, s2s analyze, competitor analysis
+- **1.2.0** (2026-06-08) — Video reverse-engineering + Edge cases & safety + Product sheet variant
+  - **NEW**: `commands/analyze.md` (`/s2s analyze` — reverse-engineer existing videos)
+  - **NEW**: `references/video-analysis-template.md` (10-section fill-in template)
+  - **NEW**: 3 analyze modes — full analysis, quick scan, seedance-ready
+  - **NEW**: Auto-pipeline detection — analysis can auto-feed into `/s2s pipeline`
+  - **NEW**: UGC Indonesia context (Section 8) — audience, setting, skin tone, cultural cues
+  - **NEW**: Product continuity lock — track product appearance consistency across beats
+  - **NEW**: Pipeline recommendation engine — auto-detect Kling vs Seedance vs Veo based on content
+  - **NEW**: Product-ref variant #5 `sheet` (6-panel 21:9 comprehensive reference — all angles in 1 generation)
+  - **FIX #1**: Pipeline auto-detect human + product (run both refs in parallel, default to both for FMCG/UGC)
+  - **FIX #2**: Calm UGC vocabulary — 6 new RHYTHM energy words (settle/breathe/soft land/ease/drift/float), 2 new block lengths (micro/macro), 4 new beat types (gentle/rest/drift/breath) + calm Valence/Arousal templates
+  - **FIX #3**: Pregnancy safety auto-template — detects bumil/hamil/pregnant keywords, auto-injects 10-point safety checklist into CONSTRAINTS + 4 motion-prompt overrides + medical disclaimer
+  - **FIX #4**: 4th product variant `in-use` (product being actively used) — separate from lifestyle (static in setting) + auto-detection logic from usage verbs
+  - Future expansion placeholders: pet safety, child safety, medical claims, financial claims
+  - NEW triggers: analyze video, reverse engineer, competitor analysis, pregnancy safe, maternal content, bumil, hamil, in-use shot, calm UGC, soft pacing, human plus product
 - **1.1.0** (2026-06-07) — Cinematic composition vocabulary
   - NEW: `references/cinematic-composition-vocabulary.md` (19 styles + texture pack + base style)
   - NEW: `commands/cinematic-variations.md` (`/s2s cinematic-variations` — 10-composition sweep)

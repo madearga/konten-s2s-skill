@@ -20,17 +20,60 @@ Step 1: /s2s storyboard
    ↓ (output: filled 12-section prompt + QC checklist)
    ↓ CHECKPOINT — user reviews prompt, can edit before sending to GPT Image 2
    ↓ User sends to GPT Image 2, gets storyboard.png
-Step 2a or 2b: /s2s character-ref OR /s2s product-ref (or both)
-   ↓ (output: filled ref prompt + QC checklist)
-   ↓ CHECKPOINT — user reviews prompt
+Step 2: Detect references needed (human? product? both?)
+   ↓ Step 2a: /s2s character-ref   [if human in video]
+   ↓ Step 2b: /s2s product-ref     [if product in video]
+   ↓ IMPORTANT: BOTH can run in parallel if brief has human + product
    ↓ User sends to GPT Image 2, gets character.png / product.png
 Step 3: /s2s motion
    ↓ (output: filled motion prompt + QC checklist)
-   ↓ User sends to Seedance 2.0 with @[storyboard] + @[character/product] attachments
+   ↓ User sends to Seedance 2.0 with @[storyboard] + @[character] + @[product] attachments
    ↓ User gets final video.mp4
 
 Final: Save bundle file
 ```
+
+---
+
+## Step 2 Reference Detection (CRITICAL — fixed in v1.2.0)
+
+The pipeline must detect **all** reference types needed, not just one. Many briefs combine human + product (e.g., "Indonesian girl applying serum" needs both character ref AND product ref).
+
+### Auto-Detect Keywords
+
+| Reference | Detection keywords (case-insensitive, EN + ID) |
+|-----------|------------------------------------------------|
+| **Character** | `woman`, `man`, `girl`, `boy`, `person`, `orang`, `cewek`, `cowok`, `chef`, `model`, `actor`, `host`, names (Maya, Lina, etc.) |
+| **Product** | `serum`, `sneaker`, `skincare`, `bottle`, `food`, `snack`, `protein bar`, `phone`, `earbuds`, `lipstick`, `cream`, `mask`, `coffee`, `tea`, brand names, product categories |
+| **Both** | "X using/applying/wearing/holding/drinking/eating Y" pattern (X = person noun, Y = product noun) |
+
+### Question Template (always ask, never auto-skip)
+
+```
+Q: What's in your video? (multi-select)
+    A) Human character only
+    B) Product only
+    C) Both — human using/applying/holding product   ← DEFAULT for most FMCG/beauty/lifestyle
+    D) No human, no product (landscape/abstract only)
+
+If C:  → /s2s character-ref + /s2s product-ref (BOTH, can run in parallel)
+If A:  → /s2s character-ref only
+If B:  → /s2s product-ref only (with --type=hero/multi-angle/lifestyle/in-use)
+If D:  → skip Step 2, go directly to Step 3
+```
+
+### Default Rule (when user says "video" or gives a brief)
+
+**Default to C (Both) when brief contains human + product verbs** — this is the most common case for UGC, FMCG ads, beauty tutorials, cooking demos, fitness content. Skip C only if user explicitly says "no character" or "product only".
+
+### Cost Impact
+
+| Path | Reference types | Cost | Time |
+|------|-----------------|------|------|
+| Character only | 1 ref | +$0.07 | +30s |
+| Product only | 1 ref | +$0.07 | +30s |
+| **Both (default for human+product brief)** | **2 refs** | **+$0.14** | **+60s (parallel)** |
+| No character, no product | 0 refs | +$0 | +0s |
 
 ---
 
@@ -70,14 +113,15 @@ After all 3 steps complete, save a single markdown file at the user's working di
 
 ## Cost & Time
 - GPT Image 2 (storyboard): ~$0.07
-- GPT Image 2 (character OR product): ~$0.07
+- GPT Image 2 (character ref, if used): ~$0.07
+- GPT Image 2 (product ref, if used): ~$0.07
 - Seedance 2.0 (video, 8-15s): ~$0.40-0.75
-- **Total: ~$0.54-0.89 per video**
+- **Total: ~$0.54-0.89 per video (1 ref) / ~$0.61-0.96 per video (both refs)**
 - Wall time: ~10-15 minutes (mostly waiting on generations)
 
 ## Notes
 - All prompts are GPT Image 2 / Seedance 2.0 ready
-- Attachments needed for Step 3: storyboard.png + character.png/product.png
+- Attachments needed for Step 3: storyboard.png + character.png (if used) + product.png (if used)
 - Bundle saved at <path>
 ```
 

@@ -48,6 +48,53 @@ Q4: Energy?
 
 ---
 
+## Specialized Templates (v1.2.0)
+
+Some briefs trigger auto-injected safety / regulatory templates that affect motion generation.
+
+### Pregnancy / Maternal Content Safety (auto-trigger)
+
+**Detection keywords** (case-insensitive, EN + ID): `pregnant`, `pregnancy`, `expecting`, `prenatal`, `maternal`, `bumil`, `hamil`, `baby-bump`, `trimester`, `mengandung`, `hamil muda/besar`
+
+**When detected, auto-modify the motion prompt:**
+
+1. **RHYTHM TRACK** — force calm UGC vocabulary (settle, breathe, soft land, ease, drift, float + micro/macro block + gentle/rest/drift/breath beat). Override any high-energy defaults.
+
+2. **EMOTIONAL GUIDANCE** — use calm templates:
+   - Valence: "peaceful, content, settled, gentle, supported, mindful"
+   - Arousal: "soft opening -> gentle build -> contemplative middle -> peaceful resolution through stillness and breath"
+
+3. **CONSTRAINTS** — append:
+   ```
+   - No high-impact motion, no jumps, no sudden direction changes
+   - No extreme body compression (deep twists, prone positions)
+   - Movement should feel supported, gentle, intentional
+   - Match motion intensity to subject's energy level (not artificially amplified)
+   ```
+
+4. **NEGATIVE PROMPTS** — append:
+   ```
+   - No contact sports, no high-impact motion, no extreme body compression
+   - No sudden direction changes or jarring transitions
+   ```
+
+5. **Disclaimer** (for published content caption):
+   > "Educational content. Always consult your healthcare provider before starting any new exercise, diet, or wellness routine during pregnancy."
+
+6. **QC Checklist** adds one item:
+   - [ ] **Pregnancy safety constraints injected** (if brief detected as maternal content)
+
+### Other Specialized Templates (future)
+
+- Pet/Animal Safety (auto-detect "puppy", "kitten", "pet")
+- Children's Content Safety (auto-detect "kid", "child", "balita", "anak")
+- Medical/Health Claims (auto-detect "cure", "treat", "diagnose", "obat")
+- Financial Claims (auto-detect "guaranteed return", "risk-free", "pasti profit")
+
+v1.2.0 ships with pregnancy safety as the canonical example.
+
+---
+
 ## Behavior
 
 1. Verify image paths/URLs exist

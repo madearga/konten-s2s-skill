@@ -61,8 +61,8 @@ No music. No logo. No text on screen. No watermark. No frame numbers.
 [Add: "No drift between cuts" if multi-cut sequence.]
 
 [EMOTIONAL GUIDANCE — 2-axis, critical]
-Valence: [3-5 adjectives, e.g., "playful, warm, teasing, proud, satisfied"].
-Arousal: [arc in arrow notation, e.g., "quick hook to steady groove -> tactile prep surges -> brief pause -> satisfying release through body rhythm"].
+Valence: [3-5 adjectives, e.g., "playful, warm, teasing, proud, satisfied" (high-energy) OR "peaceful, content, settled, contemplative, soft, gentle" (calm UGC)].
+Arousal: [arc in arrow notation, e.g., "quick hook to steady groove -> tactile prep surges -> brief pause -> satisfying release through body rhythm" (high-energy) OR "soft opening -> gentle build -> contemplative middle -> peaceful resolution through stillness and breath" (calm UGC)].
 
 [AUDIO — explicit strategy]
 No background music or score. Use only diegetic ambience, foley, impacts, texture, and silence.
@@ -131,6 +131,8 @@ No music. No logo. No text on screen. No watermark. No frame numbers. No drift b
 Valence: playful, warm, teasing, proud, satisfied.
 Arousal: quick hook to steady groove -> tactile prep surges -> brief pause -> satisfying release through body rhythm, over-shoulder glances, hand precision, steam, crumbs, and food texture.
 
+(For calm UGC variant, see: references/banana-bread-worked-example.md Emotional Guidance section.)
+
 [AUDIO]
 No background music or score. Use only diegetic ambience, foley, impacts, texture, and silence.
 - P01: soft breath, fabric rustle
@@ -174,7 +176,7 @@ No music. No logo. No text on screen. No watermark. No frame numbers. No subtitl
 - [ ] Camera line — per-panel P## / focal length / shot type / [composition style]
 - [ ] Style line — visual signature + **imperfect realism textures** (1-2 from texture pack)
 - [ ] Constraints line — what to avoid
-- [ ] **Emotional Guidance 2-axis** (Valence + Arousal)
+- [ ] **Emotional Guidance 2-axis** (Valence + Arousal) — match energy level to brief (high-energy vs calm UGC)
 - [ ] Audio strategy explicit (silent/diegetic OR music+specs)
 - [ ] **Panel beats per P##** with shot + motion + foley + emotional beat + audio cue
 - [ ] Negative prompts: no music, no logo, no text, no watermark, no frame numbers

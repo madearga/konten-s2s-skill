@@ -23,9 +23,9 @@ The 7-track director strip is the **control surface** for the Seedance 2.0 motio
 **Always use the brackets.** GPT Image interprets the option list as the legal vocabulary. Without brackets, the model invents ad-hoc terms.
 
 ```
-RHY P##: [hold|slow reveal|build|burst|impact|pause|recover|final hit] /
-         [short block|medium block|long block] /
-         [clean beat|match beat|smash beat|held beat|whip beat]
+RHY P##: [hold|slow reveal|build|burst|impact|pause|recover|final hit|settle|breathe|soft land|ease|drift|float] /
+         [short block|medium block|long block|micro block|macro block] /
+         [clean beat|match beat|smash beat|held beat|whip beat|gentle beat|rest beat|drift beat|breath beat]
 ```
 
 ### Three-Slot Vocabulary
@@ -39,11 +39,19 @@ RHY P##: [hold|slow reveal|build|burst|impact|pause|recover|final hit] /
 - `pause` — silence/breath
 - `recover` — come back from impact
 - `final hit` — climax marker
+- **`settle`** *(v1.2.0, calm UGC)* — calm descent, return to baseline
+- **`breathe`** *(v1.2.0, calm UGC)* — natural pause, organic rhythm
+- **`soft land`** *(v1.2.0, calm UGC)* — gentle finish, cushioned, no jolt
+- **`ease`** *(v1.2.0, calm UGC)* — slow release, no tension
+- **`drift`** *(v1.2.0, calm UGC)* — float-like, unfocused movement
+- **`float`** *(v1.2.0, calm UGC)* — suspended, weightless, contemplative
 
 **Slot 2 — Block length (pick one):**
 - `short block` — quick, ~0.3-0.5s
 - `medium block` — ~0.6-1.0s
 - `long block` — ~1.0-1.5s
+- **`micro block`** *(v1.2.0, calm UGC)* — ~0.1-0.3s (subliminal, breathing room)
+- **`macro block`** *(v1.2.0, calm UGC)* — ~1.5-2.5s (long holds, slow build)
 
 **Slot 3 — Beat type (pick one):**
 - `clean beat` — distinct, separable
@@ -51,8 +59,12 @@ RHY P##: [hold|slow reveal|build|burst|impact|pause|recover|final hit] /
 - `smash beat` — overlapping, chaotic
 - `held beat` — sustained through transition
 - `whip beat` — fast whip-pan energy
+- **`gentle beat`** *(v1.2.0, calm UGC)* — soft, no impact, no punctuation
+- **`rest beat`** *(v1.2.0, calm UGC)* — full stop, no motion, no sound
+- **`drift beat`** *(v1.2.0, calm UGC)* — continuous, no punctuation, ambient
+- **`breath beat`** *(v1.2.0, calm UGC)* — natural rhythm, organic, no sync
 
-### Examples
+### Examples (high-energy — default)
 
 ```
 RHY P01: burst / short block / clean beat
@@ -60,6 +72,17 @@ RHY P07: pause / medium block / held beat
 RHY P15: final hit / long block / held beat
 RHY P03: slow reveal / medium block / match beat
 RHY P10: build / short block / whip beat
+```
+
+### Examples (calm UGC — v1.2.0)
+
+```
+RHY P01: slow reveal / micro block / gentle beat
+RHY P03: settle / long block / breath beat
+RHY P07: breathe / medium block / drift beat
+RHY P10: ease / macro block / rest beat
+RHY P15: soft land / long block / held beat
+RHY P20: float / macro block / gentle beat
 ```
 
 ---

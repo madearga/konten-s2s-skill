@@ -99,16 +99,40 @@ Q2: Which variant?
 
 | Scenario | Best Variant | Reason |
 |----------|--------------|--------|
-| FMCG (snacks, drinks, supplements) | `multi-angle` | Identity across cuts, professional look |
-| Beauty/skincare hero | `hero` | Premium feel, single clear frame |
+| Single product, premium display | `hero` | Clean studio, single product, white background — best for: hero shots, beauty, e-commerce |
+| FMCG / multi-product line | `multi-angle` | 4-angle grid, identity for cuts — best for: FMCG, beauty, health |
+| Aspirational UGC, contextual ad | `lifestyle` | Product in setting — best for: aspirational UGC, contextual ads |
+| Tutorial, demo, "how-to" | `in-use` *(v1.2.0)* | Product being actively used — best for: tutorials, demos, hands-on reviews |
 | Fashion (sneakers, apparel) | `lifestyle` | Aspiration + setting sells the product |
 | Electronics (phones, earbuds) | `hero` or `multi-angle` | Clean tech aesthetic |
-| Food/cooking (the dish) | `lifestyle` | Dish in kitchen context |
+| Food/cooking (the dish itself) | `lifestyle` | Dish in kitchen context |
+| Food/cooking (recipe demo) | **`in-use`** *(v1.2.0)* | Show pouring, stirring, plating |
 | e-commerce product page | `multi-angle` | Full coverage for buyer confidence |
 | Quick UGC ad | `lifestyle` | Fastest to one usable frame |
+| FMCG tutorial (snack, drink) | **`in-use`** *(v1.2.0)* | Show opening, eating, pouring |
+| Supplement/vitamin | **`in-use`** *(v1.2.0)* | Show bottle, hand, pill, water |
 | Brand kit / multi-video asset | `sheet` | 6 panels in 1 generation, crop per-panel for different @[product ref] |
 | Product with important back/side details | `sheet` | Captures front, back, side, texture, hero, in-use all at once |
 | Budget optimization (6 videos, 1 product) | `sheet` | $0.07 total vs $0.42 for 6 separate generations |
+
+---
+
+## Auto-Detection Logic (v1.2.0)
+
+When user runs `/s2s product-ref` without `--type` flag, auto-detect from brief keywords:
+
+| Brief contains | Auto-pick variant |
+|----------------|-------------------|
+| **Usage verbs** (use, apply, wear, hold, drink, eat, rub, brush, pour, swipe, spray, tap, click, press, cook with, squeeze) | `in-use` |
+| **ID usage verbs** (pakai, minum, makan, oles, sikat, tuang, semprot, tekan, masak pakai, perasan) | `in-use` |
+| **Setting/context words** (in setting, on shelf, on vanity, at home, di rak, di etalase, di rumah) | `lifestyle` |
+| **Display words** (show, display, feature, showcase, tampilkan, pamerkan) | `hero` or `multi-angle` |
+| **Sheet keywords** (brand kit, all angles, reference sheet, comprehensive, semua sisi, semua angle) | `sheet` |
+| (no clear keywords, multiple products, or full coverage) | `multi-angle` (default) |
+
+If brief is too vague, ask user to pick variant explicitly (A/B/C/D question).
+
+**Force-override:** User can always specify `--type=<hero|multi-angle|lifestyle|in-use|sheet>` to bypass auto-detection.
 
 ---
 
@@ -116,16 +140,17 @@ Q2: Which variant?
 
 | User Input | Error | Fix |
 |------------|-------|-----|
-| "Show a hand holding the product" | GPT defaults to hands; hands ruin product shot | Add explicit "no human hands" negative + push back to user |
+| "Show a hand holding the product" | GPT defaults to hands; use `in-use` instead of `hero` | Auto-detect will pick `in-use`; or force with `--type=in-use` |
 | "Make it look like Apple ad" | Triggers AI adding fake Apple logo | Add "no logos added by AI" + "no brand text" |
 | Lifestyle without setting context | Vague | Force specific setting: "kitchen counter" / "vanity table" / "running trail" |
 | "Just generate" (no product spec) | Can't generate | Force concrete: name, category, color, material |
+| in-use without specifying action | Vague | Force specific: "hand applying serum" / "person pouring coffee" / "user brushing teeth" |
 
 ---
 
 ## Related
 
-- `../references/product-ref-prompt.md` — full template + 3 variants
+- `../references/product-ref-prompt.md` — full template + 4 variants
 - `../references/cinematic-composition-vocabulary.md` — 19 cinematic styles for the product hero shot
 - `character-ref.md` — for character-driven videos
 - `motion.md` — uses this as @[product ref]

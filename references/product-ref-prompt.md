@@ -170,7 +170,138 @@ Use when the **setting IS the message**. E.g., perfume on a vanity = luxury. Sne
 
 ---
 
-## Variant 4: SHEET (`/s2s product-ref --type=sheet`)
+## Variant 4: IN-USE (`/s2s product-ref --type=in-use`) — v1.2.0
+
+Product being **actively used** by hands/person. Best for: **UGC tutorials, demos, "show me how" content, hands-on reviews**.
+
+### Template
+
+```
+Create a 16:9 product-in-use shot showing [PRODUCT_NAME] being actively used.
+
+[PRODUCT]
+[SAME PRODUCT SPEC]
+
+[USAGE SCENE]
+User action: [applying serum to face / holding mug of coffee / wearing sneakers while walking / brushing teeth with toothpaste / pouring cereal / etc.]
+Hand position: [visible hands performing the action / one hand / both hands / etc.]
+Body context: [close-up of hands and product / mid-shot with arm visible / etc.]
+Stage of use: [opening the package / mid-use / finishing the action / showing results / etc.]
+
+[STYLE]
+Natural lighting, real-world context (kitchen, bathroom, gym, outdoor, etc.).
+Show the product in its **functional moment**, not just a static display.
+Sharp focus on the product + the action it's involved in.
+Color palette: [match product brand, warm/cool/neutral].
+Mood: [instructional, intimate, demonstrative, etc.].
+
+[COMPOSITION]
+Product occupies 30-50% of frame (similar to lifestyle).
+Hands/body **partially visible** (not full character — focus on product).
+Rule of thirds: product on action point.
+Depth of field: shallow, product sharp, background bokeh.
+Show the interaction: hand-to-product contact visible.
+
+[NEGATIVE]
+No human faces (focus on hands/product, not portrait).
+No text overlays, no logos added by AI, no watermarks, no price tags.
+**No unrealistic hand anatomy** (6 fingers, weird angles, distorted knuckles) ← most common failure
+**No full character portraits** (only hands + product, not person's face)
+No other products competing for attention.
+No distorted proportions, no warped product surfaces.
+```
+
+### Why IN-USE is Different from LIFESTYLE
+
+| Aspect | LIFESTYLE | IN-USE |
+|--------|-----------|--------|
+| **Product state** | Static, displayed in setting | Active, being manipulated |
+| **Human presence** | No humans (product alone) | Hands/arms visible (doing the action) |
+| **Action** | None (just sits there) | Specific (apply, hold, pour, brush, wear) |
+| **Focus** | Setting + product mood | Product + hand interaction |
+| **Best for** | Aspirational UGC, "the vibe" | Tutorial, demo, "how-to" |
+| **Example brief** | "Perfume on marble vanity" | "Hand applying serum to face" |
+| **Example brief (ID)** | "Sepatu sneakers di rak display" | "Tangan pakai serum di wajah" |
+
+### IN-USE Variant Selection Guide
+
+| Scenario | Pick this | Reason |
+|----------|-----------|--------|
+| Beauty/skincare tutorial | **in-use** | Show application, dropper, rub-in |
+| Cooking/recipe demo | **in-use** | Show pouring, stirring, plating |
+| Fashion/sneaker showcase | **lifestyle** or **multi-angle** | Static, not interactive |
+| Tech product (phone, earbuds) | **multi-angle** or **hero** | Static showcase |
+| FMCG/snack | **in-use** | Show opening, eating, pouring |
+| Drink/beverage | **in-use** | Show pouring, holding, sipping |
+| App/software (no physical product) | N/A | Use character-ref + screen recording |
+| Supplement/vitamin | **in-use** | Show bottle, hand, pill, water |
+
+### IN-USE Pitfalls
+
+1. **Human face appears** — GPT Image defaults to portrait. Add explicit "no human faces" to negative.
+2. **Unrealistic hand anatomy** — most common failure. Add "no unrealistic hand anatomy, no 6 fingers, no weird angles."
+3. **Full character instead of just hands** — force "hands and product, not full character."
+4. **Product too small** — same as lifestyle, be explicit: "occupies 30-50% of frame."
+5. **Lost action context** — "user is doing X" must be clear. Specify: "user applying serum" not "person near product."
+6. **Cluttered scene** — keep background clean. Lifestyle has 1-2 supporting props; in-use should have just the action context.
+
+### IN-USE Detection Logic (for auto-selection in `/s2s pipeline`)
+
+When the brief contains **usage verbs**, default to `in-use`:
+- EN: `use`, `apply`, `wear`, `hold`, `drink`, `eat`, `rub`, `brush`, `pour`, `apply`, `wear`, `swipe`, `spray`, `tap`, `click`, `press`, `cook with`, `pour`, `squeeze`
+- ID: `pakai`, `minum`, `makan`, `oles`, `sikat`, `tuang`, `semprot`, `tekan`, `masak pakai`, `perasan`
+
+When brief contains **display verbs**, default to other variants:
+- `show`, `display`, `feature`, `tampilkan`, `pamerkan` → `hero` or `multi-angle`
+- `in setting`, `on shelf`, `di rak`, `di etalase` → `lifestyle`
+
+---
+
+## QC Checklist (All Variants)
+
+- [ ] Product name + category specified
+- [ ] Material, color, key features described
+- [ ] Style locked (studio, lighting, background)
+- [ ] Composition specified (angle, padding, camera)
+- [ ] Consistency locks present (no redesign, no recolor, no extra parts)
+- [ ] **Negative prompts include "no human hands"** ← most common failure
+- [ ] **Negative prompts include "no text, no logos, no watermarks"**
+
+---
+
+## Pitfalls (All Variants)
+
+1. **Human hands appearing** — GPT Image defaults to "person holding product." Add explicit "no human hands" to negative.
+2. **AI adding fake logos** — GPT sometimes invents brand text. Add "no logos added by AI" to negative.
+3. **Product too small in frame** — be explicit: "occupies 50-70% of frame."
+4. **Inconsistent colors across angles** (multi-angle) — repeat color spec in consistency locks.
+5. **Distorted proportions** — "no distorted proportions, no warped surfaces."
+6. **Lifestyle variant with people** — explicitly ban "no human hands, no human body parts, no faces."
+7. **Missing padding for motion** — Seedance needs 10-15% room to move. Without padding, motion is cramped.
+
+---
+
+## Variant Selection Guide
+
+| Scenario | Best Variant | Reason |
+|----------|--------------|--------|
+| FMCG ad (snacks, drinks, supplements) | `multi-angle` | Identity across cuts, professional look |
+| Beauty/skincare hero shot | `hero` | Premium feel, single clear frame |
+| Fashion (sneakers, apparel) | `lifestyle` | Aspiration + setting sells the product |
+| Electronics (phones, earbuds) | `hero` or `multi-angle` | Clean tech aesthetic |
+| Food/cooking (the dish itself) | `lifestyle` | Dish in kitchen context |
+| e-commerce product page | `multi-angle` | Full coverage for buyer confidence |
+| Quick UGC ad | `lifestyle` | Fastest to one usable frame |
+
+---
+
+## Related References
+
+- `references/character-ref-prompt.md` — for character-driven videos
+- `references/seedance-motion-prompt.md` — Step 3 (uses this as @[product ref])
+- `commands/product-ref.md` — slash command spec
+- `../SKILL.md` section 2.7 (First+Last Frame) — simpler alternative
+## Variant 5: SHEET (`/s2s product-ref --type=sheet`)
 
 6-panel comprehensive reference sheet in 21:9 wide layout. All angles + texture + in-use in a single generation. Best for: **brand kits, multi-video asset libraries, products with important details on multiple sides**.
 
@@ -303,6 +434,53 @@ The sheet can be used in 2 ways:
 | Best for | Single shot | 4-angle coverage | Context/story | **All-in-one asset** |
 | Multi-video | ❌ | ⚠️ 4 angles | ❌ | ✅ 6 crops |
 | Budget-friendly | ✅ | ✅ | ❌ | ✅✅ |
+
+---
+
+## QC Checklist (All Variants)
+
+- [ ] Product name + category specified
+- [ ] Material, color, key features described
+- [ ] Style locked (studio, lighting, background)
+- [ ] Composition specified (angle, padding, camera)
+- [ ] Consistency locks present (no redesign, no recolor, no extra parts)
+- [ ] **Negative prompts include "no human hands"** ← most common failure
+- [ ] **Negative prompts include "no text, no logos, no watermarks"**
+
+---
+
+## Pitfalls (All Variants)
+
+1. **Human hands appearing** — GPT Image defaults to "person holding product." Add explicit "no human hands" to negative.
+2. **AI adding fake logos** — GPT sometimes invents brand text. Add "no logos added by AI" to negative.
+3. **Product too small in frame** — be explicit: "occupies 50-70% of frame."
+4. **Inconsistent colors across angles** (multi-angle) — repeat color spec in consistency locks.
+5. **Distorted proportions** — "no distorted proportions, no warped surfaces."
+6. **Lifestyle variant with people** — explicitly ban "no human hands, no human body parts, no faces."
+7. **Missing padding for motion** — Seedance needs 10-15% room to move. Without padding, motion is cramped.
+
+---
+
+## Variant Selection Guide
+
+| Scenario | Best Variant | Reason |
+|----------|--------------|--------|
+| FMCG ad (snacks, drinks, supplements) | `multi-angle` | Identity across cuts, professional look |
+| Beauty/skincare hero shot | `hero` | Premium feel, single clear frame |
+| Fashion (sneakers, apparel) | `lifestyle` | Aspiration + setting sells the product |
+| Electronics (phones, earbuds) | `hero` or `multi-angle` | Clean tech aesthetic |
+| Food/cooking (the dish itself) | `lifestyle` | Dish in kitchen context |
+| e-commerce product page | `multi-angle` | Full coverage for buyer confidence |
+| Quick UGC ad | `lifestyle` | Fastest to one usable frame |
+
+---
+
+## Related References
+
+- `references/character-ref-prompt.md` — for character-driven videos
+- `references/seedance-motion-prompt.md` — Step 3 (uses this as @[product ref])
+- `commands/product-ref.md` — slash command spec
+- `../SKILL.md` section 2.7 (First+Last Frame) — simpler alternative
 
 ---
 

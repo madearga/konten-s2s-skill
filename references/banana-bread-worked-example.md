@@ -162,11 +162,16 @@ This is a **musical cue curve** for the editor. Map it to music drop in post.
 The source splits emotion into two axes for Seedance prompt:
 
 **Valence** (positive/negative tone):
-- "playful, warm, teasing, proud"
-- "playful, warm, ravenous, satisfied" (loop version)
+- "playful, warm, teasing, proud" *(high-energy default)*
+- "playful, warm, ravenous, satisfied" *(loop version)*
+- **"peaceful, content, settled, contemplative, soft, gentle"** *(v1.2.0, calm UGC)*
+- **"serene, mindful, unhurried, present, restful"** *(v1.2.0, calm UGC)*
 
 **Arousal** (intensity curve):
-- "quick hook to steady groove, tactile prep surges, brief pause, satisfying release through body rhythm, over-shoulder glances, hand precision, steam, crumbs, and food texture"
+- "quick hook to steady groove, tactile prep surges, brief pause, satisfying release through body rhythm, over-shoulder glances, hand precision, steam, crumbs, and food texture" *(high-energy default)*
+- "quick hook to steady groove, tactile prep surges, brief pause, satisfying release through body rhythm" *(loop version)*
+- **"soft opening, gentle build, contemplative middle, peaceful resolution through stillness, breath, and natural pauses"** *(v1.2.0, calm UGC)*
+- **"slow arrival, unhurried settling, sustained present-moment, soft landing through micro-gestures and breath"** *(v1.2.0, calm UGC)*
 
 **Why two axes:** One-axis prompts ("make it playful") collapse to a single mood. Two-axis lets the model modulate **intensity over time** while holding tone. Result: a video that *breathes* instead of staying flat.
 
