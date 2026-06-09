@@ -1,56 +1,93 @@
 # /s2s product-ref — Step 2b: Product Reference Image Prompt
 
-Generates a **product reference image** with 4 variants: `hero`, `multi-angle`, `lifestyle`, `sheet`. For product-only videos (FMCG, beauty, fashion, electronics, food).
+Generates a **product reference image** for AI video generation. 5 styles available. User picks by number or describes what they want in natural language.
 
 ---
 
 ## Trigger
 
-- Manual: `/s2s product-ref` or `/s2s product-ref --type=<hero|multi-angle|lifestyle>`
-- Auto-detect: "product reference", "product sheet", "product hero", "product lifestyle"
+- Manual: `/s2s product-ref` followed by product description
+- Auto-detect: "product reference", "product sheet", "product hero", "bikin gambar produk", "referensi produk", "foto produk"
 
 If user is asking for a character reference (human), use `/s2s character-ref` instead.
 
 ---
 
-## Inputs to Gather (1-2 Clarifying Questions)
+## How Users Pick a Style
+
+### Option A: Numbered Menu (recommended for non-dev)
+
+Show this menu when user hasn't specified a style:
+
+```
+Pilih jenis gambar produk:
+  1. 📸 Studio bersih — 1 foto, background putih, premium
+  2. 🔄 Multi-angle — 4 sisi produk (depan/samping/miring/atap)
+  3. 🏠 Lifestyle — produk di tempat asli (kamar, dapur, dll)
+  4. ✋ Sedang dipakai — hands-on demo, tutorial feel
+  5. 📋 Full sheet — 6 panel semua sisi, hemat budget
+
+Ketik angka atau deskripsi bebas.
+```
+
+### Option B: Natural Language (auto-detect)
+
+User just describes what they want — AI detects the best style:
+
+| User says... | Auto-pick |
+|---|---|
+| "foto produk clean", "studio", "background putih", "premium" | 1. Studio |
+| "dari semua sisi", "multi-angle", "4 angle", "grid" | 2. Multi-angle |
+| "di kamar", "di dapur", "di rak", "lifestyle", "setting asli" | 3. Lifestyle |
+| "lagi dipakai", "tutorial", "demo", "hands-on", "cara pakai" | 4. Sedang dipakai |
+| "semua angle", "brand kit", "reference sheet", "komprehensif" | 5. Full sheet |
+| "pakai", "minum", "makan", "oles", "tuang", "semprot" (ID verbs) | 4. Sedang dipakai |
+| "tampilkan", "pamerkan", "showcase" | 1. Studio |
+| (no clear keywords) | 2. Multi-angle (default) |
+
+### Option C: Dev flag (for technical users)
+
+Dev users can still use: `/s2s product-ref --type=<hero|multi-angle|lifestyle|in-use|sheet>`
+
+This bypasses auto-detection and menu. Only use when user explicitly types `--type`.
+
+---
+
+## 5 Styles Reference
+
+| # | Style | Layout | Best For | Cost |
+|---|-------|--------|----------|------|
+| 1 | Studio (hero) | 16:9, single | Beauty, e-commerce, premium display | $0.07 |
+| 2 | Multi-angle | 16:9, 2×2 grid | FMCG, rotating reveals, product pages | $0.07 |
+| 3 | Lifestyle | 16:9, single | Aspirational UGC, contextual storytelling | $0.07 |
+| 4 | Sedang dipakai (in-use) | 16:9, single | Tutorials, demos, "cara pakai" content | $0.07 |
+| 5 | Full sheet | 21:9, 6-panel grid | Brand kit, multi-video asset, semua sisi | $0.07 |
+
+---
+
+## Inputs to Gather
 
 | Field | Example | Required? |
 |-------|---------|-----------|
-| Product type | "blue sneakers" / "skincare serum" / "protein bar" | Required |
-| Variant (or pick via --type) | hero / multi-angle / lifestyle / sheet | Required |
-| Material + color | "mesh upper, deep blue, white midsole" | Required |
-| Key features | "logo placement, distinctive texture" | Recommended |
-| Ad vibe | "premium" / "lifestyle" / "energetic UGC" | Recommended |
+| Product name | "Pigeon Teens BB Cream" / "Hori Baby Snack" | Required |
+| Style (1-5) | Auto-detect from description, or user picks | Auto |
+| Material + color | "pastel pink bottle, white pump cap" | Required |
+| Key features | "logo di depan, matte finish, pump mechanism" | Recommended |
 
-**Q-template:**
-
-```
-Q1: What's the product?
-    A) [first guess]
-    B) [alternative]
-    C) Describe
-
-Q2: Which variant?
-    A) Hero (clean studio, single product, white background) — best for: hero shots, beauty, e-commerce
-    B) Multi-angle (4-angle grid, identity for cuts) — best for: FMCG, beauty, health
-    C) Lifestyle (product in setting) — best for: aspirational UGC, contextual ads
-    D) Sheet (6-panel comprehensive reference, 21:9) — best for: brand kit, multi-video asset library, all-angle coverage in 1 generation
-```
+**Only ask questions if info is missing.** If user already described the product well, skip straight to generation.
 
 ---
 
 ## Behavior
 
-1. Parse product brief + variant
-2. Load `references/product-ref-prompt.md`
-3. Fill in the appropriate variant template
-4. **If variant = `sheet`**: load the sheet-specific template (6-panel 21:9 layout)
-5. **Always add to negative prompts: "no human hands, no human fingers, no human body parts"** (most common failure)
-6. **Always add to negative prompts: "no logos added by AI, no watermarks, no text"**
+1. Parse product description
+2. Auto-detect style from keywords (or show numbered menu if unclear)
+3. Load `references/product-ref-prompt.md` — pick matching variant template
+4. Fill template with product details
+5. **Always add to negative prompts:** "no human hands, no human fingers, no human body parts" (most common failure)
+6. **Always add to negative prompts:** "no logos added by AI, no watermarks, no text"
 7. Run QC checklist
-8. Output: copy-paste-ready prompt + checklist + variant rationale
-9. **If variant = `sheet`**: remind user they can crop individual panels as separate `@[product ref]` for different videos
+8. Output: copy-paste-ready prompt + style rationale
 
 ---
 
@@ -59,14 +96,14 @@ Q2: Which variant?
 ```
 ## Product Reference Prompt (GPT Image 2)
 
-**Variant:** <hero | multi-angle | lifestyle>
-**Why this variant:** <1-line rationale>
+**Style:** [1-5 name]
+**Kenapa style ini:** [1-line rationale in user's language]
 
 ```
-<prompt text — variant-specific template with all 4 sections filled>
+<prompt text — variant-specific template filled with product details>
 ```
 
-## QC Checklist (All Variants)
+## QC Checklist (All Styles)
 
 - [ ] Product name + category specified
 - [ ] Material, color, key features described
@@ -75,7 +112,7 @@ Q2: Which variant?
 - [ ] Consistency locks present (no redesign, no recolor, no extra parts)
 - [ ] **"No human hands" in negative** ← most common failure
 - [ ] **"No text, no logos, no watermarks" in negative**
-- [ ] **Default cinematic negatives appended:** `no clean digital sharpness, no CGI look, no poster composition, no centered portrait, no black bars`
+- [ ] **Default cinematic negatives appended**
 
 ## Save the Output
 - Generate the image in GPT Image 2
@@ -85,8 +122,8 @@ Q2: Which variant?
 ## Cost & Time
 - GPT Image 2: ~$0.07, ~30s
 - Multi-angle may need 1-2 re-rolls (~$0.14-0.21)
-- Lifestyle variant highest re-roll rate (budget 2-3x)
-- Total Step 2b: ~3-10 min depending on variant
+- Lifestyle highest re-roll rate (budget 2-3x)
+- Total Step 2b: ~3-10 min depending on style
 
 ## Suggested Next Step
 - If your video also has a character → run `/s2s character-ref` first
@@ -95,44 +132,21 @@ Q2: Which variant?
 
 ---
 
-## Variant Selection Guide
+## Style Selection Guide (Expanded)
 
-| Scenario | Best Variant | Reason |
-|----------|--------------|--------|
-| Single product, premium display | `hero` | Clean studio, single product, white background — best for: hero shots, beauty, e-commerce |
-| FMCG / multi-product line | `multi-angle` | 4-angle grid, identity for cuts — best for: FMCG, beauty, health |
-| Aspirational UGC, contextual ad | `lifestyle` | Product in setting — best for: aspirational UGC, contextual ads |
-| Tutorial, demo, "how-to" | `in-use` *(v1.2.0)* | Product being actively used — best for: tutorials, demos, hands-on reviews |
-| Fashion (sneakers, apparel) | `lifestyle` | Aspiration + setting sells the product |
-| Electronics (phones, earbuds) | `hero` or `multi-angle` | Clean tech aesthetic |
-| Food/cooking (the dish itself) | `lifestyle` | Dish in kitchen context |
-| Food/cooking (recipe demo) | **`in-use`** *(v1.2.0)* | Show pouring, stirring, plating |
-| e-commerce product page | `multi-angle` | Full coverage for buyer confidence |
-| Quick UGC ad | `lifestyle` | Fastest to one usable frame |
-| FMCG tutorial (snack, drink) | **`in-use`** *(v1.2.0)* | Show opening, eating, pouring |
-| Supplement/vitamin | **`in-use`** *(v1.2.0)* | Show bottle, hand, pill, water |
-| Brand kit / multi-video asset | `sheet` | 6 panels in 1 generation, crop per-panel for different @[product ref] |
-| Product with important back/side details | `sheet` | Captures front, back, side, texture, hero, in-use all at once |
-| Budget optimization (6 videos, 1 product) | `sheet` | $0.07 total vs $0.42 for 6 separate generations |
-
----
-
-## Auto-Detection Logic (v1.2.0)
-
-When user runs `/s2s product-ref` without `--type` flag, auto-detect from brief keywords:
-
-| Brief contains | Auto-pick variant |
-|----------------|-------------------|
-| **Usage verbs** (use, apply, wear, hold, drink, eat, rub, brush, pour, swipe, spray, tap, click, press, cook with, squeeze) | `in-use` |
-| **ID usage verbs** (pakai, minum, makan, oles, sikat, tuang, semprot, tekan, masak pakai, perasan) | `in-use` |
-| **Setting/context words** (in setting, on shelf, on vanity, at home, di rak, di etalase, di rumah) | `lifestyle` |
-| **Display words** (show, display, feature, showcase, tampilkan, pamerkan) | `hero` or `multi-angle` |
-| **Sheet keywords** (brand kit, all angles, reference sheet, comprehensive, semua sisi, semua angle) | `sheet` |
-| (no clear keywords, multiple products, or full coverage) | `multi-angle` (default) |
-
-If brief is too vague, ask user to pick variant explicitly (A/B/C/D question).
-
-**Force-override:** User can always specify `--type=<hero|multi-angle|lifestyle|in-use|sheet>` to bypass auto-detection.
+| Scenario | Best Style | Reason |
+|----------|------------|--------|
+| Skincare/beauty premium | 1. Studio | Clean, premium, e-commerce ready |
+| FMCG snack/drink | 2. Multi-angle | Identity across cuts |
+| "Produk di kamar mandi" | 3. Lifestyle | Setting tells the story |
+| "Cara pakai serum" | 4. Sedang dipakai | Show application process |
+| "Mau bikin banyak video, hemat budget" | 5. Full sheet | 6 panels × 1 gen = 6 refs |
+| Product has important back label | 5. Full sheet | Captures back + side details |
+| Fashion sneakers | 3. Lifestyle | Aspiration sells |
+| Electronics/tech | 1. Studio | Clean tech aesthetic |
+| Cooking recipe demo | 4. Sedang dipakai | Show pouring, stirring, plating |
+| e-commerce product page | 2. Multi-angle | Buyer confidence from all sides |
+| Quick 1-video UGC ad | 3. Lifestyle | Fastest to usable frame |
 
 ---
 
@@ -140,18 +154,18 @@ If brief is too vague, ask user to pick variant explicitly (A/B/C/D question).
 
 | User Input | Error | Fix |
 |------------|-------|-----|
-| "Show a hand holding the product" | GPT defaults to hands; use `in-use` instead of `hero` | Auto-detect will pick `in-use`; or force with `--type=in-use` |
-| "Make it look like Apple ad" | Triggers AI adding fake Apple logo | Add "no logos added by AI" + "no brand text" |
-| Lifestyle without setting context | Vague | Force specific setting: "kitchen counter" / "vanity table" / "running trail" |
-| "Just generate" (no product spec) | Can't generate | Force concrete: name, category, color, material |
-| in-use without specifying action | Vague | Force specific: "hand applying serum" / "person pouring coffee" / "user brushing teeth" |
+| "Show a hand holding the product" | GPT defaults to hands in hero shot | Auto-detect picks style 4 (in-use) instead |
+| "Make it look like Apple ad" | AI adds fake Apple logo | Add "no logos added by AI" to negative |
+| Lifestyle without setting context | Vague | Ask: "di tempat apa? kamar, dapur, rak?" |
+| "Just generate" (no product spec) | Can't generate | Ask: "produk apa? warna apa? bentuknya gimana?" |
+| In-use without specifying action | Vague | Ask: "aksi apa? oles? tuang? semprot?" |
 
 ---
 
 ## Related
 
-- `../references/product-ref-prompt.md` — full template + 4 variants
-- `../references/cinematic-composition-vocabulary.md` — 19 cinematic styles for the product hero shot
+- `../references/product-ref-prompt.md` — full template + 5 variant templates
+- `../references/cinematic-composition-vocabulary.md` — cinematic styles for hero shots
 - `character-ref.md` — for character-driven videos
 - `motion.md` — uses this as @[product ref]
-- `cinematic-variations.md` — pre-visualize the product shot with 10 compositions first
+- `cinematic-variations.md` — pre-visualize with 10 compositions first
