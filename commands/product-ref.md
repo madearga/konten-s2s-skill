@@ -82,7 +82,7 @@ This bypasses auto-detection and menu. Only use when user explicitly types `--ty
 
 1. Parse product description
 2. Auto-detect style from keywords (or show numbered menu if unclear)
-3. Load `references/product-ref-prompt.md` — pick matching variant template
+3. Load `../references/product-ref-prompt.md` — pick matching variant template
 4. Fill template with product details
 5. **Always add to negative prompts:** "no human hands, no human fingers, no human body parts" (most common failure)
 6. **Always add to negative prompts:** "no logos added by AI, no watermarks, no text"

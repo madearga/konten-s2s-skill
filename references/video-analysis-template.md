@@ -273,7 +273,7 @@ Use @[product ref] as the authoritative product reference...
 [NEGATIVE PROMPTS]
 ```
 
-Use the full Seedance motion prompt structure from `references/seedance-motion-prompt.md`.
+Use the full Seedance motion prompt structure from `seedance-motion-prompt.md`.
 
 ---
 

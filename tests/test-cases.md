@@ -1,6 +1,6 @@
 # Test Cases — storyboard-to-seedance-suite
 
-5 test cases covering all 5 commands. Manual verification (no automated test framework — each test produces a real prompt that user sends to GPT Image 2 / Seedance 2.0).
+7 grouped test cases covering the command surface plus the new non-breaking Step 3 enhancement layer. Some groups include multiple scenario variants (for example TC2a/TC2b and TC3/TC3b). Manual verification only — each test produces a real prompt that the user sends to GPT Image 2 / Seedance 2.0.
 
 ---
 
@@ -86,6 +86,26 @@
 
 ---
 
+## TC3b: `/s2s motion` with asset-role binding (v1.3.0 additive)
+
+**Input:** `/s2s motion` + `storyboard.png` + `character.png` + `product.png` + `camera-ref.mp4` + brief "beauty UGC, 12s, calm, use camera-ref only for handheld movement"
+
+**Expected Output:**
+- Standard 5-part spine still present
+- Added **ASSET ROLE BINDING** block
+- Explicit lines like:
+  - `Use @[character ref] for identity only`
+  - `Use @[product ref] for product continuity only`
+  - `Use @[camera ref video] for handheld behavior only`
+- No ambiguity about what each attachment controls
+
+**Pass criteria:**
+- Existing v1.2.0 structure preserved
+- Extra assets named with one primary job each
+- Prompt explicitly says what to ignore from camera-ref video
+
+---
+
 ## TC4: `/s2s pipeline` (end-to-end)
 
 **Input:** `/s2s pipeline` + brief "Indonesian girl in kitchen making banana bread, 15s, high-rhythm smash cuts"
@@ -150,6 +170,28 @@
 
 ---
 
+## TC7: Existing-video pattern mode (extend/edit/fuse)
+
+**Input A:** `/s2s analyze --seedance reference-ugc.mp4` + user request "extend this by 5s"
+
+**Expected Output A:**
+- Analysis still works as before
+- Recommended Step 3 mode = **Extend Existing Video**
+- Motion prompt includes wording like `Generate only the NEW continuation segment`
+
+**Input B:** `/s2s motion` + 2 reference clips + brief "merge these into one product reveal"
+
+**Expected Output B:**
+- Step 3 mode = **Fuse Multiple Clips**
+- Prompt adds transition logic and source-role split
+
+**Pass criteria:**
+- No new command required
+- Existing `/s2s motion` command handles the variant by changing wording only
+- Standard users who do not need these modes see unchanged behavior
+
+---
+
 ## Manual Verification Process
 
 After running each test case manually:
@@ -194,7 +236,7 @@ After running each test case manually:
 
 ## Automated Tests (Future)
 
-This is **manual verification only** in v1.0. Future versions could add:
+This is **manual verification only** in v1.3.0. Future versions could add:
 - LLM-as-judge for QC checklist auto-pass
 - Image diff between consecutive @[character ref] runs (identity consistency check)
 - Video frame analysis for drift detection

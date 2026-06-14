@@ -297,9 +297,9 @@ When brief contains **display verbs**, default to other variants:
 
 ## Related References
 
-- `references/character-ref-prompt.md` — for character-driven videos
-- `references/seedance-motion-prompt.md` — Step 3 (uses this as @[product ref])
-- `commands/product-ref.md` — slash command spec
+- `character-ref-prompt.md` — for character-driven videos
+- `seedance-motion-prompt.md` — Step 3 (uses this as @[product ref])
+- `../commands/product-ref.md` — slash command spec
 - `../SKILL.md` section 2.7 (First+Last Frame) — simpler alternative
 ## Variant 5: SHEET (`/s2s product-ref --type=sheet`)
 
@@ -477,9 +477,9 @@ The sheet can be used in 2 ways:
 
 ## Related References
 
-- `references/character-ref-prompt.md` — for character-driven videos
-- `references/seedance-motion-prompt.md` — Step 3 (uses this as @[product ref])
-- `commands/product-ref.md` — slash command spec
+- `character-ref-prompt.md` — for character-driven videos
+- `seedance-motion-prompt.md` — Step 3 (uses this as @[product ref])
+- `../commands/product-ref.md` — slash command spec
 - `../SKILL.md` section 2.7 (First+Last Frame) — simpler alternative
 
 ---
@@ -524,7 +524,7 @@ The sheet can be used in 2 ways:
 
 ## Related References
 
-- `references/character-ref-prompt.md` — for character-driven videos
-- `references/seedance-motion-prompt.md` — Step 3 (uses this as @[product ref])
-- `commands/product-ref.md` — slash command spec
+- `character-ref-prompt.md` — for character-driven videos
+- `seedance-motion-prompt.md` — Step 3 (uses this as @[product ref])
+- `../commands/product-ref.md` — slash command spec
 - `../SKILL.md` section 2.7 (First+Last Frame) — simpler alternative

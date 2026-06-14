@@ -121,7 +121,7 @@ For **multi-character** videos, generate one sheet per character. Keep the secon
 
 ## Related References
 
-- `references/storyboard-prompt-template.md` — Step 1 (storyboard image)
-- `references/seedance-motion-prompt.md` — Step 3 (motion, uses this as @[character ref])
-- `references/banana-bread-worked-example.md` — full worked example
-- `commands/character-ref.md` — slash command spec
+- `storyboard-prompt-template.md` — Step 1 (storyboard image)
+- `seedance-motion-prompt.md` — Step 3 (motion, uses this as @[character ref])
+- `banana-bread-worked-example.md` — full worked example
+- `../commands/character-ref.md` — slash command spec

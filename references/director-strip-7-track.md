@@ -230,6 +230,6 @@ Don't skip writing the panel beats. The storyboard image alone won't carry the v
 
 ## Related References
 
-- `references/storyboard-prompt-template.md` — where these tracks live in the 12-section structure
-- `references/seedance-motion-prompt.md` — how tracks become PANEL BEATS
-- `references/banana-bread-worked-example.md` — full worked example with all 7 tracks filled
+- `storyboard-prompt-template.md` — where these tracks live in the 12-section structure
+- `seedance-motion-prompt.md` — how tracks become PANEL BEATS
+- `banana-bread-worked-example.md` — full worked example with all 7 tracks filled

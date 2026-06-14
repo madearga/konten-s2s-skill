@@ -14,9 +14,11 @@ The motion prompt needs to:
 1. Reference the **storyboard image** as `@[storyboard ref]` (visual anchor)
 2. Reference the **character or product image** as `@[character ref]` or `@[product ref]` (identity anchor)
 3. **Copy director strip text from Step 1** — NOT just upload the image (technical reality: storyboard image downsamples to ~30px/panel, useless for direct reading)
-4. Define **5-part spine**: Subject → Action → Camera → Style → Constraints
-5. Add **emotional guidance 2-axis** (Valence + Arousal) so the video "breathes"
-6. Specify **audio strategy** (default: silent, diegetic foley only — add music in post)
+4. Optionally add **ASSET ROLE BINDING** when multiple assets serve different jobs
+5. Optionally add **MODE OVERRIDE** when the task is extend / edit / fuse / beat-sync / dialogue / one-take
+6. Define **5-part spine**: Subject → Action → Camera → Style → Constraints
+7. Add **emotional guidance 2-axis** (Valence + Arousal) so the video "breathes"
+8. Specify **audio strategy** (default: silent, diegetic foley only — add music in post)
 
 ---
 
@@ -35,6 +37,24 @@ Recreate the filmed sequence implied by the panels rather than the physical stor
 Use @[character ref] as the authoritative C1 character reference.
 [OR: Use @[product ref] as the authoritative product reference.]
 [OR: Use both @[character ref] and @[product ref] for character+product videos.]
+
+[ASSET ROLE BINDING — optional but strongly recommended when 3+ assets are attached]
+[Use @[first frame ref] to lock the opening frame only.]
+[Use @[last frame ref] to lock the landing frame only.]
+[Use @[camera ref video] for camera behavior only; ignore subject and environment.]
+[Use @[action ref video] for choreography only; ignore lens and grade.]
+[Use @[fx ref video] for transition/VFX grammar only.]
+[Use @[rhythm ref video] for cut cadence only.]
+[Use @[bgm ref audio] for tempo/mood only.]
+
+[MODE OVERRIDE — optional]
+[Standard generation]
+[OR: Extend existing clip forward/backward while preserving continuity state.]
+[OR: Edit an existing clip while preserving environment and shot order, replacing only the specified variable.]
+[OR: Fuse multiple source clips into one continuous sequence with explicit transition logic.]
+[OR: Beat-sync montage mode.]
+[OR: Dialogue / talk-to-camera mode.]
+[OR: One-take / no-cut mode.]
 
 [SUBJECT — 1-2 sentences]
 C1: [brief identity, e.g., "Maya, 25, Indonesian woman, dark brown wavy hair, cream linen shirt"].
@@ -59,6 +79,8 @@ C1: [brief identity, e.g., "Maya, 25, Indonesian woman, dark brown wavy hair, cr
 No music. No logo. No text on screen. No watermark. No frame numbers.
 [Add: "No human faces" if Seedance face-blocking applies and you're using a stylized character.]
 [Add: "No drift between cuts" if multi-cut sequence.]
+[Add: "Preserve all non-targeted variables" if using edit mode.]
+[Add: "Generate only the new continuation segment" if using extend mode.]
 
 [EMOTIONAL GUIDANCE — 2-axis, critical]
 Valence: [3-5 adjectives, e.g., "playful, warm, teasing, proud, satisfied" (high-energy) OR "peaceful, content, settled, contemplative, soft, gentle" (calm UGC)].
@@ -131,7 +153,7 @@ No music. No logo. No text on screen. No watermark. No frame numbers. No drift b
 Valence: playful, warm, teasing, proud, satisfied.
 Arousal: quick hook to steady groove -> tactile prep surges -> brief pause -> satisfying release through body rhythm, over-shoulder glances, hand precision, steam, crumbs, and food texture.
 
-(For calm UGC variant, see: references/banana-bread-worked-example.md Emotional Guidance section.)
+(For calm UGC variant, see: `banana-bread-worked-example.md` Emotional Guidance section.)
 
 [AUDIO]
 No background music or score. Use only diegetic ambience, foley, impacts, texture, and silence.
@@ -194,6 +216,8 @@ No music. No logo. No text on screen. No watermark. No frame numbers. No subtitl
 6. **Forgetting screen direction in prose** — "she walks to the oven" is bad. "She walks screen-right toward the oven (which is screen-right of the sink)" is good.
 7. **Too many panels** — 16 panels in 12-15s = ~0.8s/panel = OK. 24 panels in 12s = 0.5s/panel = rushed, drift risk.
 8. **No negative prompts** — Seedance defaults to "add music + logo." Always specify "No music. No logo. No text."
+9. **Extra assets with no role binding** — mixed signals create identity/style/action drift.
+10. **Wrong mode wording** — extension/edit/fuse tasks need different constraint language than greenfield generation.
 
 ---
 
@@ -217,9 +241,11 @@ Q: Do you want to edit pacing in post?
 
 ## Related References
 
-- `references/storyboard-prompt-template.md` — Step 1 (storyboard image)
-- `references/character-ref-prompt.md` — Step 2a (character ref)
-- `references/product-ref-prompt.md` — Step 2b (product ref)
-- `references/director-strip-7-track.md` — vocabulary
-- `references/cinematic-composition-vocabulary.md` — 19 cinematic styles + texture pack
-- `commands/motion.md` — slash command spec
+- `storyboard-prompt-template.md` — Step 1 (storyboard image)
+- `character-ref-prompt.md` — Step 2a (character ref)
+- `product-ref-prompt.md` — Step 2b (product ref)
+- `director-strip-7-track.md` — vocabulary
+- `cinematic-composition-vocabulary.md` — 19 cinematic styles + texture pack
+- `seedance-asset-binding.md` — optional attachment role system
+- `seedance-pattern-library.md` — optional mode library
+- `../commands/motion.md` — slash command spec

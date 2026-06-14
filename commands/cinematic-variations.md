@@ -40,7 +40,7 @@ Q: What's the mood/era?
 ## Behavior
 
 1. Parse subject + mood/era
-2. Load `references/cinematic-composition-vocabulary.md`
+2. Load `../references/cinematic-composition-vocabulary.md`
 3. Pick **10 of 19 composition styles** for the sweep (rotate through different categories to maximize visual variety):
    - 2 wide/establishing (environmental scale, deep vanishing point)
    - 2 close/intimate (handheld close, foreground obstruction)

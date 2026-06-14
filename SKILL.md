@@ -1,7 +1,7 @@
 ---
 name: storyboard-to-seedance-suite
 description: "3-step procedural workflow for AI video production: (1) GPT Image 2 storyboard prompt using 12-Section template, (2) GPT Image 2 character OR product reference prompt (separate commands), (3) Seedance 2.0 motion prompt. Slash commands: /s2s storyboard, /s2s character-ref, /s2s product-ref, /s2s motion, /s2s pipeline. Use when creating storyboards for video, generating reference images for consistency, or building motion prompts for Seedance-class models."
-version: 1.2.0
+version: 1.3.0
 author: Hermes Agent
 license: MIT
 triggers:
@@ -57,6 +57,20 @@ triggers:
   - "human plus product"
   - "human dan product"
   - "kedua referensi"
+  - "video extend"
+  - "video extension"
+  - "extend video"
+  - "video edit"
+  - "edit existing video"
+  - "video fusion"
+  - "merge videos"
+  - "beat sync"
+  - "music sync"
+  - "dialogue video"
+  - "one take"
+  - "single take"
+  - "asset binding"
+  - "@ reference"
 ---
 
 # storyboard-to-seedance-suite
@@ -64,6 +78,8 @@ triggers:
 A **3-step procedural skill** for AI video production. Turns a brief into three copy-paste-ready prompts (storyboard, reference, motion), with checkpoints for review and a master pipeline command for end-to-end runs.
 
 Part of the `ai-video-production` umbrella skill. Tuned for **Seedance 2.0** as the video generator, with template structure generic enough to adapt to other Seedance-class models.
+
+**v1.3.0 is additive only:** the existing 3-step workflow, reverse-engineering flow, and command surface stay the same. The enhancement adds an optional **asset-role binding layer** (`@`-style attachment roles) plus a **pattern library** for extend/edit/fuse/beat-sync/dialogue/one-take scenarios.
 
 ---
 
@@ -80,6 +96,8 @@ Part of the `ai-video-production` umbrella skill. Tuned for **Seedance 2.0** as 
 | User wants all 3 steps with checkpoints | Manual | `/s2s pipeline` |
 | User says "analyze video" / "reverse engineer" / "extract prompt" | Auto | `/s2s analyze` |
 | User uploads a video file | Auto | `/s2s analyze` |
+| User wants to extend / edit / merge existing clips | Auto | `/s2s analyze` → `/s2s motion` with pattern-library mode |
+| User has many mixed assets and asks what each should do | Auto | `/s2s motion` with asset-role binding layer |
 
 **Do NOT use for:**
 - First+Last frame simple videos (use `ai-video-production` section 2.7 instead)
@@ -140,6 +158,41 @@ Bundle file: s2s-bundle-YYYYMMDD-HHMMSS.md
 
 ---
 
+## Optional v1.3.0 Enhancements (Non-Breaking)
+
+These upgrades sit **on top of** the existing pipeline. If the user does not need them, the skill behaves exactly like v1.2.0.
+
+### 1. Asset-Role Binding Layer
+
+When the user has 3+ assets, bind each one to a specific role instead of treating all attachments as generic references.
+
+Examples:
+- `@[storyboard ref]` — director-approved panel plan
+- `@[character ref]` — identity lock
+- `@[product ref]` — product continuity lock
+- `@[first frame ref]` / `@[last frame ref]` — hard opening or landing frame
+- `@[camera ref video]` — camera behavior only
+- `@[action ref video]` — movement choreography only
+- `@[fx ref video]` — transition/effect language only
+- `@[rhythm ref video]` / `@[bgm ref audio]` — beat map only
+
+See: `references/seedance-asset-binding.md`
+
+### 2. Pattern Library Layer
+
+Use the same pipeline, but swap the Step 3 motion wording to match the scenario:
+- **Standard new generation**
+- **Extend** an existing clip forward/backward
+- **Edit** an existing clip while preserving most of it
+- **Fuse** multiple clips into one continuous sequence
+- **Beat-sync** montage / music-driven cuts
+- **Dialogue / talk-to-camera** delivery
+- **One-take / single-take** choreography
+
+See: `references/seedance-pattern-library.md`
+
+---
+
 ## Quick Start
 
 ### Forward (create new video):
@@ -187,6 +240,8 @@ Bundle file: s2s-bundle-YYYYMMDD-HHMMSS.md
 | `/s2s analyze --seedance` | 0 (reverse) | Analyze + generate Seedance motion | Analysis + R2V prompt |
 
 Each subcommand has a dedicated spec in `commands/`. The pipeline command chains them with checkpoints.
+
+**v1.3.0 note:** `/s2s motion` now has optional branches for asset-role binding and pattern-library modes, but it remains the same Step 3 command.
 
 ---
 
@@ -253,6 +308,10 @@ At the end of `/s2s pipeline`, user gets:
 
 5. **Forgetting screen direction in location** — without explicit screen direction (window left, oven right), Seedance flips geometry between shots. Always include screen direction in LOCATION.
 
+6. **Attachment ambiguity** — if multiple files are attached but roles are unspecified, camera/style/action signals bleed into each other. Bind each attachment to a single job.
+
+7. **Using the wrong mode for existing-video tasks** — extend/edit/fuse requests should keep the same 5-part spine, but switch Step 3 language to the correct mode.
+
 ---
 
 ## File Structure
@@ -266,6 +325,8 @@ storyboard-to-seedance-suite/
 │   ├── character-ref-prompt.md        # 3-angle character sheet template
 │   ├── product-ref-prompt.md          # 3 variants: hero, multi-angle, lifestyle
 │   ├── seedance-motion-prompt.md      # 5-part spine + worked example
+│   ├── seedance-asset-binding.md      # optional @-style attachment role system
+│   ├── seedance-pattern-library.md    # optional extend/edit/fuse/dialogue/beat-sync modes
 │   ├── director-strip-7-track.md      # RHYTHM + ESCALATION vocabulary
 │   ├── cinematic-composition-vocabulary.md  # 19 cinematic styles + texture pack
 │   └── banana-bread-worked-example.md # anonymized real-world case study
@@ -279,7 +340,7 @@ storyboard-to-seedance-suite/
 │   ├── cinematic-variations.md        # /s2s cinematic-variations (pre-vis)
 │   └── analyze.md                     # /s2s analyze (reverse-engineer video)
 └── tests/
-    └── test-cases.md                  # 6 test cases (TC1-TC6) + TC7 for analyze
+    └── test-cases.md                  # 7 grouped test cases including additive Step 3 modes
 ```
 
 ---
@@ -341,7 +402,7 @@ Hermes-specific `triggers` field is **extra metadata** — Claude Code / OpenCod
 
 | System | Syntax | How to invoke |
 |--------|--------|---------------|
-| Hermes | `/s2s pipeline <brief>` | Slash command parser reads `commands/*.md` |
+| Hermes | `/s2s pipeline <brief>` | Slash command parser reads markdown specs under `commands/` |
 | Claude Code | `/s2s-pipeline <brief>` | One file per slash command, named after file |
 | OpenCode | `/s2s-pipeline <brief>` | Same as Claude Code |
 | Codex CLI | `/s2s-pipeline <brief>` | Same as Claude Code |
@@ -366,6 +427,14 @@ In the parent `ai-video-production` skill:
 ---
 
 ## Version History
+
+- **1.3.0** (2026-06-14) — Non-breaking Step 3 enhancement layer
+  - **NEW**: `references/seedance-asset-binding.md` (explicit `@`-style role binding for storyboard / identity / product / first-frame / camera / action / FX / rhythm / audio inputs)
+  - **NEW**: `references/seedance-pattern-library.md` (extend, edit, fuse, beat-sync, dialogue, one-take patterns)
+  - **UPDATED**: `commands/motion.md` — optional asset-role intake + Step 3 mode switching while preserving the same command
+  - **UPDATED**: `references/seedance-motion-prompt.md` — optional `ASSET ROLE BINDING` and `MODE OVERRIDE` blocks
+  - **UPDATED**: README / tests / pipeline docs for additive Step 3 behaviors
+  - **GOAL**: learn from direct Seedance prompting patterns without breaking the existing storyboard → ref → motion workflow
 
 - **1.2.0** (2026-06-08) — Video reverse-engineering + Edge cases & safety + Product sheet variant
   - **NEW**: `commands/analyze.md` (`/s2s analyze` — reverse-engineer existing videos)

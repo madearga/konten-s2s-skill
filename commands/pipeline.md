@@ -25,6 +25,9 @@ Step 2: Detect references needed (human? product? both?)
    ↓ Step 2b: /s2s product-ref     [if product in video]
    ↓ IMPORTANT: BOTH can run in parallel if brief has human + product
    ↓ User sends to GPT Image 2, gets character.png / product.png
+Step 2.5: Optional asset-role pass (v1.3.0)
+   ↓ Ask whether first-frame / last-frame / camera-ref / action-ref / fx-ref / rhythm-ref / bgm-ref assets exist
+   ↓ If yes, label each one with a single explicit role for Step 3
 Step 3: /s2s motion
    ↓ (output: filled motion prompt + QC checklist)
    ↓ User sends to Seedance 2.0 with @[storyboard] + @[character] + @[product] attachments
@@ -74,6 +77,26 @@ If D:  → skip Step 2, go directly to Step 3
 | Product only | 1 ref | +$0.07 | +30s |
 | **Both (default for human+product brief)** | **2 refs** | **+$0.14** | **+60s (parallel)** |
 | No character, no product | 0 refs | +$0 | +0s |
+
+Optional role-bound assets (first frame, camera ref, rhythm ref, etc.) typically add **clarity**, not API cost, unless the user must generate them first.
+
+---
+
+## Optional Asset-Role Pass (v1.3.0)
+
+Before Step 3, ask this only when needed:
+
+```text
+Q: Any extra assets that should control only one part of the video?
+   A) No — standard workflow
+   B) First frame / last frame lock
+   C) Camera behavior reference
+   D) Action choreography reference
+   E) FX / transition reference
+   F) Rhythm / BGM reference
+```
+
+Rule: each extra asset gets exactly **one primary job** in the motion prompt.
 
 ---
 
@@ -220,3 +243,5 @@ For batch 100 ads: **~$54-89 total** at Fast tier (half cost).
 - `character-ref.md` — Step 2a only
 - `product-ref.md` — Step 2b only
 - `motion.md` — Step 3 only
+- `../references/seedance-asset-binding.md` — optional role-binding layer
+- `../references/seedance-pattern-library.md` — optional scenario patterns

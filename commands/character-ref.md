@@ -49,7 +49,7 @@ Q3: Outfit/vibe?
 ## Behavior
 
 1. Parse character brief
-2. Load `references/character-ref-prompt.md`
+2. Load `../references/character-ref-prompt.md`
 3. Fill in the 3-angle template
 4. Add the user's character details (age, hair, outfit, features)
 5. Run QC checklist (8 items)

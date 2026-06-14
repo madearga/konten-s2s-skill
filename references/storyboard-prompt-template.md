@@ -115,7 +115,7 @@ P##: [Final shot]. [Loop match if applicable: "the new crumb lands near her lip 
 
 ## Example: Cooking Montage (Filled-In)
 
-See `references/banana-bread-worked-example.md` for a fully-filled example — 16-panel sequence + 14-panel loop, all 12 sections completed.
+See `banana-bread-worked-example.md` for a fully-filled example — 16-panel sequence + 14-panel loop, all 12 sections completed.
 
 ---
 

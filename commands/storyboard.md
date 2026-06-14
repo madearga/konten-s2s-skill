@@ -122,8 +122,8 @@ These are placeholders for future expansion. v1.2.0 ships with pregnancy safety 
 ## Behavior
 
 1. Parse brief + clarifying answers → build the 12 sections
-2. Load `references/storyboard-prompt-template.md` (the fill-in template)
-3. Load `references/banana-bread-worked-example.md` (worked example for reference)
+2. Load `../references/storyboard-prompt-template.md` (the fill-in template)
+3. Load `../references/banana-bread-worked-example.md` (worked example for reference)
 4. Generate the filled-in prompt
 5. Run QC checklist
 6. Output: copy-paste-ready prompt + checklist pass/fail + next-step suggestion

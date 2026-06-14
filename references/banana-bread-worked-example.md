@@ -41,7 +41,7 @@ Step 5: Seedance 2.0 → video #2 (loop, same refs)
 
 ## 12-Section Storyboard Prompt Template
 
-This is the actual structure used inside GPT Image 2. Fill-in-the-blank version in `references/storyboard-prompt-template.md`.
+This is the actual structure used inside GPT Image 2. Fill-in-the-blank version in `storyboard-prompt-template.md`.
 
 ### 1. PROJECT CARD
 - **TITLE** — short, punchy
@@ -356,9 +356,9 @@ Banana Bread thread (24h after post):
 
 ## Related References
 
-- `references/storyboard-prompt-template.md` — fill-in-the-blank template
-- `references/seedance-best-practices.md` — broader Seedance 2.0 best practices
-- `references/tiktok-analyzer-system-prompt.md` — for reverse-engineering competitor videos
+- `storyboard-prompt-template.md` — fill-in-the-blank template
+- `seedance-best-practices.md` — broader Seedance 2.0 best practices
+- `tiktok-analyzer-system-prompt.md` — for reverse-engineering competitor videos
 - SKILL.md section 2.7 (First+Last Frame) and 2.9 (Metamorphosis 4-step) — simpler alternatives for shorter content
 
 ---
