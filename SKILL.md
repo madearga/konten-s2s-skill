@@ -363,7 +363,7 @@ At the end of `/s2s pipeline`, user gets:
 
 ## Style Lock: Monochrome Sepia/Amber (Validated 2026-06-14, "16 Putaran" Rizky)
 
-> Full style DNA, cell narrative map, and validated pitfalls: see `references/monochrome-storyboard-style.md`
+> Full style DNA, cell narrative map, and validated pitfalls: see `references/storyboard-style-monochrome-4x3.md`
 
 When the project uses a **monochrome graphite + amber/sepia** look (NOT photorealistic, NOT 3D stylized), apply these style anchors to every storyboard prompt:
 
@@ -385,7 +385,7 @@ When the project uses a **monochrome graphite + amber/sepia** look (NOT photorea
 
 **Aspect:** 1536x1024 landscape (16:9), 4 rows × 3 columns of equal panels with thin gutters on charcoal background.
 
-**Reference style anchor:** See `references/monochrome-storyboard-style.md` for the validated reference image and full style DNA.
+**Reference style anchor:** See `references/storyboard-style-monochrome-4x3.md` for the validated reference image and full style DNA.
 
 **Pitfall (validated 2026-06-14):** User rejected photorealistic triptych / 4-panel output in favor of monochrome 4x3 grid. If brief says "monochrome", "sepia", "amber", "hand-drawn", "sketched", or references a grayscale/monochrome anchor image, **do NOT generate photorealistic triptych**. Use the 4x3 12-panel grid pattern from this section.
 
@@ -570,7 +570,7 @@ In the parent `ai-video-production` skill:
 - `references/tiktok-analyzer-system-prompt.md` — for reverse-engineering competitor videos
 In this skill:
 
-- `references/storyboard-style-monochrome-4x3.md` — **NEW (2026-06-14)** validated monochrome graphite + amber 4×3 12-panel storyboard style. Used end-to-end for 5-clip "16 Putaran" project. Includes known-good prompt template, pitfall list, production workflow. Use this when the brief asks for a multi-clip narrative with shared character + setting, NOT a single 8-15s UGC ad.
+- `references/storyboard-style-monochrome-4x3.md` — monochrome graphite + amber/sepia 4×3 12-panel storyboard style used for the "16 Putaran" project. Single source of truth for the monochrome style: spec, narrative map, prompt template, pitfalls, production workflow.
 - `references/notion-prompt-alignment.md` — checklist for keeping one current storyboard prompt and one current motion prompt on the page; delete stale drafts after review.
 - `references/koda-ivanna-patterns-2026-06.md` — 4 high-value patterns (Director Strip augmented, Spatial Continuity Lock, HARD CUT marker, NEGATIVE PROMPT block) reverse-engineered from published Koda `@aimikoda` + Ivanna `@ivanka_humeniuk` prompts on 2026-06-11. Adopt these into motion + storyboard templates; they generalize to Veo 3.1 Lite and Kling 3.0 even though we don't ship Seedance 2.0 in our pipeline.
 - `references/competition-deliverable-blueprint.md` — full Kreafest 2026 "16 Putaran" case study (7×15s, 16-fate grid, Indonesian context, $5 budget) PLUS 2026-06-13 v2 patches: hook retention pattern, NO TEXT IN GRID CELLS, per-clip P09 single-cell rule, predicted-comments QC, v2 patch checklist, score self-assessment matrix.
