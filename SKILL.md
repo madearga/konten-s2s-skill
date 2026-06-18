@@ -1,7 +1,7 @@
 ---
 name: storyboard-to-seedance-suite
-description: "Modular AI video production skill library — collection of references, capabilities, and entry points for Seedance 2.0 / Veo 3.1 / Kling 3.0 / GPT Image 2. Use when you need any combination of: creative brief intake (vague idea → structured brief), storyboard prompts, character references, product references, cinematic compositions, motion prompts, @-role binding, camera language, troubleshooting, video reverse-engineering, hook brainstorming, or pattern-library modes (extend/edit/fuse/beat-sync/dialogue/one-take). Each capability is independently invokable — there is no fixed pipeline. Commands: /s2s interview, /s2s storyboard, /s2s character-ref, /s2s product-ref, /s2s motion, /s2s cinematic-variations, /s2s analyze, /s2s hook, /s2s troubleshoot, /s2s compose-pattern (extend/edit/fuse/beat-sync/dialogue/one-take), /s2s bundle."
-version: 1.8.0
+description: "Modular AI video production skill library — collection of references, capabilities, and entry points for Seedance 2.0 / Veo 3.1 / Kling 3.0 / GPT Image 2. Use when you need any combination of: creative brief intake (vague idea → structured brief), storyboard prompts, character references, product references, cinematic compositions, motion prompts, @-role binding, camera language, troubleshooting, video reverse-engineering, hook brainstorming, or pattern-library modes (extend/edit/fuse/beat-sync/dialogue/one-take). Use `/s2s ads` for product/brand/UGC/e-commerce content (embeds dexhunter's 12-pattern library). Each capability is independently invokable — there is no fixed pipeline. Commands: /s2s interview, /s2s storyboard, /s2s character-ref, /s2s product-ref, /s2s motion, /s2s cinematic-variations, /s2s analyze, /s2s hook, /s2s troubleshoot, /s2s compose-pattern (extend/edit/fuse/beat-sync/dialogue/one-take), /s2s bundle."
+version: 1.10.0
 author: Hermes Agent
 license: MIT
 triggers:
@@ -32,6 +32,19 @@ triggers:
   - "/s2s troubleshoot"
   - "/s2s compose-pattern"
   - "/s2s bundle"
+  - "/s2s ads"
+  - "iklan"
+  - "product video"
+  - "produk video"
+  - "brand content"
+  - "e-commerce"
+  - "showcase"
+  - "promo"
+  - "campaign video"
+  - "UGC ad"
+  - "TikTok shop"
+  - "Shopee"
+  - "Tokopedia"
   # Capability keywords
   - "storyboard prompt"
   - "12-section storyboard"
@@ -172,6 +185,7 @@ Output: copy-paste-ready prompts, references, or analysis
 | Want to extend / edit / fuse / beat-sync / dialogue / one-take | Pattern | `/s2s compose-pattern`   | `seedance-pattern-library.md`                          |
 | Have video file, want to reverse-engineer         | Analyze           | `/s2s analyze`           | `video-analysis-template.md` + `tiktok-analyzer-system-prompt.md` |
 | Want hook variants for short-form                 | Hook              | `/s2s hook`              | `hook-brainstorming-social-issue.md`                   |
+| Want product/brand/UGC ad prompt                  | Ads               | `/s2s ads`               | `dexhunter-patterns-ads.md` + `seedance-reference-syntax.md` |
 | Generated video wrong, need repair                | Troubleshoot      | `/s2s troubleshoot`      | `seedance-troubleshooting.md`                          |
 | Want all artifacts bundled into one file          | Bundle            | `/s2s bundle`            | (assembles from prior outputs)                         |
 | Have a vague idea (no full brief yet)            | Interview         | `/s2s interview`           | `references/creative-brief-intake.md`                   |
@@ -222,6 +236,12 @@ All references live in `references/`. Pick the ones you need; ignore the rest.
 | `seedance-camera-language.md`                     | Camera moves, shot sizes, advanced techniques, lens vocabulary |
 | `seedance-motion-vocabulary.md`                   | Action verbs, body parts, object interaction, rhythm/beat vocab, anti-slop lexicon |
 | `seedance-troubleshooting.md`                     | Failure-mode taxonomy (10 categories) + repair patterns + retake protocol |
+
+### Ad Patterns
+
+| File                            | Use                                                       |
+|---------------------------------|-----------------------------------------------------------|
+| `dexhunter-patterns-ads.md`     | 12-pattern library from dexhunter annotated for ads (Product Showcase default, Beat-Sync, FX Replication, Multi-Cut Assembly) |
 
 ### Composition & Style References
 
@@ -275,6 +295,7 @@ Each command in `commands/` is a **single capability spec** — invocable indepe
 | `/s2s hook`                   | Hook              | `commands/cinematic-variations.md` (hook mode) — or prompt user to use hook ref |
 | `/s2s troubleshoot`           | Troubleshoot      | (uses `seedance-troubleshooting.md` directly) |
 | `/s2s bundle`                 | Bundle            | (composes from prior outputs into single markdown file) |
+| `/s2s ads`                    | Ads               | `commands/ads.md`             |
 
 **Backward compat:**
 - `/s2s pipeline` still works as alias for "storyboard + character-ref + motion in sequence, with checkpoints" (see `commands/pipeline.md`). It is NOT default behavior — only invoke if user explicitly requests the chained pipeline.
@@ -653,7 +674,9 @@ In the parent `ai-video-production` skill:
 
 In this skill:
 
+- `references/dexhunter-patterns-ads.md` — **12-pattern library from dexhunter for ads** (Product Showcase / Beat-Sync / FX Replication / Multi-Cut Assembly)
 - `references/creative-brief-intake.md` — **vague idea → structured brief** (5 core fields + 7 extended, 3 intake modes, Indonesian defaults)
+- `references/seedance-voice-consistency.md` — **`@audio1/2/3` voice reference for multi-clip series** (4 patterns, validated from James Sismanes Brooklyn gelato workflow)
 - `references/seedance-reference-syntax.md` — **`@` reference system + role binding** (canonical)
 - `references/seedance-camera-language.md` — **camera moves, shot sizes, advanced techniques**
 - `references/seedance-motion-vocabulary.md` — **action verbs, body parts, object interaction, rhythm, anti-slop lexicon**
@@ -668,6 +691,21 @@ In this skill:
 ---
 
 ## Version History
+
+- **1.10.0** (2026-06-18) — **/s2s ads command + dexhunter-patterns-ads.md reference**
+  - **NEW**: `commands/ads.md` — `/s2s ads` capability (product/brand/UGC/e-commerce motion prompts, embeds dexhunter's 12-pattern library)
+  - **NEW**: `references/dexhunter-patterns-ads.md` — full 12-pattern spec annotated for ads (Pattern 9 E-commerce default, Pattern 3 FX Replication, Pattern 6 Beat-Sync, Pattern 12 Multi-Cut Assembly)
+  - **UPDATED**: Capability Router adds "Ads" row
+  - **UPDATED**: Reference Library adds "Ad Patterns" subsection
+  - **UPDATED**: Commands table adds `/s2s ads` entry
+  - **UPDATED**: Triggers expanded +13 keywords: `iklan`, `product video`, `produk video`, `brand content`, `e-commerce`, `showcase`, `promo`, `campaign video`, `UGC ad`, `TikTok shop`, `Shopee`, `Tokopedia`
+  - **GOAL**: when user asks for product/brand/e-commerce ad, agent auto-loads dexhunter's quick-prompt patterns instead of generic motion template. Default to Pattern 9 (Product Showcase), escalate to Pattern 6/3/12 when user wants dynamic style.
+
+- **1.9.0** (2026-06-18) — **Voice consistency + 2-3s beat grid + Seam-lock extend pattern**
+  - **NEW**: `references/seedance-voice-consistency.md` — `@audio1/2/3` voice reference pattern for multi-clip series with same speaker. 4 patterns (Dialogue Series, Narration, Singing, Accent-Only Carry). Validated from James Sismanes (@JamesSismanes) Jun 2026 Brooklyn gelato truck workflow using `Use @audio2 to reference [Character]'s established voice and broken English accent`.
+  - **UPDATED**: `references/seedance-pattern-library.md` § Pattern 2 Extend — added **Hard Frame Match — Seam-Lock Extension** subpattern (first frame of new clip = last frame of @video1 EXACTLY) + **Audio Carry-Over Specification** (3 layers: BGM/dialogue/foley). Validated from same James Sismanes workflow.
+  - **UPDATED**: `references/seedance-motion-vocabulary.md` § Block Sizes — added **Fine-Grain Beat Grid (2-3s segments)** option alongside existing 5s default. For scripted comedy, dialogue, character performance. Documented when-to-use matrix.
+  - **GOAL**: incorporate 3 non-trivial techniques from real production workflows. Voice consistency enables series-quality continuity; seam-lock extend enables seamless multi-clip narrative; 2-3s beat grid enables comedic timing precision.
 
 - **1.8.0** (2026-06-18) — **Creative brief intake capability (interview)**
   - **NEW**: `commands/interview.md` — `/s2s interview` command (vague idea → structured brief)

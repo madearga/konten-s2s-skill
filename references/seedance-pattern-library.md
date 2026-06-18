@@ -32,6 +32,51 @@ Best practices:
 - Match the generated duration to the added duration only.
 - Keep continuity variables fixed unless the brief explicitly changes one.
 
+### Hard Frame Match — Seam-Lock Extension
+
+For seamless continuation where the **first frame of the new clip must match the last frame of @video1 EXACTLY** (validated pattern from James Sismanes / @JamesSismanes, Jun 2026 — Brooklyn gelato truck workflow):
+
+```text
+VIDEO REFERENCE INSTRUCTION:
+Extend @video1 — the FIRST FRAME of this new generation must match the FINAL FRAME of @video1 exactly.
+
+Begin on the exact final composition from @video1: [describe final composition].
+Same camera position, same subject position, same lighting, same animation style, same environment.
+Do not start on a new shot. Do not jump forward. The opening must feel like a seamless continuation.
+
+AUDIO CONTINUITY:
+Carry the final audio from @video1 into the first frame with no reset, gap, or new cue.
+Continue [the exact music/SFX/mood that was playing in @video1's final beat].
+If dialogue was active, it must continue uninterrupted.
+
+NEGATIVE PROMPT (lock):
+- Do not start on a new shot
+- Do not skip final frame continuity from @video1
+- Do not change [identity/wardrobe/scene/lighting] from @video1
+- Do not reset audio or introduce new music
+```
+
+When to use this variant:
+- Multi-clip narrative where seam visibility breaks immersion (e.g., gelato truck scene continuing, walk-and-talk sequences, action chase)
+- Series / episode continuation where each new generation must feel like continuous filming
+- Anywhere the previous clip's final beat has dialogue or music that must carry forward
+
+### Audio Carry-Over Specification
+
+Three layers to carry forward from @video1 → new generation:
+
+| Audio Layer | Carry Rule                                             |
+|-------------|---------------------------------------------------------|
+| BGM / score | Same track continues, no new cue, no reset to silence  |
+| Dialogue    | If active at final beat, continue uninterrupted; if silent, hold silence |
+| Foley       | Match the ambient bed (room tone, traffic, wind) — no new ambient unless scene changed |
+
+Specify in prompt:
+```text
+AUDIO CONTINUITY: Continue [BGM description] from @video1's final beat.
+Same ambient bed ([room tone / Brooklyn morning / etc]). No reset.
+```
+
 ---
 
 ## Pattern 3 — Edit Existing Video

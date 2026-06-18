@@ -155,6 +155,38 @@ The 7-track director strip uses these RHYTHM verbs. Borrowed from Emily's beat t
 | `standard`  | 2-4s       | Action, dialogue gesture             |
 | `extended`  | 5-8s       | Movement, travel, transformation    |
 
+### Fine-Grain Beat Grid (2-3s segments, validated Jun 2026)
+
+For **scripted comedy, dialogue-heavy content, or multi-character choreography**, default to 2-3s segments instead of 5s. Validated pattern from James Sismanes / @JamesSismanes Brooklyn gelato truck sequence:
+
+```text
+0:00–0:03: [action + camera + dialogue line]
+0:03–0:05: [reaction + cut + response]
+0:05–0:07: [comedic moment / reveal]
+0:07–0:09: [re-establish + hold]
+0:09–0:11: [next beat]
+0:11–0:13: [escalation]
+0:13–0:15: [resolution]
+```
+
+**When to use 2-3s grid:**
+- Comedy timing (every 2-3s = laugh beat)
+- Dialogue scenes (speaker cut every 2-3s)
+- Quick-reaction choreography (POV + response)
+- Animation with character performance (animators think in 2-3s blocks)
+
+**When to stick with 5s grid:**
+- Slow cinematic, landscape, contemplative
+- Travel / transformation sequences
+- Single sustained mood with minimal cuts
+- PSA / OAK macro work (validated pattern for Kreafest)
+
+**When to use micro-blocks (sub-1s):**
+- Reaction shots within a beat
+- Micro-gestures (eye flick, breath, finger twitch)
+- Punchline timing
+- Beat-sync cuts on music downbeats
+
 ### Beat Types (5)
 
 | Beat        | Description                                          |
