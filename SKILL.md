@@ -1,48 +1,89 @@
 ---
 name: storyboard-to-seedance-suite
-description: "3-step procedural workflow for AI video production: (1) GPT Image 2 storyboard prompt using 12-Section template, (2) GPT Image 2 character OR product reference prompt (separate commands), (3) Seedance 2.0 motion prompt. Slash commands: /s2s storyboard, /s2s character-ref, /s2s product-ref, /s2s motion, /s2s pipeline. Use when creating storyboards for video, generating reference images for consistency, or building motion prompts for Seedance-class models."
-version: 1.6.0
+description: "Modular AI video production skill library — collection of references, capabilities, and entry points for Seedance 2.0 / Veo 3.1 / Kling 3.0 / GPT Image 2. Use when you need any combination of: storyboard prompts, character references, product references, cinematic compositions, motion prompts, @-role binding, camera language, troubleshooting, video reverse-engineering, or pattern-library modes (extend/edit/fuse/beat-sync/dialogue/one-take). Each capability is independently invokable — there is no fixed pipeline. Commands: /s2s storyboard, /s2s character-ref, /s2s product-ref, /s2s motion, /s2s cinematic-variations, /s2s analyze, /s2s hook, /s2s troubleshoot, /s2s compose-pattern (extend/edit/fuse/beat-sync/dialogue/one-take), /s2s bundle."
+version: 1.7.0
 author: Hermes Agent
 license: MIT
 triggers:
+  # Entry points / slash commands
+  - "/s2s storyboard"
+  - "/s2s character-ref"
+  - "/s2s product-ref"
+  - "/s2s motion"
+  - "/s2s cinematic-variations"
+  - "/s2s analyze"
+  - "/s2s hook"
+  - "/s2s troubleshoot"
+  - "/s2s compose-pattern"
+  - "/s2s bundle"
+  # Capability keywords
   - "storyboard prompt"
   - "12-section storyboard"
   - "seedance prompt"
   - "video motion prompt"
-  - "product reference image"
-  - "character reference image"
-  - "image to video pipeline"
-  - "storyboard to seedance"
-  - "video prompt suite"
-  - "s2s storyboard"
-  - "s2s character-ref"
-  - "s2s product-ref"
-  - "s2s motion"
-  - "s2s pipeline"
-  - "s2s cinematic-variations"
+  - "character reference"
+  - "product reference"
   - "character sheet"
   - "product sheet"
-  - "product reference"
-  - "character reference"
-  - "buat storyboard"
-  - "bikinin prompt video"
-  - "bikin video AI"
-  - "AI video pipeline"
-  - "Seedance 2.0 prompt"
   - "cinematic composition"
   - "cinematic variations"
   - "10 compositions"
   - "pre-visualization"
   - "film still"
   - "cinematic realism"
+  - "image to video pipeline"
+  - "storyboard to seedance"
+  - "video prompt suite"
   - "analyze video"
   - "reverse engineer video"
   - "video analysis"
   - "extract prompt from video"
   - "analisa video"
   - "bikin prompt dari video"
-  - "s2s analyze"
   - "competitor analysis"
+  - "@ reference"
+  - "asset binding"
+  - "camera language"
+  - "troubleshoot video"
+  - "video failed"
+  - "repair prompt"
+  - "compose pattern"
+  - "extend video"
+  - "video extension"
+  - "extend video"
+  - "video edit"
+  - "edit existing video"
+  - "video fusion"
+  - "merge videos"
+  - "beat sync"
+  - "music sync"
+  - "dialogue video"
+  - "one take"
+  - "single take"
+  - "hook engaging"
+  - "hook yang engaging"
+  - "alternatif hook"
+  - "hook paling ngena"
+  - "hook out of the box"
+  - "visual hook"
+  - "hook brainstorming"
+  - "social issue video"
+  - "anti-judi-online hook"
+  - "PSA hook"
+  - "competition hook"
+  - "data-driven hook"
+  - "Indonesian statistics hook"
+  - "hook viral video"
+  - "script to storyboard"
+  - "storyboard from script"
+  - "generate storyboard from script"
+  - "cinematic storyboard from script"
+  - "assign composition per panel"
+  - "buat storyboard"
+  - "bikinin prompt video"
+  - "bikin video AI"
+  - "AI video pipeline"
+  - "Seedance 2.0 prompt"
   - "pregnancy safe"
   - "maternal content"
   - "bumil"
@@ -57,20 +98,6 @@ triggers:
   - "human plus product"
   - "human dan product"
   - "kedua referensi"
-  - "video extend"
-  - "video extension"
-  - "extend video"
-  - "video edit"
-  - "edit existing video"
-  - "video fusion"
-  - "merge videos"
-  - "beat sync"
-  - "music sync"
-  - "dialogue video"
-  - "one take"
-  - "single take"
-  - "asset binding"
-  - "@ reference"
   - "competition submission"
   - "lomba AI video"
   - "Kreafest"
@@ -87,279 +114,221 @@ triggers:
   - "monochrome storyboard"
   - "12-panel storyboard"
   - "storyboard monochrome 4x3"
-  - "hook engaging"
-  - "hook yang engaging"
-  - "alternatif hook"
-  - "hook paling ngena"
-  - "hook out of the box"
-  - "visual hook"
-  - "hook brainstorming"
-  - "social issue video"
-  - "anti-judi-online hook"
-  - "PSA hook"
-  - "competition hook"
-  - "data-driven hook"
-  - "Indonesian statistics hook"
-  - "hook viral video"
 ---
-# storyboard-to-seedance-suite
-
-A **3-step procedural skill** for AI video production. Turns a brief into three copy-paste-ready prompts (storyboard, reference, motion), with checkpoints for review and a master pipeline command for end-to-end runs.
-
-Part of the `ai-video-production` umbrella skill. Tuned for **Seedance 2.0** as the video generator, with template structure generic enough to adapt to other Seedance-class models.
 
 # storyboard-to-seedance-suite
 
-A **3-step procedural skill** for AI video production. Turns a brief into three copy-paste-ready prompts (storyboard, reference, motion), with checkpoints for review and a master pipeline command for end-to-end runs.
+A **modular reference library and capability router** for AI video production. Provides prompts, references, patterns, and entry points for Seedance 2.0 / Veo 3.1 / Kling 3.0 / GPT Image 2 — designed to be picked up piece-by-piece, not run as a fixed pipeline.
 
-Part of the `ai-video-production` umbrella skill. Tuned for **Seedance 2.0** as the video generator, with template structure generic enough to adapt to other Seedance-class models.
-
-**v1.3.0 is additive only:** the existing 3-step workflow, reverse-engineering flow, and command surface stay the same. The enhancement adds an optional **asset-role binding layer** (`@`-style attachment roles) plus a **pattern library** for extend/edit/fuse/beat-sync/dialogue/one-take scenarios.
+Tuned for **Seedance 2.0** as the canonical video generator; reference structures generalize to Veo 3.1 Lite and Kling 3.0 (see compatibility notes per file).
 
 ---
 
-## When to Use
+## Library Mental Model
 
-| Trigger | Auto or Manual | Command |
-|---------|----------------|---------|
-| User says "storyboard" / "12-section storyboard" | Auto | `/s2s storyboard` |
-| User says "character sheet" / "character reference" | Auto | `/s2s character-ref` |
-| User says "product reference" / "product sheet" | Auto | `/s2s product-ref` |
-| User says "video motion prompt" / "Seedance prompt" | Auto (if refs present) | `/s2s motion` |
-| User says "full video pipeline" / "storyboard to seedance" | Auto | `/s2s pipeline` |
-| User wants 1 step only | Manual | Subcommand (`/s2s storyboard`, etc.) |
-| User wants all 3 steps with checkpoints | Manual | `/s2s pipeline` |
-| User says "analyze video" / "reverse engineer" / "extract prompt" | Auto | `/s2s analyze` |
-| User uploads a video file | Auto | `/s2s analyze` |
-| User wants to extend / edit / merge existing clips | Auto | `/s2s analyze` → `/s2s motion` with pattern-library mode |
-| User has many mixed assets and asks what each should do | Auto | `/s2s motion` with asset-role binding layer |
+> This is not a 3-step pipeline. It is a **library of capabilities** you invoke based on what the user actually needs.
 
-**Do NOT use for:**
-- First+Last frame simple videos (use `ai-video-production` section 2.7 instead)
-- Real human face videos (Seedance face-blocks — use Kling 3.0)
-- 60-second continuous shots (split into 4-6 short clips)
+When the user asks for something, identify which **capability** is required, load the relevant reference(s), and invoke the matching command. Multiple capabilities can chain together by user request — but there is no automatic `Step 1 → Step 2 → Step 3` enforcement.
 
----
-
-## The 3 Steps + Reverse-Engineering
-
-The skill supports **two directions**:
-
-### Forward: Brief → Video (3 steps)
-Create new video from a text brief.
-
-### Reverse: Video → Brief (1 step)
-Analyze existing video, extract prompts, optionally feed back into forward pipeline.
-
-```
-Existing video (competitor / reference)
-   ↓
-/s2s analyze [video-path]
-   → Output: 10-section analysis + reverse-engineered prompt
-   → Auto-detect: can this feed into /s2s pipeline?
-   ↓ (if yes)
-Auto-generated brief → /s2s pipeline "[brief]"
-   → Standard 3-step workflow
+```text
+User intent
+  ↓
+Capability Router (this file)
+  ↓
+Load references / invoke commands
+  ↓
+Output: copy-paste-ready prompts, references, or analysis
 ```
 
 ---
 
-## The 3 Steps (Forward Direction)
+## Capability Router
 
-```
-Brief (free text)
-   ↓
-Step 1: /s2s storyboard
-   → Output: 12-section GPT Image 2 prompt
-   → Generates: storyboard.png (monochrome panel grid + director strip)
-   ↓ checkpoint
-Step 2a: /s2s character-ref  (if human in video)
-   → Output: 3-angle character sheet prompt
-   → Generates: character.png (identity sheet)
-   OR
-Step 2b: /s2s product-ref  (if product in video)
-   → Output: hero / multi-angle / lifestyle prompt
-   → Generates: product.png (reference image)
-   ↓ checkpoint
-Step 3: /s2s motion
-   → Output: Seedance 2.0 motion prompt with 5-part spine
-   → Requires: storyboard.png + character.png / product.png
-   → Generates: video.mp4 (8-15s)
-   ↓
-Bundle file: s2s-bundle-YYYYMMDD-HHMMSS.md
-```
-
-**Total cost: ~$0.54-0.89 per video. Wall time: ~15-20 min.**
+| User Intent                                       | Capability        | Command                  | Required References                                    |
+|---------------------------------------------------|-------------------|--------------------------|--------------------------------------------------------|
+| Have a brief, want storyboard image               | Storyboard        | `/s2s storyboard`        | `storyboard-prompt-template.md` + `cinematic-composition-vocabulary.md` |
+| Want 10 composition options for one key moment    | Pre-visualization | `/s2s cinematic-variations` | `cinematic-composition-vocabulary.md` + `cinematic-variations-script-mode.md` |
+| Need human character reference image              | Character Ref     | `/s2s character-ref`     | `character-ref-prompt.md`                              |
+| Need product reference image                      | Product Ref       | `/s2s product-ref`       | `product-ref-prompt.md`                                |
+| Have storyboard + ref, need motion prompt         | Motion            | `/s2s motion`            | `seedance-motion-prompt.md` + `seedance-camera-language.md` + `seedance-motion-vocabulary.md` |
+| Have multiple assets, need role binding           | Motion (binding)  | `/s2s motion --bind`     | `seedance-reference-syntax.md` + `seedance-asset-binding.md` |
+| Want to extend / edit / fuse / beat-sync / dialogue / one-take | Pattern | `/s2s compose-pattern`   | `seedance-pattern-library.md`                          |
+| Have video file, want to reverse-engineer         | Analyze           | `/s2s analyze`           | `video-analysis-template.md` + `tiktok-analyzer-system-prompt.md` |
+| Want hook variants for short-form                 | Hook              | `/s2s hook`              | `hook-brainstorming-social-issue.md`                   |
+| Generated video wrong, need repair                | Troubleshoot      | `/s2s troubleshoot`      | `seedance-troubleshooting.md`                          |
+| Want all artifacts bundled into one file          | Bundle            | `/s2s bundle`            | (assembles from prior outputs)                         |
+| Don't know what to use yet, have a brief          | Router (interview)| (no command — clarify)  | this file's `Routing Questions` section                |
 
 ---
 
-## Optional v1.3.0 Enhancements (Non-Breaking)
+## Routing Questions
 
-These upgrades sit **on top of** the existing pipeline. If the user does not need them, the skill behaves exactly like v1.2.0.
+When intent is ambiguous, ask the user the **minimum disambiguating questions**:
 
-### 1. Asset-Role Binding Layer
-
-When the user has 3+ assets, bind each one to a specific role instead of treating all attachments as generic references.
-
-Examples:
-- `@[storyboard ref]` — director-approved panel plan
-- `@[character ref]` — identity lock
-- `@[product ref]` — product continuity lock
-- `@[first frame ref]` / `@[last frame ref]` — hard opening or landing frame
-- `@[camera ref video]` — camera behavior only
-- `@[action ref video]` — movement choreography only
-- `@[fx ref video]` — transition/effect language only
-- `@[rhythm ref video]` / `@[bgm ref audio]` — beat map only
-
-See: `references/seedance-asset-binding.md`
-
-### 2. Pattern Library Layer
-
-Use the same pipeline, but swap the Step 3 motion wording to match the scenario:
-- **Standard new generation**
-- **Extend** an existing clip forward/backward
-- **Edit** an existing clip while preserving most of it
-- **Fuse** multiple clips into one continuous sequence
-- **Beat-sync** montage / music-driven cuts
-- **Dialogue / talk-to-camera** delivery
-- **One-take / single-take** choreography
-
-See: `references/seedance-pattern-library.md`
+| Question                                            | Branches                                                       |
+|-----------------------------------------------------|----------------------------------------------------------------|
+| Do you have a video to analyze, or a brief for new? | `analyze` (have video) ↔ `storyboard` / `motion` (have brief)  |
+| Is there a human in the video?                      | Yes → `character-ref` first; No → skip                          |
+| Is there a product?                                 | Yes → `product-ref` first; No → skip                            |
+| Is the video > 30s or multi-beat narrative?         | Yes → multi-clip mode (see `references/competition-deliverable-blueprint.md`) |
+| Do you already have a storyboard image?             | Yes → skip `storyboard`, go to `motion`                         |
+| Are you extending/editing existing video?           | Yes → `compose-pattern` (extend/edit/fuse)                     |
+| Did the previous output fail or look wrong?         | Yes → `troubleshoot` first, then retake                        |
 
 ---
 
-## Quick Start
+## Reference Library
 
-### Forward (create new video):
+All references live in `references/`. Pick the ones you need; ignore the rest.
 
-```
-/s2s pipeline Indonesian girl in kitchen making banana bread, 15s, high-rhythm smash cuts
-```
+### Prompt Templates
 
-### Reverse (analyze existing video):
+| File                                              | Use                                                   |
+|---------------------------------------------------|-------------------------------------------------------|
+| `storyboard-prompt-template.md`                   | 12-section fill-in template for storyboard image prompt |
+| `character-ref-prompt.md`                         | 3-angle character sheet template                       |
+| `product-ref-prompt.md`                           | 5 variants: hero / multi-angle / lifestyle / in-use / sheet |
+| `seedance-motion-prompt.md`                       | 5-part spine for motion prompt                         |
+| `video-analysis-template.md`                      | 10-section fill-in template for `/s2s analyze`         |
 
-```
-/s2s analyze competitor-video.mp4
-/s2s analyze --seedance reference-ugc.mp4
-/s2s analyze --quick viral-tiktok.mp4
-```
+### Seedance Craft References (v1.7.0 — adopted from Emily2040 + dexhunter)
 
-### Forward workflow (what happens):
-1. Ask 1-3 clarifying Qs (concept, character, location, duration, energy)
-2. Run Step 1 → pause for review
-3. Run Step 2 → pause for review
-4. Run Step 3 → pause for review
-5. Save bundle file with all 3 prompts
+| File                                              | Use                                                   |
+|---------------------------------------------------|-------------------------------------------------------|
+| `seedance-reference-syntax.md`                    | `@`-role binding system (which attachment does what)  |
+| `seedance-camera-language.md`                     | Camera moves, shot sizes, advanced techniques, lens vocabulary |
+| `seedance-motion-vocabulary.md`                   | Action verbs, body parts, object interaction, rhythm/beat vocab, anti-slop lexicon |
+| `seedance-troubleshooting.md`                     | Failure-mode taxonomy (10 categories) + repair patterns + retake protocol |
 
-**Or run steps individually** if you already have an image:
+### Composition & Style References
 
-```
-/s2s motion
-  (with storyboard.png + character.png paths)
+| File                                              | Use                                                   |
+|---------------------------------------------------|-------------------------------------------------------|
+| `cinematic-composition-vocabulary.md`             | 19 cinematic styles + texture pack + script-to-storyboard table |
+| `cinematic-variations-script-mode.md`             | Script-mode variant of cinematic-variations + character-consistency ordering |
+| `storyboard-style-monochrome-4x3.md`              | Monochrome graphite+amber 4×3 12-panel DNA (validated for "16 Putaran") |
+| `director-strip-7-track.md`                       | RHYTHM + ESCALATION vocabulary (7 tracks)            |
+| `koda-ivanna-patterns-2026-06.md`                 | 4 patterns reverse-engineered from Koda + Ivanna prompts |
+| `seedance-no-character-ref-pov-workflow.md`       | No-character-reference POV workflow + cyberbullying safety |
+| `cinematic-composition-vocabulary.md`             | (also listed above — style anchor for cinematic)      |
+
+### Continuity & Pattern References
+
+| File                                              | Use                                                   |
+|---------------------------------------------------|-------------------------------------------------------|
+| `seedance-asset-binding.md`                       | Legacy `@`-style role binding (still supported)        |
+| `seedance-pattern-library.md`                     | 6 patterns: extend / edit / fuse / beat-sync / dialogue / one-take |
+| `notion-prompt-alignment.md`                      | Canonical storyboard vs motion prompt hygiene in Notion |
+| `competition-deliverable-blueprint.md`            | Full Kreafest 2026 "16 Putaran" case study + v2 patches |
+| `hook-brainstorming-social-issue.md`              | Hook brainstorming for social-issue / competition videos |
+
+### Validation / Worked Examples
+
+| File                                              | Use                                                   |
+|---------------------------------------------------|-------------------------------------------------------|
+| `banana-bread-worked-example.md`                  | Anonymized real-world case study                       |
+| `storyboard-motion-prompt-review-notes.md`        | Review checklist + realism-lock phrases                |
+| `seedance-2-best-practices-2026.md`               | Broader Seedance research (June 2026)                  |
+| `seedance-best-practices.md`                      | General Seedance best practices                        |
+| `tiktok-analyzer-system-prompt.md`                | Reverse-engineering competitor videos                  |
+| `git-sync-state-and-ecosystem-2026-06-15.md`      | Ecosystem snapshot                                     |
+
+---
+
+## Commands
+
+Each command in `commands/` is a **single capability spec** — invocable independently, not chained by default.
+
+| Command                       | Capability        | Spec File                  |
+|-------------------------------|-------------------|----------------------------|
+| `/s2s storyboard`             | Storyboard        | `commands/storyboard.md`   |
+| `/s2s character-ref`          | Character Ref     | `commands/character-ref.md` |
+| `/s2s product-ref`            | Product Ref       | `commands/product-ref.md`  |
+| `/s2s cinematic-variations`   | Pre-visualization | `commands/cinematic-variations.md` |
+| `/s2s motion`                 | Motion            | `commands/motion.md`       |
+| `/s2s compose-pattern`        | Pattern (extend/edit/fuse/beat-sync/dialogue/one-take) | `commands/motion.md` (pattern mode) |
+| `/s2s analyze`                | Analyze           | `commands/analyze.md`      |
+| `/s2s hook`                   | Hook              | `commands/cinematic-variations.md` (hook mode) — or prompt user to use hook ref |
+| `/s2s troubleshoot`           | Troubleshoot      | (uses `seedance-troubleshooting.md` directly) |
+| `/s2s bundle`                 | Bundle            | (composes from prior outputs into single markdown file) |
+
+**Backward compat:**
+- `/s2s pipeline` still works as alias for "storyboard + character-ref + motion in sequence, with checkpoints" (see `commands/pipeline.md`). It is NOT default behavior — only invoke if user explicitly requests the chained pipeline.
+- `/s2s analyze --seedance` still feeds into `/s2s motion`.
+
+---
+
+## When to Use What — Decision Flowchart
+
+```text
+User Request
+  │
+  ├─ "analyze this video / reverse engineer / extract prompt"
+  │    → /s2s analyze [path]
+  │
+  ├─ "make me a [brief]"
+  │    │
+  │    ├─ Has human? → /s2s character-ref
+  │    ├─ Has product? → /s2s product-ref
+  │    │
+  │    ├─ Want storyboard image first?
+  │    │   ├─ One moment, 10 options → /s2s cinematic-variations
+  │    │   ├─ Full scene, 12 panels → /s2s storyboard
+  │    │   └─ From existing script → /s2s storyboard --script-mode
+  │    │
+  │    ├─ Want motion prompt only (have refs)?
+  │    │   ├─ New clip → /s2s motion
+  │    │   ├─ Extend/edit/fuse → /s2s compose-pattern [extend|edit|fuse]
+  │    │   ├─ Beat-sync / music video → /s2s compose-pattern beat-sync
+  │    │   ├─ Dialogue / voice-over → /s2s compose-pattern dialogue
+  │    │   └─ One-take / continuous → /s2s compose-pattern one-take
+  │    │
+  │    ├─ Want hook brainstormed first?
+  │    │    → /s2s hook (or load hook-brainstorming-social-issue.md)
+  │    │
+  │    └─ Don't know → ask 1-3 routing questions, then route
+  │
+  ├─ "output was wrong / doesn't look right"
+  │    → /s2s troubleshoot
+  │       1. Load references/seedance-troubleshooting.md
+  │       2. Identify symptom → match failure mode → apply repair
+  │       3. Retake with ONE-variable change
+  │
+  ├─ "bundle everything into one file"
+  │    → /s2s bundle (assembles from most recent outputs)
+  │
+  └─ "just run the whole pipeline for me"
+       → /s2s pipeline (legacy chained mode — explicit user request only)
 ```
 
 ---
 
-## Slash Commands Reference
+## Multi-Clip & Competition Patterns
 
-| Command | Step | When to Use | Output |
-|---------|------|-------------|--------|
-| `/s2s cinematic-variations` | pre | Want to explore 10 composition options for a key moment | 10 single-image prompts (different compositions) |
-| `/s2s storyboard` | 1 | Need storyboard image | 12-section prompt → storyboard.png |
-| `/s2s character-ref` | 2a | Human in video | 3-angle sheet → character.png |
-| `/s2s product-ref` | 2b | Product in video | 3 variants → product.png |
-| `/s2s motion` | 3 | Have storyboard + ref, need motion prompt | 5-part spine → video.mp4 |
-| `/s2s pipeline` | 1+2+3 | Have brief, want full workflow | All 3 prompts + bundle |
-| `/s2s analyze` | 0 (reverse) | Have video, want to reverse-engineer | 10-section analysis + prompts |
-| `/s2s analyze --quick` | 0 (reverse) | Fast triage of competitor video | Classification + beat list |
-| `/s2s analyze --seedance` | 0 (reverse) | Analyze + generate Seedance motion | Analysis + R2V prompt |
+For videos > 30s, multi-beat narratives, or competition submissions, see:
 
-Each subcommand has a dedicated spec in `commands/`. The pipeline command chains them with checkpoints.
+- `references/competition-deliverable-blueprint.md` — Kreafest 2026 "16 Putaran" case study (7×15s, 16-fate grid, Indonesian context, $5 budget, 1:45 duration)
+- SKILL.md sections below: "Multi-Clip Storyboards", "Style Lock: Monochrome Sepia/Amber", "Script-to-Storyboard Workflow"
 
-**v1.3.0 note:** `/s2s motion` now has optional branches for asset-role binding and pattern-library modes, but it remains the same Step 3 command.
+Validated structure: **7×15s = 1:45**
 
----
+| Clip | Detik | Role     | Beat                          |
+|------|-------|----------|-------------------------------|
+| 1    | 0:00-0:15 | Hook  | Repetitive gesture, world state |
+| 2-5  | 0:15-1:15 | Buildup | 4 fates per clip, 16 total  |
+| 6    | 1:15-1:30 | Climax | Chaos / glitch / freeze        |
+| 7    | 1:30-1:45 | Resolution | End card, text only, silence |
 
-## Decision Tree (Which Command to Use)
-
-```
-User Intent Detected
-   ↓
-Q: Has a VIDEO FILE to analyze?
-├─ YES → /s2s analyze [video-path]
-│        ├─ Quick triage? → /s2s analyze --quick
-│        ├─ Want Seedance prompt? → /s2s analyze --seedance
-│        └─ After analysis → auto-feeds brief into /s2s pipeline if possible
-│
-└─ NO, has text BRIEF for new video?
-   ├─ YES → /s2s pipeline  (master, runs all 3 steps)
-   │
-   └─ NO, wants to explore visual language first?
-      ├─ YES → /s2s cinematic-variations  (10 composition sweep)
-      │        → pick winner → /s2s storyboard (or /s2s pipeline)
-      │
-      └─ NO, needs reference image(s) first?
-         │
-         ├─ Brief has BOTH human + product?  ← v1.2.0 fix
-         │  → /s2s character-ref  (Step 2a, parallel)
-         │  + /s2s product-ref    (Step 2b, parallel)
-         │
-         ├─ Has human only?
-         │  → /s2s character-ref  (Step 2a)
-         │
-         ├─ Has product only?
-         │  → /s2s product-ref   (Step 2b, --type=hero|multi-angle|lifestyle|in-use|sheet)
-         │
-         └─ No human, no product (landscape/abstract)?
-            → skip Step 2, go directly to Step 3
-```
+**Key multi-clip rules** (full list in `references/competition-deliverable-blueprint.md`):
+1. Same `@[character ref]` in every clip's motion prompt (prevents face drift)
+2. Spatial Continuity Lock MUST carry across clips (same room, geography, screen direction)
+3. Director strip RHYTHM TRACK escalates monotonically (`hold` → `pause` → `build` → `burst` → `pause` → `rest`)
+4. Audio bed is a SINGLE layer in post (generate each clip with diegetic foley only)
+5. End card (final clip) gets typography exception (only place text on screen is permitted)
+6. For 4x4 grid scenes: lock "upper-center, fixed position" + add anti-contact-sheet negatives
+7. Cost scales linearly: 7 clips × $0.50-0.75 motion + $0.14 storyboards + $0.02 char ref ≈ $3.66-5.41
 
 ---
-
-## Bundled Output
-
-At the end of `/s2s pipeline`, user gets:
-
-1. **3 copy-paste prompts** (markdown code blocks, ready to send to GPT Image 2 / Seedance 2.0)
-2. **3 generated images** (storyboard.png, character.png OR product.png)
-3. **1 final video** (video.mp4, 8-15s)
-4. **1 bundle file** (`s2s-bundle-YYYYMMDD-HHMMSS.md`) with:
-   - All 3 prompts preserved
-   - Aggregated QC summary
-   - Cost + time summary
-   - Resume capability (`/s2s pipeline resume --from=step2`)
-
----
-
-## Pitfalls (Top 6 Mistakes to Avoid)
-
-1. **Treating storyboard image as the signal** — the image is documentation. The text in the motion prompt (director strip + panel beats) is the contract. Always include the text, not just the image attachment.
-
-**1a. (NEW 2026-06-14) Triptych/3-panel default for multi-clip storyboards** — Agent default is to generate a "3 panels = 3 scenes" image per clip. WRONG. For a multi-clip narrative with shared character + setting, each storyboard is a 12-panel *sequence* (4×3 grid, P01-P12) of the SAME scene with progressive beats. 1 clip = 1 storyboard = 12 panels of one room + close-ups. See `references/storyboard-style-monochrome-4x3.md` for the validated monochrome 4×3 12-panel style used in 5-clip "16 Putaran" project.
-
-**1b. (NEW 2026-06-14) Don't loop director profile for batch image generation** — Director profile is for prompt CRAFTING (1 call per prompt). After prompt is crafted, generate directly via `image_generate` tool. Director profile adds 2-3 min per call vs ~30s direct, and times out at 5min on long prompts. For multi-clip batches (5-7 storyboards), the workflow is: write prompt once → `image_generate` × N.
-
-**1c. (NEW 2026-06-14) Motion prompt must follow the generated storyboard, not the older draft** — if Notion contains an earlier prompt draft and a later generated storyboard establishes the canonical hook/composition, treat the generated storyboard as the source of truth. Rebuild the Seedance motion prompt from that actual panel order before generating video.
-
-- **1d. (NEW 2026-06-14) Notion prompt hygiene — keep only one current storyboard prompt and one current motion prompt** — when a review loop produces a better canonical version, delete or archive the stale blocks in Notion before appending the new one. Otherwise the page drifts and future agents will copy the wrong draft.
-
-- **1e. (NEW 2026-06-14) Hook-first storyboards need a dedicated hook-brainstorming pass** — don't jump straight to a 12-panel storyboard when the user hasn't locked the opening. Use `references/hook-brainstorming-social-issue.md` to generate tiers of hooks, evaluate against the 6 criteria (Clarity in 3s, Visual AI-ability, Relevance, Emotional hit, Uniqueness, Continuity), and lock a tagline + 3-frame visual before expanding to 12 panels. This prevents the common failure mode of a weak first 3 seconds that the rest of the clip cannot fix.
-
-2. **Skipping reference image generation** — without `@[character ref]` or `@[product ref]`, Seedance hallucinates faces/environments. Always generate the ref.
-
-3. **One-axis emotion ("make it playful")** — collapses to flat mood. Always split into Valence + Arousal in the motion prompt.
-
-4. **Music baked into generation** — locks pacing, makes re-edits hard. Default to silent + diegetic foley. Add music in post (CapCut, DaVinci).
-
-5. **Forgetting screen direction in location** — without explicit screen direction (window left, oven right), Seedance flips geometry between shots. Always include screen direction in LOCATION.
-
-**6. (v1.3.0+) Attachment ambiguity** — if multiple files are attached but roles are unspecified, camera/style/action signals bleed into each other. Bind each attachment to a single job (storyboard / identity / product / first-frame / camera / action / FX / rhythm / audio). See `references/seedance-asset-binding.md` for the explicit `@`-style role binding pattern.
-
-**6. (v1.5.0) Text inside grid cells** — Seedance + Pixazo hallucinate text (random letters, Arabic-looking glyphs, misspellings). Never put text labels in any AI-generated frame except the closing line / hashtag in the end card. Use visual iconography + Indonesian context words instead. See `references/competition-deliverable-blueprint.md` § "NO TEXT IN GRID CELLS" for the validated translation table.
-
-**7. (v1.3.0+) Attachment ambiguity** — if multiple files are attached but roles are unspecified, camera/style/action signals bleed into each other. Bind each attachment to a single job (storyboard / identity / product / first-frame / camera / action / FX / rhythm / audio). See `references/seedance-asset-binding.md` for the explicit `@`-style role binding pattern.
-
-**8. (v1.3.0+) Using the wrong mode for existing-video tasks** — extend/edit/fuse requests should keep the same 5-part spine, but switch Step 3 language to the correct mode. See `references/seedance-pattern-library.md` for extend, edit, fuse, beat-sync, dialogue, one-take patterns.
 
 ## Style Lock: Monochrome Sepia/Amber (Validated 2026-06-14, "16 Putaran" Rizky)
 
@@ -389,43 +358,100 @@ When the project uses a **monochrome graphite + amber/sepia** look (NOT photorea
 
 **Pitfall (validated 2026-06-14):** User rejected photorealistic triptych / 4-panel output in favor of monochrome 4x3 grid. If brief says "monochrome", "sepia", "amber", "hand-drawn", "sketched", or references a grayscale/monochrome anchor image, **do NOT generate photorealistic triptych**. Use the 4x3 12-panel grid pattern from this section.
 
-## Multi-Clip Storyboards (Narrative-Arc Videos > 30s)
+---
 
-For competition submissions, social-impact PSAs, or any video longer than 15s, the single-storyboard approach breaks down. Split into N clips of 8-15s each, each with its own storyboard image and motion prompt. Composite in post (CapCut / DaVinci).
+## Script-to-Storyboard Workflow (v1.6.2)
 
-**When to use multi-clip mode:**
-- Target duration > 30s (lomba, social campaign, narrative arcs)
-- Story has discrete beats (hook → buildup → climax → resolution)
-- Single storyboard image would exceed 9 panels (drift risk, illegible)
+When a user arrives with a **full creative script** (multi-clip, panel-level detail, locked narrative) and wants to generate storyboard images with cinematic compositions assigned per panel — use this manual path:
 
-**Validated structure: 7×15s = 1:45 (Kreafest 2026 "16 Putaran" template)**
+```
+Full Script (N clips × M panels)
+   ↓
+For each clip:
+  1. Read script → identify panels P01-PM
+  2. For each panel: assign composition from 19-vocab library
+     (see references/cinematic-composition-vocabulary.md)
+     - Hook panels → handheld close, foreground obstruction, POV
+     - Establishing panels → environmental scale, wide negative space
+     - Emotional panels → reflection, silhouette, frame-in-frame
+     - Impact panels → extreme low angle, diagonal, compressed telephoto
+  3. Write 12-section storyboard prompt with composition locked in PANEL HEADERS
+  4. Feed to image_generate / GPT Image 2
+   ↓
+Continue to motion prompt construction (/s2s motion)
+```
 
-| Clip | Detik | Role | Beat |
-|------|-------|------|------|
-| 1 | 0:00-0:15 | Hook | Repetitive gesture, world state introduced |
-| 2-5 | 0:15-1:15 | Buildup | 4 fates per clip, 16 total in grid |
-| 6 | 1:15-1:30 | Climax | Chaos / glitch / freeze |
-| 7 | 1:30-1:45 | Resolution | End card, text only, total silence |
+**Key distinction from `/s2s cinematic-variations`:**
+- `cinematic-variations` = explores 10 composition OPTIONS for a SINGLE key moment (pre-storyboard, user picks winner)
+- Script-to-storyboard = assigns ONE composition per panel ACROSS all panels (no exploration, locked from script intent)
 
-**Key rules:**
+**When to use this path:**
+- User has a complete script with per-panel descriptions
+- User says "generate storyboard from this script"
+- User wants cinematic compositions baked into the storyboard from the start
+- Competition submissions where every panel's composition matters
 
-1. **Same `@[character ref]` in every clip's motion prompt** — prevents face drift. Generate ref ONCE in Step 2, paste the same ref ID into all 7 motion prompts.
-2. **Spatial Continuity Lock MUST carry across clips** — same room, same geography, same screen direction. Allowed changes: lighting, brightness, character posture, prop state. Forbidden: flipping screen direction, relocating anchor geography.
-3. **Director strip RHYTHM TRACK escalates monotonically** — `hold` → `pause` → `build` → `burst` → `pause` (climax drop) → `rest`. Don't reset between clips.
-4. **Audio bed is a SINGLE layer in post** — generate each clip with diegetic foley only (no music), then build the rhythm in CapCut/DaVinci by adjusting tap/tempo per clip section. See `references/competition-deliverable-blueprint.md` for the full composite recipe.
-5. **End card (final clip) gets typography exception** — Clip 7 in the Kreafest pattern is the only place text on screen is permitted, since it carries the closing line and hashtag. Mark it explicitly in the CONSTRAINTS section ("The ONLY on-screen elements allowed are the two text strings").
-6. **For 4x4 grid scenes: lock "upper-center, fixed position"** — Seedance-class models drift the grid between clips unless the spatial lock is heavy. State it in every clip's MOTION prompt LOCATION and add a NEGATIVE PROMPT line: "split-screen beyond the 4x4, contact sheet, picture-in-picture".
-7. **Cost scales linearly with clip count** — 7 clips × $0.50-0.75 = $3.50-5.25 motion. Add $0.14 for 7 storyboard images. Character ref is a one-time $0.02. Total: ~$3.66-5.41 per 1:45 video.
-8. **(v1.5.0) Hook retention = 3-second visual question + smash cut + second hook at 11s** — vertical short-form audiences swipe away in <3s if the first frame is black. See `references/competition-deliverable-blueprint.md` § "Hook Retention Pattern" for the validated 12-panel v2 structure.
-9. **(v1.5.0) P09 (or any "hold" frame) highlights ONE new cell only** — no double-lighting previously-activated cells. The viewer reads progress from cell count, not from multi-light. See `references/competition-deliverable-blueprint.md` § "Per-Clip P09 Rule".
-- **(v1.5.0) Indonesian context in cell scenes** — generic "home loss" / "family loss" reads as Asian-generic. Anchor each cell with specific Indonesian props (cermin, warung tenda, meja kayu, puskesmas, sel tahanan). See `references/competition-deliverable-blueprint.md` § "NO TEXT IN GRID CELLS" for the validated translation table.
+**Composition assignment heuristic (from script → panel):**
+
+| Script beat type        | Composition assignment                              |
+|-------------------------|------------------------------------------------------|
+| Hook / first frame      | Handheld close OR POV (immersion)                    |
+| Establishing / master   | Environmental scale OR wide negative space           |
+| Character emotional     | Reflection OR silhouette OR frame-in-frame           |
+| Action / impact         | Extreme low angle OR diagonal                        |
+| Dialogue / two-person   | OTS OR foreground obstruction                        |
+| Reveal / hero moment    | Symmetrical blocking OR compressed telephoto         |
+| Isolation / loneliness  | Wide negative space OR deep vanishing point          |
+| Tactile / close detail  | POV OR handheld close                                |
+| Climax / peak           | Diagonal OR compressed telephoto                     |
+| Resolution / settle     | Asymmetrical balance OR layered FG/MG/BG             |
+
+---
+
+## Sensitive Content Safety Guardrails (2026-06-16)
+
+For motion prompts involving self-harm, suicide, cyberbullying, or graphic violence, prepend this 6-point production standard to BOTH the storyboard image prompt AND the motion prompt:
+
+1. **Hand/limbs only** — show hands, feet, or partial body. NO full face, full body, or full posture in any frame. Cut to black before the act.
+2. **NO method shown** — no ligatures, weapons, pills, ropes, gas, drowning. "Implied" framing only.
+3. **NO graphic violence** — no blood, no open wounds, no injury detail. Healed scars only (for backstory).
+4. **Show environmental impact** — clock stopped at the hour, family photo on wall, phone still glowing, door open. The world froze, the room remained.
+5. **Setting stays INTACT** — bedroom/room/kitchen/office is preserved. Implied not staged. No "scene of the act" framing.
+6. **Help line CTA in end card** — for Indonesian context: **119 ext 8** (Into The Light) / **@janganbunuhdiri** / **Yayasan Pulih**.
+
+**Language pattern for the prompt (use verbatim):**
+> "CRITICAL: Hand only. DO NOT show face, body, full posture, or method of [harm type]. DO NOT show victim in frame beyond hand/partial body. [Environment] intact, [symbol] stopped, [symbol] on wall. Bedroom preserved. Implied framing only."
+
+This pattern was developed and tested on the Layar Terakhir (anti-cyberbullying) project — 7 motion prompts + 7 storyboards, all passed downstream review for an Indonesian public-service film brief.
+
+---
+
+## Codex Backend Quota Pitfall (2026-06-16)
+
+`gpt-image-2-medium` (Codex native backend) is subject to **soft hourly quota** on ChatGPT Plus/Pro plans. Symptom: 1 image generates OK, then 2+ subsequent calls in same hour return `Codex response contained no image_generation_call result` (NOT a 429 — the model loads but doesn't trigger tool_use).
+
+**Recovery (in order):**
+1. Wait 30-60 minutes for hourly window reset
+2. Switch to Pixazo Flux Schnell via `pixazo-gen` skill (free, 3-4s, no quota)
+3. Switch to Pixazo GPT Image 2 (pay-per-use, style-consistent)
+4. Skip image gen — write ASCII storyboard table for visual reference
+
+**Do NOT** retry in a tight loop (will keep failing). **Do NOT** assume hard failure. Apply to character ref, storyboard, and product reference steps equally.
+
+---
+
+## A/B Hook Variant Pattern (2026-06-16)
+
+For 9:16 vertical narrative shorts where the first 3 seconds drive retention, generate 3 frozen-first-3-seconds storyboard images (one per hook strategy) before committing to motion generation. Compare 0-1s drop rate, pick default + fallback. See `references/hook-brainstorming-social-issue.md` + `/s2s hook` command.
+
+---
 
 ## Image Backend for Storyboard Panels (Jun 2026 update)
 
-For the **storyboard.png** step (Step 1, 12-section GPT Image 2 prompt) the `image_generate` native tool is now the preferred path when ChatGPT plan is active:
+For the **storyboard.png** step (any storyboard command) the `image_generate` native tool is now the preferred path when ChatGPT plan is active:
 
 ```python
-# Inside the s2s storyboard command, replace manual Pixazo call with:
+# Inside any storyboard command, replace manual Pixazo call with:
 image_generate(
     prompt=twelve_section_storyboard_prompt,
     aspect_ratio="landscape"  # or square/portrait; backend auto-translates per model
@@ -439,54 +465,80 @@ image_generate(
 - **Cost note**: Pixazo gpt-image-2-text-to-image = $0.067/image; Hermes Codex plugin = free with ChatGPT plan. For a 7-clip storyboard (7 panels), savings = ~$0.47.
 - **Consistency tip**: When generating 5-7 storyboard panels for one brief, keep the same `image_gen.model` and prepend a fixed style prefix to all 7 prompts (e.g., "16:9 monochrome storyboard grid, identical ink line weight, ..."). Models vary less within one session than across sessions.
 
-**Competition submission deadline pattern (validated 2026-06):**
+---
 
-- T-7 days: brief + 3 concept options + ranking
-- T-5 days: lock concept, generate 1 char ref for QC
-- T-3 days: batch-generate 7 storyboard images, QC each
-- T-2 days: generate 7 motion clips (parallel where possible)
-- T-1 day: composite in CapCut, color grade, captions
-- T-0: upload to submission form + IG/TikTok with required hashtags
+## Pitfalls (Top 12 — accumulated through 2026-06-15)
 
-See `references/competition-deliverable-blueprint.md` for the full Kreafest 2026 "16 Putaran" case study (16 fate grid, Indonesian context, 1:45 duration, $5 budget, 2-3 hour execution), including the validated 2026-06-13 v2 patches: hook retention, no-text rule, single-cell P09, Indonesian visual context, predicted-comments QC, and v2 patch checklist.
+These are real failure modes validated across sessions. Apply prophylactically when relevant.
+
+### Top 6 Mistakes to Avoid
+
+**1. Treating storyboard image as the signal** — the image is documentation. The text in the motion prompt (director strip + panel beats) is the contract. Always include the text, not just the image attachment.
+
+**1a. Triptych/3-panel default for multi-clip storyboards** — Agent default is to generate a "3 panels = 3 scenes" image per clip. WRONG. For a multi-clip narrative with shared character + setting, each storyboard is a 12-panel *sequence* (4×3 grid, P01-P12) of the SAME scene with progressive beats. 1 clip = 1 storyboard = 12 panels of one room + close-ups. See `references/storyboard-style-monochrome-4x3.md` for the validated monochrome 4×3 12-panel style used in 5-clip "16 Putaran" project.
+
+**1b. Don't loop director profile for batch image generation** — Director profile is for prompt CRAFTING (1 call per prompt). After prompt is crafted, generate directly via `image_generate` tool. Director profile adds 2-3 min per call vs ~30s direct, and times out at 5min on long prompts. For multi-clip batches (5-7 storyboards), the workflow is: write prompt once → `image_generate` × N.
+
+**1c. Motion prompt must follow the generated storyboard, not the older draft** — if Notion contains an earlier prompt draft and a later generated storyboard establishes the canonical hook/composition, treat the generated storyboard as the source of truth. Rebuild the Seedance motion prompt from that actual panel order before generating video.
+
+**1d. Notion prompt hygiene — keep only one current storyboard prompt and one current motion prompt** — when a review loop produces a better canonical version, delete or archive the stale blocks in Notion before appending the new one. Otherwise the page drifts and future agents will copy the wrong draft.
+
+**1e. Hook-first storyboards need a dedicated hook-brainstorming pass** — don't jump straight to a 12-panel storyboard when the user hasn't locked the opening. Use `references/hook-brainstorming-social-issue.md` to generate tiers of hooks, evaluate against the 6 criteria (Clarity in 3s, Visual AI-ability, Relevance, Emotional hit, Uniqueness, Continuity), and lock a tagline + 3-frame visual before expanding to 12 panels. This prevents the common failure mode of a weak first 3 seconds that the rest of the clip cannot fix.
+
+**2. Skipping reference image generation** — without `@[character ref]` or `@[product ref]`, Seedance hallucinates faces/environments. Always generate the ref.
+
+**3. One-axis emotion ("make it playful")** — collapses to flat mood. Always split into Valence + Arousal in the motion prompt.
+
+**4. Music baked into generation** — locks pacing, makes re-edits hard. Default to silent + diegetic foley. Add music in post (CapCut, DaVinci).
+
+**5. Forgetting screen direction in location** — without explicit screen direction (window left, oven right), Seedance flips geometry between shots. Always include screen direction in LOCATION.
+
+**6. Text inside grid cells** — Seedance + Pixazo hallucinate text (random letters, Arabic-looking glyphs, misspellings). Never put text labels in any AI-generated frame except the closing line / hashtag in the end card. Use visual iconography + Indonesian context words instead. See `references/competition-deliverable-blueprint.md` § "NO TEXT IN GRID CELLS" for the validated translation table.
+
+### Second-Tier (6-12)
+
+**7. Attachment ambiguity** — if multiple files are attached but roles are unspecified, camera/style/action signals bleed into each other. Bind each attachment to a single job. See `references/seedance-reference-syntax.md` + `references/seedance-asset-binding.md`.
+
+**8. Using the wrong mode for existing-video tasks** — extend/edit/fuse requests should keep the same 5-part spine, but switch Step 3 language to the correct mode. See `references/seedance-pattern-library.md` + `/s2s compose-pattern`.
+
+**9. Two-layer style system confusion** — storyboard image style (Layer 1, monochrome planning doc) ≠ motion/video output style (Layer 2, cinematic photorealistic). User says "cinematic" → Layer 2.
+
+**10. Writing motion prompts without generating storyboard + refs first** — skipping Steps 1-2 = hallucination risk (face drift, environment drift, geography flip). Even if drafting motion prompt for approval, mark as DRAFT and regenerate final after Steps 1-2.
+
+**11. Generating cinematic-variations WITHOUT character ref first** — multi-image sweep with human = every image has different face. Correct order: `character-ref → cinematic-variations → storyboard → motion`. See pitfall #1 ordering.
+
+**12. Motion prompt clip count ≠ script clip count** — always verify every script clip has corresponding motion prompt clip before finalizing. Add to QC: count clips, verify match, identify missing (often climax + aftermath).
 
 ---
 
-## File Structure
+## Cost & Time Reference
 
+| Capability                  | Typical Cost (USD) | Wall Time       | Backend                    |
+|-----------------------------|--------------------|-----------------|----------------------------|
+| Storyboard image (1)        | $0.02-0.067        | 30s-3min        | Codex / Pixazo GPT Image 2 / Pixazo Flux Schnell |
+| Character ref (1)           | $0.02-0.067        | 30s-3min        | Same                       |
+| Product ref (1)             | $0.02-0.10         | 30s-3min        | Same                       |
+| Cinematic variations (10)   | $0.20-0.67         | 5-10min         | Same                       |
+| Motion prompt (1, 8-15s)    | $0.50-0.75         | 5-15min         | Seedance 2.0 / Veo 3.1 / Kling 3.0 |
+| Reverse analysis (1 video)  | $0.05-0.10 (LLM)   | 2-5min          | Local LLM                  |
+| Full multi-clip (7 clips)   | $3.66-5.41         | 2-3 hours       | All combined               |
+
+**Bundle cost** = sum of capabilities invoked. NOT a fixed pipeline cost.
+
+---
+
+## Sensitive Content Quick Reference
+
+For Indonesian PSA / cyberbullying / sensitive topics, use the **6-point Sensitive Content Safety Guardrails** (full text above). Quick template:
+
+```text
+CRITICAL: Hand only. DO NOT show face, body, full posture, or method of [harm type].
+DO NOT show victim in frame beyond hand/partial body. [Environment] intact,
+[symbol] stopped, [symbol] on wall. Bedroom preserved. Implied framing only.
+End card: 119 ext 8 (Into The Light) / @janganbunuhdiri / Yayasan Pulih.
 ```
-storyboard-to-seedance-suite/
-├── SKILL.md                          # this file (entry point)
-├── install.sh                        # cross-platform symlink installer
-├── references/
-│   ├── storyboard-prompt-template.md  # 12-Section fill-in template
-│   ├── character-ref-prompt.md        # 3-angle character sheet template
-│   ├── product-ref-prompt.md          # 3 variants: hero, multi-angle, lifestyle
-│   ├── seedance-motion-prompt.md      # 5-part spine + worked example
-│   ├── seedance-asset-binding.md      # optional @-style attachment role system
-│   ├── seedance-pattern-library.md    # optional extend/edit/fuse/dialogue/beat-sync modes
-│   ├── director-strip-7-track.md      # RHYTHM + ESCALATION vocabulary
-│   ├── storyboard-motion-prompt-review-notes.md # storyboard vs motion prompt review notes; realism lock; source-of-truth rule
-│   ├── notion-prompt-alignment.md          # clean-up checklist for canonical storyboard vs motion prompts in Notion
-│   ├── koda-ivanna-patterns-2026-06.md # 4 patterns from published Koda + Ivanna prompts
-│   ├── banana-bread-worked-example.md # anonymized real-world case study
-│   ├── cinematic-composition-vocabulary.md  # 19 cinematic styles + texture pack
-│   ├── competition-deliverable-blueprint.md # competition case study + 2026-06-13 v2 patches
-│   ├── storyboard-style-monochrome-4x3.md   # monochrome graphite+amber 4x3 12-panel DNA (16 Putaran)
-│   ├── hook-brainstorming-social-issue.md   # hook generation for social-issue/competition AI videos
-│   ├── storyboard-motion-prompt-review-notes.md # review checklist, realism-lock phrases
-│   └── video-analysis-template.md     # 10-section fill-in template for /s2s analyze
-├── commands/
-│   ├── storyboard.md                  # /s2s storyboard
-│   ├── character-ref.md               # /s2s character-ref
-│   ├── product-ref.md                 # /s2s product-ref
-│   ├── motion.md                      # /s2s motion
-│   ├── pipeline.md                    # /s2s pipeline (master)
-│   ├── cinematic-variations.md        # /s2s cinematic-variations (pre-vis)
-│   └── analyze.md                     # /s2s analyze (reverse-engineer video)
-└── tests/
-    └── test-cases.md                  # 7 grouped test cases including additive Step 3 modes
-```
+
+For full POV / hands-only workflow without character ref, see `references/seedance-no-character-ref-pov-workflow.md`.
 
 ---
 
@@ -502,6 +554,7 @@ cd /root/.hermes/skills/mlops/ai-video-production/storyboard-to-seedance-suite
 ```
 
 This creates:
+
 | Platform | Path | Status |
 |----------|------|--------|
 | Hermes Agent | `~/.hermes/skills/mlops/ai-video-production/storyboard-to-seedance-suite/` | canonical source |
@@ -547,130 +600,91 @@ Hermes-specific `triggers` field is **extra metadata** — Claude Code / OpenCod
 
 | System | Syntax | How to invoke |
 |--------|--------|---------------|
-| Hermes | `/s2s pipeline <brief>` | Slash command parser reads markdown specs under `commands/` |
-| Claude Code | `/s2s-pipeline <brief>` | One file per slash command, named after file |
-| OpenCode | `/s2s-pipeline <brief>` | Same as Claude Code |
-| Codex CLI | `/s2s-pipeline <brief>` | Same as Claude Code |
+| Hermes | `/s2s <capability> [args]` | Slash command parser reads markdown specs under `commands/` |
+| Claude Code | `/s2s-<capability> [args]` | One file per slash command, named after file |
+| OpenCode | `/s2s-<capability> [args]` | Same as Claude Code |
+| Codex CLI | `/s2s-<capability> [args]` | Same as Claude Code |
 
 In Claude Code / OpenCode / Codex, the slash commands aren't auto-registered like Hermes. To invoke, either:
 1. Reference the skill by name in natural language: "use the storyboard-to-seedance-suite skill to make a banana bread video"
 2. The agent will auto-load it when trigger keywords appear (e.g., "storyboard prompt", "video motion prompt")
 
-For Hermes users, the explicit `/s2s pipeline` slash commands work as documented in `commands/`.
+For Hermes users, the explicit `/s2s <capability>` slash commands work as documented in `commands/`.
 
 ---
 
 ## Related References
 
 In the parent `ai-video-production` skill:
+
 - `SKILL.md` section 2.7 (First+Last Frame) — simpler alternative for <8s clips
 - `SKILL.md` section 2.9 (Metamorphosis 4-step) — alternative storyboard method
 - `references/seedance-2-best-practices-2026.md` — broader Seedance context
 - `references/seedance-best-practices.md` — general Seedance best practices
 - `references/tiktok-analyzer-system-prompt.md` — for reverse-engineering competitor videos
+- `references/seedance-no-character-ref-pov-workflow.md` — no-character-reference POV workflow for Seedance/Dreamina when human reference is disabled; includes cyberbullying PSA structure, safety guardrails, and Arga review cadence.
+
 In this skill:
 
-- `references/storyboard-style-monochrome-4x3.md` — monochrome graphite + amber/sepia 4×3 12-panel storyboard style used for the "16 Putaran" project. Single source of truth for the monochrome style: spec, narrative map, prompt template, pitfalls, production workflow.
+- `references/seedance-reference-syntax.md` — **`@` reference system + role binding** (canonical)
+- `references/seedance-camera-language.md` — **camera moves, shot sizes, advanced techniques**
+- `references/seedance-motion-vocabulary.md` — **action verbs, body parts, object interaction, rhythm, anti-slop lexicon**
+- `references/seedance-troubleshooting.md` — **failure-mode taxonomy + repair patterns + retake protocol**
+- `references/storyboard-style-monochrome-4x3.md` — monochrome graphite + amber/sepia 4×3 12-panel storyboard style used for the "16 Putaran" project. Single source of truth for the monochrome style.
 - `references/notion-prompt-alignment.md` — checklist for keeping one current storyboard prompt and one current motion prompt on the page; delete stale drafts after review.
-- `references/koda-ivanna-patterns-2026-06.md` — 4 high-value patterns (Director Strip augmented, Spatial Continuity Lock, HARD CUT marker, NEGATIVE PROMPT block) reverse-engineered from published Koda `@aimikoda` + Ivanna `@ivanka_humeniuk` prompts on 2026-06-11. Adopt these into motion + storyboard templates; they generalize to Veo 3.1 Lite and Kling 3.0 even though we don't ship Seedance 2.0 in our pipeline.
-- `references/competition-deliverable-blueprint.md` — full Kreafest 2026 "16 Putaran" case study (7×15s, 16-fate grid, Indonesian context, $5 budget) PLUS 2026-06-13 v2 patches: hook retention pattern, NO TEXT IN GRID CELLS, per-clip P09 single-cell rule, predicted-comments QC, v2 patch checklist, score self-assessment matrix.
-- `references/hook-brainstorming-social-issue.md` — **NEW (2026-06-14)** hook generation workflow for social-issue / competition AI videos. Includes 5 hook tiers, 6 evaluation criteria, research-backed phrasing, common pitfalls, and a worked example from the "16 Putaran" anti-judi-online review session. Use whenever the user asks for "hook yang engaging", "alternatif hook", or wants to integrate Indonesian statistics into the opening.
+- `references/koda-ivanna-patterns-2026-06.md` — 4 high-value patterns (Director Strip augmented, Spatial Continuity Lock, HARD CUT marker, NEGATIVE PROMPT block) reverse-engineered from published Koda `@aimikoda` + Ivanna `@ivanka_humeniuk` prompts.
+- `references/competition-deliverable-blueprint.md` — full Kreafest 2026 "16 Putaran" case study (7×15s, 16-fate grid, Indonesian context, $5 budget) PLUS v2 patches.
+- `references/hook-brainstorming-social-issue.md` — hook generation workflow for social-issue / competition AI videos.
+- `references/cinematic-variations-script-mode.md` — script-mode variant of `/s2s cinematic-variations` + character-consistency ordering rule.
 
 ---
 
 ## Version History
 
-- **1.3.0** (2026-06-14) — Non-breaking Step 3 enhancement layer
-  - **NEW**: `references/seedance-asset-binding.md` (explicit `@`-style role binding for storyboard / identity / product / first-frame / camera / action / FX / rhythm / audio inputs)
-  - **NEW**: `references/seedance-pattern-library.md` (extend, edit, fuse, beat-sync, dialogue, one-take patterns)
-  - **UPDATED**: `commands/motion.md` — optional asset-role intake + Step 3 mode switching while preserving the same command
-  - **UPDATED**: `references/seedance-motion-prompt.md` — optional `ASSET ROLE BINDING` and `MODE OVERRIDE` blocks
-  - **UPDATED**: README / tests / pipeline docs for additive Step 3 behaviors
-  - **GOAL**: learn from direct Seedance prompting patterns without breaking the existing storyboard → ref → motion workflow
+- **1.7.0** (2026-06-18) — **Library restructure: pipeline → capability router**
+  - **BREAKING (mental model only, not file structure)**: skill is no longer framed as a 3-step pipeline. New **Capability Router** section maps user intent → references → commands. Each capability is independently invocable.
+  - **NEW**: `references/seedance-reference-syntax.md` — adopted from `dexhunter/seedance2-skill` (MIT) — canonical `@`-role binding system with s2s semantic layer (`@[character ref]`, `@[storyboard ref]`, `@[camera ref video]`, etc.)
+  - **NEW**: `references/seedance-camera-language.md` — adopted from `dexhunter/seedance2-skill` + `Emily2040/seedance-2.0` v5.5.2 — basic + advanced camera moves, shot sizes, lens vocabulary, POV rules, one-take patterns, time-segmented camera direction, failure modes, cross-model compatibility.
+  - **NEW**: `references/seedance-motion-vocabulary.md` — adopted from `Emily2040/seedance-2.0` v5.5.2 — body-part action verbs, object interaction patterns (phone/door/light/wallet), rhythm + beat vocabulary, escalation curves, valence + arousal, cinematic imperfect realism texture pack, anti-slop lexicon, continuity lock vocabulary.
+  - **NEW**: `references/seedance-troubleshooting.md` — adopted from `Emily2040/seedance-2.0` v5.5.2 (`seedance-troubleshoot` + `model-mechanics` + `retake-protocol` sub-skills) — 10-category failure-mode taxonomy (identity/camera/action/scene/audio/style/backend/safety/continuity), repair patterns, one-variable retake protocol.
+  - **UPDATED**: SKILL.md description now reads "Modular AI video production skill library" instead of "3-step procedural workflow".
+  - **UPDATED**: description + triggers in frontmatter expanded to expose new entry points (`/s2s hook`, `/s2s troubleshoot`, `/s2s compose-pattern`, `/s2s bundle`).
+  - **UPDATED**: "When to Use" table replaced with full Capability Router + Routing Questions + Decision Flowchart.
+  - **BACKWARD COMPAT**: `/s2s pipeline` still works as legacy chained mode (explicit user request only). All existing commands + references unchanged.
 
-- **1.2.0** (2026-06-08) — Video reverse-engineering + Edge cases & safety + Product sheet variant
-  - **NEW**: `commands/analyze.md` (`/s2s analyze` — reverse-engineer existing videos)
-  - **NEW**: `references/video-analysis-template.md` (10-section fill-in template)
-  - **NEW**: 3 analyze modes — full analysis, quick scan, seedance-ready
-  - **NEW**: Auto-pipeline detection — analysis can auto-feed into `/s2s pipeline`
-  - **NEW**: UGC Indonesia context (Section 8) — audience, setting, skin tone, cultural cues
-  - **NEW**: Product continuity lock — track product appearance consistency across beats
-  - **NEW**: Pipeline recommendation engine — auto-detect Kling vs Seedance vs Veo based on content
-  - **NEW**: Product-ref variant #5 `sheet` (6-panel 21:9 comprehensive reference — all angles in 1 generation)
-  - **FIX #1**: Pipeline auto-detect human + product (run both refs in parallel, default to both for FMCG/UGC)
+- **1.6.5** (2026-06-16) — Sensitive content guardrails + Codex quota + A/B hook pattern
+  - NEW section: "Sensitive Content Safety Guardrails" — 6-point production standard for self-harm / suicide / cyberbullying / graphic violence motion prompts.
+  - NEW section: "Codex Backend Quota Pitfall" — `gpt-image-2-medium` soft hourly quota, NOT 429. Symptom + 4-step recovery.
+  - NEW section: "A/B Hook Variant Pattern" — generate 3 frozen-first-3-seconds storyboard images (one per hook strategy) before committing to motion generation.
+  - Learning source: 16 Jun 2026 Layar Terakhir + 16 Putaran A/B hook sessions.
 
-- **1.6.1** (2026-06-14) — Notion prompt alignment + current/final hygiene
-  - NEW: `references/notion-prompt-alignment.md` — canonical storyboard vs motion prompt checklist for pages that drift during review
-  - UPDATED: Pitfall #1c clarified that the generated storyboard is the source of truth for the motion prompt
-  - NEW: Pitfall #1d — keep only one current storyboard prompt and one current motion prompt visible; delete/archive stale drafts before appending the final version
-  - Practical lesson from the hook-first review flow: if the user asks for a more engaging opening, the storyboard and motion prompts should be re-centered on the hook-first canonical sequence, not the older story arc
+- **1.6.3** (2026-06-15) — Character consistency ordering + script-mode cinematic variations + composite script
+  - NEW: Pitfall #11 — generating cinematic-variations images WITHOUT character ref first = every image has a different face.
+  - NEW: `references/cinematic-variations-script-mode.md`.
+  - NEW: `scripts/storyboard_composite.py`.
 
-- **1.6.0** (2026-06-14) — Monochrome 4×3 12-panel storyboard style validated
-  - NEW: `references/storyboard-style-monochrome-4x3.md` — full style spec, known-good prompt template, 5 pitfalls, production workflow
-  - Pitfall #1a: triptych/3-panel default for multi-clip storyboards (each storyboard is 12 panels of one scene, not 3 scenes)
-  - Pitfall #1b: don't loop director profile for batch image generation (use `image_generate` directly after prompt is crafted, saves 2-3 min per call)
-  - 3 new triggers: "monochrome storyboard", "12-panel storyboard", "4x3 grid storyboard"
-  - NEW: `references/storyboard-motion-prompt-review-notes.md` — lightweight review checklist for the common failure mode where an older draft lingers in Notion after a newer storyboard becomes canonical; includes realism-lock phrases for "looks like AI" feedback
-  - Pitfall #1c: Motion prompt must follow the generated storyboard, not the older draft (rebuild from actual panel order before generating video)
+- **1.6.2** (2026-06-15) — Two-layer style system clarification + script-to-storyboard workflow
+  - NEW: Pitfall #9 — two-layer style system confusion.
+  - NEW: Pitfall #10 — writing motion prompts without generating Steps 1-2 first.
+  - NEW: Script-to-Storyboard Workflow section.
 
-- **1.5.0** (2026-06-13) — 2026-06-13 v2 patches from Kreafest validation
-  - NEW: 5 additions to `references/competition-deliverable-blueprint.md`:
-    1. **Hook Retention Pattern** — validated 12-panel v2 structure (0.3s grid flash + 0.3s smash-cut-to-black + content + 11s second hook) with retention math (~75% at 3s vs ~60% without, ~45% completion vs ~25%)
-    2. **NO TEXT IN GRID CELLS** — validated pitfall + translation table (16 concepts text→visual iconography) + Indonesian context word bank
-    3. **Per-Clip P09 Rule** — single-cell highlight only, no double-lighting
-    4. **Predicted-Comments QC Pattern** — write 20 comments (8 positive + 7 critical + 5 questions) BEFORE generating video, surface ambiguity in prompt
-    5. **v2 Patch Checklist + Score Self-Assessment Matrix** — 5-dimension scoring (hook/cadence/specificity/continuity/pacing) with weights
-  - UPDATED SKILL.md:
-    - Pitfall #6 added: text inside grid cells
-    - Multi-clip rule #8: hook retention pattern
-    - Multi-clip rule #9: P09 single-cell rule
-    - Multi-clip rule #10: Indonesian context in cell scenes
-  - Trigger: short-form retention, hook pattern, 3-second hook, smash cut, double hook, text in cells, predicted comments, v2 patch
-  - Validated end-to-end on KreafestPoldaJatim 2026 "16 Putaran" — 4/5 clips re-patched to v2, pushed to user Notion
+- **1.6.1** (2026-06-14) — Notion prompt alignment + current/final hygiene.
 
-- **1.4.0** (2026-06-13) — Multi-clip storyboards + competition deliverable pattern
-  - NEW: `references/competition-deliverable-blueprint.md` — full Kreafest 2026 "16 Putaran" case study (7×15s structure, 4 fates per clip, 1:45 total, $5 budget). Reusable for any competition submission: swap the 16 fates, keep the structure.
-  - NEW: Multi-Clip Storyboards section in SKILL.md — 7 rules for narrative-arc videos > 30s:
-    1. Same `@[character ref]` in every clip's motion prompt (prevents face drift)
-    2. Spatial Continuity Lock must carry across clips (same geography, same screen direction)
-    3. RHYTHM TRACK escalation is monotonic (don't reset between clips)
-    4. Single audio bed, layered in post (no music baked into generation)
-    5. End card clip gets typography exception (only place text on screen is allowed)
-    6. 4x4 grid scenes need heavy "upper-center, fixed position" lock + anti-contact-sheet negatives
-    7. Cost: ~$3.66-5.41 per 1:45 video (1 ref + 7 storyboards + 7 motions)
-  - NEW triggers: competition submission, lomba AI video, Kreafest, public safety video, Polda Jatim, AI for public safety, Indonesian public service, 16 Putaran, social impact video, grid fate video, split fate video, multi-clip storyboard, narrative split video
-  - Validated end-to-end on KreafestPoldaJatim 2026 "16 Putaran" — full prompt stack pushed to user Notion in single session
+- **1.6.0** (2026-06-14) — Monochrome 4×3 12-panel storyboard style validated.
 
-- **1.3.0** (2026-06-11) — Koda + Ivanna pattern adoption
-  - NEW: `references/koda-ivanna-patterns-2026-06.md` — 4 patterns reverse-engineered from published prompts
-    1. **Director Strip 7-Track augmented** — pin RHYTHM/ESCALATION vocab to Koda's published 9 verbs / 3 block sizes / 5 beat types / 5 escalation levels / 6 curves; Panel Header format `P## / {lens}mm {shot_type} / {beat_name}` lives OUTSIDE the image (storyboard purity rule)
-    2. **Spatial Continuity Lock** — new `[SPATIAL CONTINUITY LOCK]` section in storyboard template, sits between IDENTITY CONSISTENCY and STORYBOARD PURITY. Lists panels sharing world-space, anchor geography, panels-that-look-new-but-aren't, and explicit ALLOWED/FORBIDDEN changes between locked panels
-    3. **HARD CUT marker** — every shot in motion prompt ends with `(HARD CUT)`; final shot gets `(HARD CUT TO BLACK)` or `(MATCH CUT TO {next})` to fence the sequence end and prevent Seedance dissolving shots together
-    4. **NEGATIVE PROMPT block** — comprehensive anti-pattern list (static grid, split-screen, contact sheet, picture-in-picture, plastic/waxy skin, extra fingers, etc.) added to motion prompt template; style-specific overrides (e.g. `western realism, photoreal face, deep shadow` for anime)
-  - These 4 patterns generalize beyond Seedance 2.0 — Veo 3.1 Lite and Kling 3.0 have the same multi-shot dissolve + geometry flip + contact-sheet hallucination failure modes. Apply to all 3 model families in our pipeline.
-  - Source verification: Koda "The Wind Calls" tweet 2065389969430954445; Ivanna haute cuisine b-roll tweets 2064182754560934025 + 2064182757845020941; Ivanna Renaissance Grand Prix 2063824412038639972
+- **1.5.0** (2026-06-13) — 2026-06-13 v2 patches from Kreafest validation.
 
-- **1.2.0** (2026-06-07) — Edge cases & safety
-  - **FIX #1**: Pipeline auto-detect human + product (run both refs in parallel, default to both for FMCG/UGC)
-  - **FIX #2**: Calm UGC vocabulary — 6 new RHYTHM energy words (settle/breathe/soft land/ease/drift/float), 2 new block lengths (micro/macro), 4 new beat types (gentle/rest/drift/breath) + calm Valence/Arousal templates
-  - **FIX #3**: Pregnancy safety auto-template — detects bumil/hamil/pregnant keywords, auto-injects 10-point safety checklist into CONSTRAINTS + 4 motion-prompt overrides + medical disclaimer
-  - **FIX #4**: 4th product variant `in-use` (product being actively used) — separate from lifestyle (static in setting) + auto-detection logic from usage verbs
-  - Future expansion placeholders: pet safety, child safety, medical claims, financial claims
-  - NEW triggers: analyze video, reverse engineer, competitor analysis, pregnancy safe, maternal content, bumil, hamil, in-use shot, calm UGC, soft pacing, human plus product
-- **1.1.0** (2026-06-07) — Cinematic composition vocabulary
-  - NEW: `references/cinematic-composition-vocabulary.md` (19 styles + texture pack + base style)
-  - NEW: `commands/cinematic-variations.md` (`/s2s cinematic-variations` — 10-composition sweep)
-  - UPDATED: `seedance-motion-prompt.md` — added imperfect realism texture pack + cinematic negatives
-  - UPDATED: `commands/character-ref.md` + `product-ref.md` — added cinematic-composition-vocabulary references
-  - UPDATED: `tests/test-cases.md` — added TC6 for cinematic-variations
-  - NEW triggers: cinematic composition, cinematic variations, 10 compositions, pre-visualization, film still, cinematic realism
+- **1.4.0** (2026-06-13) — Multi-clip storyboards + competition deliverable pattern.
 
-- **1.0.0** (2026-06-07) — Initial release
-  - 3-step procedural workflow
-  - 5 slash commands (storyboard, character-ref, product-ref, motion, pipeline)
-  - 6 reference files (template + 3 ref + motion + director-strip + worked-example)
-  - 5 manual test cases
-  - Source attribution anonymized per Arga's instruction (no personal names in skill/file naming)
+- **1.3.0** (2026-06-11) — Koda + Ivanna pattern adoption.
+
+- **1.2.0** (2026-06-08) — Video reverse-engineering + Edge cases & safety + Product sheet variant.
+
+- **1.2.0** (2026-06-07) — Edge cases & safety.
+
+- **1.1.0** (2026-06-07) — Cinematic composition vocabulary.
+
+- **1.0.0** (2026-06-07) — Initial release.
 
 ---
 

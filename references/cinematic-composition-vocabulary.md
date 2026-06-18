@@ -213,6 +213,25 @@ To **explore 10 visual languages for the same subject**:
 
 The `/s2s cinematic-variations` command automates this sweep.
 
+## Script-to-Storyboard Assignment (v1.6.2)
+
+When the user arrives with a **full script** (not a brief to explore), use this table to assign ONE composition per panel based on the script's beat type. No exploration — direct assignment.
+
+| Script beat type | Composition | Why |
+|---|---|---|
+| Hook / first frame | Handheld close OR POV | Immersion, "you are there" |
+| Establishing / master | Environmental scale OR wide negative space | Geography, context |
+| Character emotional | Reflection OR silhouette OR frame-in-frame | Interiority, mood |
+| Action / impact | Extreme low angle OR diagonal | Energy, tension |
+| Dialogue / two-person | OTS OR foreground obstruction | Intimacy, voyeurism |
+| Reveal / hero moment | Symmetrical blocking OR compressed telephoto | Formal, iconic |
+| Isolation / loneliness | Wide negative space OR deep vanishing point | Scale of absence |
+| Tactile / close detail | POV OR handheld close | Touch, texture |
+| Climax / peak | Diagonal OR compressed telephoto | Maximum dynamism |
+| Resolution / settle | Asymmetrical balance OR layered FG/MG/BG | Natural, lived-in |
+
+This table is also in the main SKILL.md under "Script-to-Storyboard Workflow". Use it when the user says "generate storyboard from this script" or "assign compositions per panel".
+
 ---
 
 ## Panel Header Convention (Updated)
