@@ -49,16 +49,32 @@ Notes:
 
 ## Cross-platform install
 
-The same `SKILL.md` works in **Hermes Agent**, **Claude Code**, **OpenCode**, and **Codex CLI** — they all share the SKILL.md standard.
+The same `SKILL.md` works in **Hermes Agent**, **Claude Code**, **OpenCode**, **Codex CLI**, and **Pi** — they all share the SKILL.md standard.
 
 ```bash
-# From the suite directory:
-./install.sh            # creates symlinks in ~/.claude/skills/, ~/.opencode/skills/, ~/.codex/skills/
+# From the suite directory (auto-detects its own location as canonical):
+git clone https://github.com/madearga/konten-s2s-skill.git
+cd konten-s2s-skill
+./install.sh            # links skill bundle + slash commands into all platforms
 ./install.sh --check    # verify install status
-./install.sh --remove   # remove symlinks (keeps canonical source)
+./install.sh --remove   # remove all symlinks (keeps canonical source)
 ```
 
-Why symlinks? **One source of truth.** Edit SKILL.md once → all platforms see the update. No drift.
+### What gets linked
+
+| Target | Path | Purpose |
+|---|---|---|
+| Skill bundle (all platforms) | `~/.{claude,opencode,codex,pi}/skills/<name>` | SKILL.md + references/ + commands/ |
+| Pi slash commands | `~/.pi/agent/prompts/s2s-*.md` | `/s2s-*` in pi autocomplete |
+| OpenCode slash commands | `~/.config/opencode/command/s2s-*.md` | `/s2s-*` in opencode slash menu |
+
+### Platform notes
+
+- **Hermes / Claude Code / Cursor / Codex** — auto-discover `commands/*.md`, so `/s2s <capability>` works natively.
+- **Pi** — does NOT auto-discover `commands/`. The `slash-commands/` folder provides portable `/s2s-*` wrappers (filename = command). Load the full skill via `/skill:storyboard-to-seedance-suite`.
+- **OpenCode** — does NOT auto-discover `commands/`. Same portable wrappers are linked into `~/.config/opencode/command/`.
+
+Why symlinks? **One source of truth.** Edit SKILL.md or commands/ once → every platform sees the update. No drift. The `slash-commands/` wrappers reference the skill by name (not hardcoded paths), so they work on any machine that ran `install.sh`.
 
 ## File structure
 
@@ -89,7 +105,12 @@ storyboard-to-seedance-suite/
 │   ├── motion.md                      # /s2s motion
 │   ├── pipeline.md                    # /s2s pipeline (master)
 │   ├── cinematic-variations.md        # /s2s cinematic-variations
-│   └── analyze.md                     # /s2s analyze
+│   ├── analyze.md                     # /s2s analyze
+│   └── ... (ads, bundle, compose-pattern, hook, interview, troubleshoot)
+├── slash-commands/                    # portable /s2s-* wrappers (pi + opencode)
+│   ├── s2s-storyboard.md
+│   ├── s2s-ads.md
+│   └── ... (one per capability; symlinked into ~/.pi/agent/prompts and ~/.config/opencode/command)
 └── tests/
     └── test-cases.md                  # 7 grouped test cases (TC1-TC7)
 ```
