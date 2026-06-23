@@ -11,6 +11,8 @@ Generates a **product reference image** for AI video generation. 5 styles availa
 
 If user is asking for a character reference (human), use `/s2s character-ref` instead.
 
+If the user has **uploaded reference image(s)** of the product, default to `--type=sheet` and instruct the image generator to respect the uploaded image(s) as the source of truth using the `SUBJECT = [All Uploaded product]` pattern.
+
 ---
 
 ## How Users Pick a Style
@@ -36,6 +38,7 @@ User just describes what they want — AI detects the best style:
 
 | User says... | Auto-pick |
 |---|---|
+| **uploaded reference image(s) present** | **5. Full sheet (default)** |
 | "foto produk clean", "studio", "background putih", "premium" | 1. Studio |
 | "dari semua sisi", "multi-angle", "4 angle", "grid" | 2. Multi-angle |
 | "di kamar", "di dapur", "di rak", "lifestyle", "setting asli" | 3. Lifestyle |
@@ -43,7 +46,7 @@ User just describes what they want — AI detects the best style:
 | "semua angle", "brand kit", "reference sheet", "komprehensif" | 5. Full sheet |
 | "pakai", "minum", "makan", "oles", "tuang", "semprot" (ID verbs) | 4. Sedang dipakai |
 | "tampilkan", "pamerkan", "showcase" | 1. Studio |
-| (no clear keywords) | 2. Multi-angle (default) |
+| (no clear keywords, no images) | 2. Multi-angle (default) |
 
 ### Option C: Dev flag (for technical users)
 
@@ -81,13 +84,29 @@ This bypasses auto-detection and menu. Only use when user explicitly types `--ty
 ## Behavior
 
 1. Parse product description
-2. Auto-detect style from keywords (or show numbered menu if unclear)
-3. Load `../references/product-ref-prompt.md` — pick matching variant template
-4. Fill template with product details
-5. **Always add to negative prompts:** "no human hands, no human fingers, no human body parts" (most common failure)
-6. **Always add to negative prompts:** "no logos added by AI, no watermarks, no text"
-7. Run QC checklist
-8. Output: copy-paste-ready prompt + style rationale
+2. **Detect uploaded reference image(s)** — if present, default to `sheet` variant
+3. Auto-detect style from keywords if no images (or show numbered menu if unclear)
+4. Load `../references/product-ref-prompt.md` — pick matching variant template
+5. If images present, fill `SUBJECT = [All Uploaded product]`, `BRAND = [brand name]`, `CATEGORY = [category]`, and add `RESPECT THE REFERENCE IMAGES` block
+6. **Always add to negative prompts:** "no human hands, no human fingers, no human body parts" (most common failure)
+7. **Always add to negative prompts:** "no logos added by AI, no watermarks, no text"
+8. Run QC checklist
+9. Output: copy-paste-ready prompt + style rationale
+
+### Reference-Image Mode
+
+When the user uploads product reference image(s), treat them as the **single source of truth** for product identity:
+
+```
+SUBJECT = [All Uploaded product]
+BRAND = [brand name from user or reference]
+CATEGORY = [category from user or reference]
+STYLE_TYPE = photorealistic studio product photography, clean white-to-neutral gradient backdrop
+```
+
+- Do not ask the user to re-describe the product from scratch unless details are missing.
+- Pull `BRAND` and `CATEGORY` from any text the user included. If missing, ask one focused question.
+- In the final prompt, always include the `RESPECT THE REFERENCE IMAGES` block so the generator preserves shape, color, label, logo, and proportions across all 6 panels.
 
 ---
 

@@ -315,15 +315,25 @@ When brief contains **display verbs**, default to other variants:
 ### Template
 
 ```
-Create a 21:9 wide product reference sheet for [PRODUCT_NAME] — [brief description: "pastel pink skincare pump bottle with white cap, 150ml, matte finish"].
+SUBJECT = [All Uploaded product — use the reference image(s) as the source of truth]
+BRAND = [brand name from reference or user input, e.g. "Teenage Teens"]
+CATEGORY = [product category from reference or user input, e.g. "skincare"]
+STYLE_TYPE = photorealistic studio product photography, clean white-to-neutral gradient backdrop
 
-6 panels in a clean evenly-spaced grid, soft neutral studio background with even lighting, minimal shadows.
+Create a clean, highly structured product reference sheet for SUBJECT under BRAND in CATEGORY. Render the entire sheet strictly in STYLE_TYPE. Preserve the exact same product shape, proportions, colors, packaging design, label text, logo, cap/pump style, and material texture across ALL panels.
+
+Arrange a wide 21:9 cinematic layout with evenly spaced grid panels and no overlap. Use a soft neutral studio background with even lighting and minimal shadows. Keep the presentation sharp, readable, and professionally organized.
+
+RESPECT THE REFERENCE IMAGES:
+- Preserve the exact same product shape, proportions, colors, packaging design, label text, logo, cap/pump style, and material texture across ALL panels.
+- Do not redesign, recolor, relabel, or rebrand the product.
+- Use the uploaded reference image(s) as the single source of truth for product identity.
 
 PANEL 1 — FRONT VIEW:
 Show the product standing upright, shot from directly front. Label must be fully visible, centered, and readable. Packaging colors must be accurate. Place the label "FRONT VIEW" centered below.
 
 PANEL 2 — BACK VIEW:
-Show the product from the back with accurate rear packaging details (ingredients list area, barcode region, secondary text). Maintain color consistency. Place the label "BACK VIEW" centered below.
+Show the product from the back with accurate rear packaging details (ingredients list, barcode area, secondary text). Maintain color consistency. Place the label "BACK VIEW" centered below.
 
 PANEL 3 — SIDE PROFILE:
 Show a strict side profile of the product. Silhouette must be clean and readable. Show cap/pump/spout detail from the side. Place the label "SIDE PROFILE" centered below.
@@ -335,38 +345,24 @@ PANEL 5 — MATERIAL DETAIL:
 Show a macro close-up of the product surface. Reveal material texture: matte vs glossy finish, embossed text, pump mechanism detail, cap threading, label laminate, or any surface detail. Place the label "MATERIAL DETAIL" centered below.
 
 PANEL 6 — IN-USE CONTEXT:
-Show the product in a realistic use scenario — held by a hand mid-application (skincare), on a bathroom shelf among other real products, next to a filled glass (beverage), in a child's hand (toy), or on a kitchen counter (food). Environment must feel natural and lived-in, not studio-lit. Hands only — no human faces. Place the label "IN-USE CONTEXT" centered below.
+Show the product in a realistic use scenario — held by a hand mid-application (skincare), on a bathroom shelf among other products, next to a filled glass (beverage), in a child's hand (toy), or on a kitchen counter (food). Environment must feel natural and lived-in, not studio-lit. Place the label "IN-USE CONTEXT" centered below.
 
-[PRODUCT]
-[PRODUCT_NAME]: [category — same spec as hero variant]
-Material: [material details]
-Color: [primary], [secondary accents]
-Size cues: [relative size]
-Key features: [logo, texture, branding, distinctive details]
+STYLE: STYLE_TYPE, ultra-detailed, professional product reference sheet, sharp focus, clean presentation, accurate color reproduction.
 
-[STYLE]
-Photorealistic studio product photography, clean white-to-neutral gradient backdrop.
-Panels 1-5: consistent 3-point studio lighting, soft neutral background.
-Panel 6: natural environment lighting, lived-in feel.
-Sharp focus on product in every panel.
-Ultra-detailed, professional reference sheet, clean presentation.
+CAMERA: orthographic feel for panels 1-3, 45-degree for panel 4, macro for panel 5, lifestyle for panel 6.
 
-[CONSISTENCY LOCKS]
-Same product identity across ALL panels — zero redesign allowed.
-Product colors, label text, logo, and proportions must remain IDENTICAL in every panel.
-Packaging shape and cap/pump style must be consistent — no variation between views.
-Lighting and color temperature consistent across panels 1-5 (panel 6 natural lighting allowed).
-Labels must appear only below each panel and be centered.
-Layout must be clean, evenly spaced, and easy to read.
+MOOD: precise, organized, premium, authentic.
 
-[NEGATIVE]
-No human faces (hands only for panel 6).
-No background clutter, no overlapping panels.
-No inconsistent packaging color, no inconsistent label design.
-No mixed styles, no motion blur, no dramatic shadows.
-No warped proportions, no fictional packaging details.
-No logos added by AI, no watermarks, no extra text.
-No competing brand logos.
+RULES:
+- Same product identity across ALL panels — zero redesign allowed.
+- Product colors, label text, logo, and proportions must remain IDENTICAL in every panel.
+- Packaging shape and cap/pump style must be consistent — no variation between views.
+- STYLE_TYPE must be applied consistently across all panels.
+- Lighting and color temperature must be consistent across the sheet (panels 1-5 studio, panel 6 natural).
+- Labels must appear only below each panel and be centered.
+- Layout must be clean, evenly spaced, and easy to read.
+
+NO: extra text, background clutter, overlapping panels, inconsistent packaging color, inconsistent label design, mixed styles, motion blur, dramatic shadows, human faces (hands only for panel 6), warped proportions, fictional packaging details, competing brand logos.
 ```
 
 ### Fill-In Example (Pigeon Teens Skincare)
