@@ -1,6 +1,6 @@
 # Troubleshooting Taxonomy — Seedance 2.0 / Veo / Kling Failure Modes
 
-**Source:** Adopted from `Emily2040/seedance-2.0` v5.5.2 (`seedance-troubleshoot` sub-skill + `model-mechanics` sub-skill) + s2s internal accumulated pitfalls.
+**Source:** s2s internal accumulated pitfalls + earlier material adapted from `Emily2040/seedance-2.0` v5.5.2 (MIT). In v1.12.0, retake triage, model mechanics, and sequence failure atlas live in separate references: `seedance-retake-protocol.md`, `seedance-model-mechanics.md`, and `seedance-failure-atlas.md`.
 
 Use this when a generated video comes out wrong. Diagnose from symptom → likely cause → repair pattern.
 

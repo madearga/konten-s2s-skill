@@ -1,5 +1,5 @@
 ---
-description: "Failure diagnosis + repair loop"
+description: "Failure diagnosis + retake triage (keep/fix/edit/reroll/rewrite) + one-variable repair"
 argument-hint: "[args]"
 ---
 

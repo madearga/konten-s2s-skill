@@ -274,3 +274,30 @@ Track these as future work — not in scope for v1.0.
 - User asks for real-time / conversational → route to `eleven_turbo_v2_5` or `eleven_flash_v2_5` (NOT v3)
 - User asks for PVC voice → reject per official blog (PVC not optimized for v3)
 - Indonesian wpm correction applied (~130 wpm effective, ~85–90% of English 150 wpm baseline)
+
+---
+
+## TC8: `/s2s troubleshoot` retake triage (v1.12.0)
+
+**Input:** User says: "Take 2 still restarts the action instead of continuing from the accepted parent clip. Should I regenerate?"
+
+**Required loaded references:**
+- `references/seedance-retake-protocol.md`
+- `references/seedance-model-mechanics.md`
+- `references/seedance-failure-atlas.md`
+- `references/seedance-troubleshooting.md`
+
+**Expected behavior:**
+- Do **not** blindly regenerate.
+- Output a triage verdict: `Rewrite` if the same restart flaw happened in 2+ takes; otherwise `Re-roll` only if prompt is correct and sample looks unlucky.
+- Diagnose dominant mechanism: compounding error / missing observed state handoff.
+- Use Failure Atlas row: `Action restarts` → completed beat not marked already happened → add completed beat exclusion.
+- Apply the one-variable rule: change only the opening/continuation state clause, not camera/style/product/ref stack.
+- Include a shot log line:
+  `Take N · changed: opening state / completed beat exclusion · seed: same/new · verdict: rewrite · evidence: action restarted twice`
+
+**Pass criteria:**
+- Report includes: Symptom, Triage Verdict, Diagnosis, One-Variable Repair, Retake Prompt, Shot Log, Stop Condition.
+- Repair prompt starts from observed parent end state, not planned ending.
+- Repair excludes already-completed action.
+- No unrelated rewrite of style, camera, aspect ratio, product, or character identity.

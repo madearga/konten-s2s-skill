@@ -1,7 +1,7 @@
 ---
 name: storyboard-to-seedance-suite
-description: "Modular AI video production skill library — collection of references, capabilities, and entry points for Seedance 2.0 / Veo 3.1 / Kling 3.0 / GPT Image 2 / ElevenLabs v3. Use when you need any combination of: creative brief intake (vague idea → structured brief), storyboard prompts, character references, product references, cinematic compositions, motion prompts, @-role binding, camera language, troubleshooting, video reverse-engineering, hook brainstorming, or pattern-library modes (extend/edit/fuse/beat-sync/dialogue/one-take), or ElevenLabs v3 voiceover scripts. Use `/s2s ads` for product/brand/UGC/e-commerce content (embeds dexhunter's 12-pattern library), `/s2s vo-v3` for ElevenLabs v3 inline audio-tagged VO scripts. Each capability is independently invokable — there is no fixed pipeline. Commands: /s2s interview, /s2s storyboard, /s2s character-ref, /s2s product-ref, /s2s motion, /s2s cinematic-variations, /s2s analyze, /s2s hook, /s2s troubleshoot, /s2s compose-pattern (extend/edit/fuse/beat-sync/dialogue/one-take), /s2s bundle, /s2s vo-v3."
-version: 1.11.0
+description: "Modular AI video production skill library — collection of references, capabilities, and entry points for Seedance 2.0 / Veo 3.1 / Kling 3.0 / GPT Image 2 / ElevenLabs v3. Use when you need any combination of: creative brief intake (vague idea → structured brief), storyboard prompts, character references, product references, cinematic compositions, motion prompts, @-role binding, camera language, troubleshooting, retake triage, video reverse-engineering, hook brainstorming, or pattern-library modes (extend/edit/fuse/beat-sync/dialogue/one-take), or ElevenLabs v3 voiceover scripts. Use `/s2s ads` for product/brand/UGC/e-commerce content (embeds dexhunter's 12-pattern library), `/s2s vo-v3` for ElevenLabs v3 inline audio-tagged VO scripts. Each capability is independently invokable — there is no fixed pipeline. Commands: /s2s interview, /s2s storyboard, /s2s character-ref, /s2s product-ref, /s2s motion, /s2s cinematic-variations, /s2s analyze, /s2s hook, /s2s troubleshoot, /s2s compose-pattern (extend/edit/fuse/beat-sync/dialogue/one-take), /s2s bundle, /s2s vo-v3."
+version: 1.12.0
 author: Hermes Agent
 license: MIT
 triggers:
@@ -55,6 +55,11 @@ triggers:
   - "voice acting v3"
   - "v3 inline tags"
   - "bikin script eleven v3"
+  - "retake"
+  - "reroll"
+  - "fix in post"
+  - "keep or regenerate"
+  - "continuation failed"
   # Capability keywords
   - "storyboard prompt"
   - "12-section storyboard"
@@ -197,7 +202,7 @@ Output: copy-paste-ready prompts, references, or analysis
 | Want hook variants for short-form                 | Hook              | `/s2s hook`              | `hook-brainstorming-social-issue.md`                   |
 | Want product/brand/UGC ad prompt                  | Ads               | `/s2s ads`               | `dexhunter-patterns-ads.md` + `seedance-reference-syntax.md` |
 | Want VO script for ElevenLabs v3 (inline audio tags) | VO v3            | `/s2s vo-v3`             | `elevenlabs-vo-v3-tags.md`                                |
-| Generated video wrong, need repair                | Troubleshoot      | `/s2s troubleshoot`      | `seedance-troubleshooting.md`                          |
+| Generated video wrong, need repair / retake triage | Troubleshoot      | `/s2s troubleshoot`      | `seedance-retake-protocol.md` + `seedance-model-mechanics.md` + `seedance-failure-atlas.md` + `seedance-troubleshooting.md` |
 | Want all artifacts bundled into one file          | Bundle            | `/s2s bundle`            | (assembles from prior outputs)                         |
 | Have a vague idea (no full brief yet)            | Interview         | `/s2s interview`           | `references/creative-brief-intake.md`                   |
 
@@ -246,7 +251,10 @@ All references live in `references/`. Pick the ones you need; ignore the rest.
 | `seedance-reference-syntax.md`                    | `@`-role binding system (which attachment does what)  |
 | `seedance-camera-language.md`                     | Camera moves, shot sizes, advanced techniques, lens vocabulary |
 | `seedance-motion-vocabulary.md`                   | Action verbs, body parts, object interaction, rhythm/beat vocab, anti-slop lexicon |
-| `seedance-troubleshooting.md`                     | Failure-mode taxonomy (10 categories) + repair patterns + retake protocol |
+| `seedance-troubleshooting.md`                     | Failure-mode taxonomy (10 categories) + repair patterns |
+| `seedance-retake-protocol.md`                      | Keep / fix in post / edit / reroll / rewrite triage + one-variable retake rule |
+| `seedance-model-mechanics.md`                      | 8-mechanism diagnosis model: attention, negation, trajectory, reference overlap, etc. |
+| `seedance-failure-atlas.md`                        | Sequence and continuation failure table with primary repair variable |
 
 ### Ad Patterns
 
@@ -310,7 +318,7 @@ Each command in `commands/` is a **single capability spec** — invocable indepe
 | `/s2s compose-pattern`        | Pattern (extend/edit/fuse/beat-sync/dialogue/one-take) | `commands/motion.md` (pattern mode) |
 | `/s2s analyze`                | Analyze           | `commands/analyze.md`      |
 | `/s2s hook`                   | Hook              | `commands/cinematic-variations.md` (hook mode) — or prompt user to use hook ref |
-| `/s2s troubleshoot`           | Troubleshoot      | (uses `seedance-troubleshooting.md` directly) |
+| `/s2s troubleshoot`           | Troubleshoot      | `commands/troubleshoot.md` + retake/model/failure refs |
 | `/s2s bundle`                 | Bundle            | (composes from prior outputs into single markdown file) |
 | `/s2s ads`                    | Ads               | `commands/ads.md`             |
 | `/s2s vo-v3`                  | VO v3             | `commands/vo-v3.md`            |
@@ -356,9 +364,9 @@ User Request
   │
   ├─ "output was wrong / doesn't look right"
   │    → /s2s troubleshoot
-  │       1. Load references/seedance-troubleshooting.md
-  │       2. Identify symptom → match failure mode → apply repair
-  │       3. Retake with ONE-variable change
+  │       1. Triage: keep / fix in post / edit / reroll / rewrite
+  │       2. Diagnose mechanism + failure mode
+  │       3. Retake with ONE-variable change + shot log
   │
   ├─ "bundle everything into one file"
   │    → /s2s bundle (assembles from most recent outputs)
@@ -698,7 +706,10 @@ In this skill:
 - `references/seedance-reference-syntax.md` — **`@` reference system + role binding** (canonical)
 - `references/seedance-camera-language.md` — **camera moves, shot sizes, advanced techniques**
 - `references/seedance-motion-vocabulary.md` — **action verbs, body parts, object interaction, rhythm, anti-slop lexicon**
-- `references/seedance-troubleshooting.md` — **failure-mode taxonomy + repair patterns + retake protocol**
+- `references/seedance-troubleshooting.md` — **failure-mode taxonomy + repair patterns**
+- `references/seedance-retake-protocol.md` — **keep/fix/edit/reroll/rewrite triage + one-variable retake rule**
+- `references/seedance-model-mechanics.md` — **8-mechanism diagnosis model for root-cause prompt repair**
+- `references/seedance-failure-atlas.md` — **sequence/continuation failure table with primary repair variable**
 - `references/storyboard-style-monochrome-4x3.md` — monochrome graphite + amber/sepia 4×3 12-panel storyboard style used for the "16 Putaran" project. Single source of truth for the monochrome style.
 - `references/notion-prompt-alignment.md` — checklist for keeping one current storyboard prompt and one current motion prompt on the page; delete stale drafts after review.
 - `references/koda-ivanna-patterns-2026-06.md` — 4 high-value patterns (Director Strip augmented, Spatial Continuity Lock, HARD CUT marker, NEGATIVE PROMPT block) reverse-engineered from published Koda `@aimikoda` + Ivanna `@ivanka_humeniuk` prompts.
@@ -709,6 +720,15 @@ In this skill:
 ---
 
 ## Version History
+
+- **1.12.0** (2026-06-30) — **/s2s troubleshoot retake triage + model-mechanics diagnosis**
+  - **NEW**: `references/seedance-retake-protocol.md` — adopted from `Emily2040/seedance-2.0` (`retake-protocol.md`, MIT, commit `7659cbd`). Adds five verdicts: Keep / Fix in post / Edit / Re-roll / Rewrite, one-variable rule, attempt budget, shot log, and sequence canon.
+  - **NEW**: `references/seedance-model-mechanics.md` — adopted from `Emily2040/seedance-2.0` (`model-mechanics.md`, MIT, commit `7659cbd`). Adds eight practical mechanisms: attention budget, familiar prior, negation, trajectory, compounding, reference overlap, detail capacity, joint audio-video.
+  - **NEW**: `references/seedance-failure-atlas.md` — adopted from `Emily2040/seedance-2.0` (`failure-atlas.md`, MIT, commit `7659cbd`). Adds sequence/continuation-specific repair table.
+  - **UPDATED**: `commands/troubleshoot.md` now triages before regenerating, maps symptom → mechanism → one-variable repair, and outputs a shot log + stop condition.
+  - **UPDATED**: Capability Router points `/s2s troubleshoot` at all four troubleshoot references.
+  - **UPDATED**: Triggers expanded +5: `retake`, `reroll`, `fix in post`, `keep or regenerate`, `continuation failed`.
+  - **GOAL**: stop wasteful blind regenerations. Diagnose first, change one variable, and know when to keep, post-fix, edit, reroll, rewrite, or stop.
 
 - **1.11.0** (2026-06-30) — **/s2s vo-v3 command + ElevenLabs v3 inline audio-tagged VO**
   - **NEW**: `commands/vo-v3.md` — `/s2s vo-v3` capability (Eleven v3 plain-text VO scripts with inline `[lowercase_tags]`, ready to paste into ElevenLabs Studio v3 input or POST to `/v1/text-to-speech` with `model_id: "eleven_v3"`)

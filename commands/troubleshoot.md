@@ -1,156 +1,183 @@
-# /s2s troubleshoot — Failure Diagnosis + Repair
+# /s2s troubleshoot — Failure Diagnosis + Retake Repair
 
-Diagnoses why a generated video looks wrong, matches to a known failure mode, applies the minimal one-variable repair, and retries.
+Diagnoses why a generated video looks wrong, triages whether to keep/fix/edit/reroll/rewrite, then applies the smallest one-variable repair.
 
 **Capability:** Troubleshoot
-**Trigger:** `/s2s troubleshoot` or auto-detect phrases like "output wrong", "doesn't look right", "video failed", "face is off", "camera is wrong", "regenerate this"
+**Trigger:** `/s2s troubleshoot` or auto-detect phrases like "output wrong", "doesn't look right", "video failed", "face is off", "camera is wrong", "regenerate this", "retake", "reroll"
 
 ---
 
 ## When to Use
 
-- User just generated a video and reports it doesn't match intent
-- User references an output from a prior turn
-- User wants to iterate on a single variable (face / camera / scene / pacing / color / audio)
-- Multiple output attempts have failed
+- User generated a video and reports a mismatch
+- User asks whether to keep, reroll, edit, or rewrite a take
+- A continuation/extension drifts from the previous clip
+- Multiple attempts failed and the next attempt needs a controlled repair
 
 ---
 
 ## Inputs to Gather
 
-1. **Symptom description** — what specifically is wrong? (face, camera, scene, action, audio, color, etc.)
-2. **Prompt used** — copy of the prompt that produced the failed output
-3. **Backend used** — Seedance 2.0 / Veo 3.1 / Kling 3.0 / Pixazo / Codex
-4. **Reference images / videos attached** — which assets, what roles
-5. **Number of attempts** — first try? 3rd try? (impacts repair strategy)
+1. **Symptom** — what specifically is wrong? face, camera, motion, scene, audio, color, style, continuity, safety block.
+2. **Prompt used** — full prompt or relevant section.
+3. **Backend / surface** — Seedance 2.0, Veo, Kling, Runway, fal, Kie, etc.
+4. **References used** — image/video/audio assets and intended roles.
+5. **Attempt count + change log** — first try, reroll, or repeated failure?
+6. **If continuation:** accepted parent clip final frame / observed end state.
+
+If the user only says "wrong", ask for the symptom and prompt before rewriting.
+
+---
+
+## References to Load
+
+Use these in order:
+
+1. `references/seedance-retake-protocol.md` — decide keep / fix in post / edit / reroll / rewrite.
+2. `references/seedance-model-mechanics.md` — identify why the failure happened.
+3. `references/seedance-failure-atlas.md` — sequence and continuation-specific repairs.
+4. `references/seedance-troubleshooting.md` — existing 10-category taxonomy + repair patterns.
 
 ---
 
 ## Workflow
 
-### Step 1: Load Troubleshooting Reference
+### Step 1: Triage the take first
 
-Read `references/seedance-troubleshooting.md` (canonical 10-category failure-mode taxonomy with repair patterns).
+Do **not** automatically regenerate. Pick one verdict:
 
-### Step 2: Identify Symptom Category
+| Verdict | Use when | Next move |
+|---|---|---|
+| Keep | Primary purpose delivered; flaw not fatal | Lock it, log it, move on |
+| Fix in post | Trim, color, overlay text, sound mix, edge-frame instability | Do not regenerate |
+| Edit, don't regenerate | Composition/timing good; one layer wrong; edit mode available | Use source take; edit one layer |
+| Re-roll | Prompt is right; sample unlucky | Same prompt, new seed; max 2–3 |
+| Rewrite | Same flaw appears in 2+ takes | Diagnose mechanism; change prompt |
 
-Match user description to one of 10 categories:
+### Step 2: Diagnose mechanism
 
-| Category                          | Common Symptoms                                              |
-|-----------------------------------|--------------------------------------------------------------|
-| 1. Identity / Face Drift          | Faces differ between clips, waxy/plastic, hands warped       |
-| 2. Camera / Composition Failure   | Camera drifts, dissolves shots, extra moves, whip pan       |
-| 3. Action / Motion Failure        | Too fast/slow, freezes mid-action, object floats            |
-| 4. Scene / Environment Failure    | Background hallucinates, lighting inconsistent, geography flips |
-| 5. Audio / Dialogue Failure       | Silent, lip-sync off, music too loud                        |
-| 6. Style / Aesthetic Failure      | "AI generic", wrong palette, wrong aspect ratio             |
-| 7. Model Backend Failure          | Codex empty response, Veo face hallucination, Kling over-smooth |
-| 8. Content Policy / Safety Block  | Realistic face blocked, sensitive content blocked            |
-| 9. Continuity / Multi-Clip Failure | Wardrobe changes, prop state inconsistent, mood drift       |
-| 10. General Wrongness             | Doesn't match intent, unclear failure                        |
+Map symptom to the dominant mechanism:
 
-### Step 3: Match to Specific Failure Mode
+| Symptom | Mechanism | Lever |
+|---|---|---|
+| Generic / bland | Attention diluted | Cut slop; move priorities first |
+| Style flickers | Familiar-cluster hopping | Repeat exact style anchor |
+| Excluded thing appears | Negation summoned it | State positive replacement |
+| Action skipped / mushy | No trajectory | One cause + visible consequence + endpoint |
+| Identity decays | Compounding error | Shorter clip + original-reference re-anchor |
+| Reference contaminates output | Overlapping reference conditioning | Transfer/ignore clause |
+| Small detail breaks | Capacity starvation | Make it larger or isolate shot |
+| Lip/audio desync | Joint audio-video overload | Shorter line + stable face + named cue |
 
-Within the category, find the row matching the symptom → grab the repair pattern from the table.
+### Step 3: Match failure category
 
-### Step 4: Apply One-Variable Retake
+Use `seedance-troubleshooting.md` for these categories:
 
-Per `references/seedance-troubleshooting.md` § "One-Variable Retake Protocol":
+1. Identity / Face Drift
+2. Camera / Composition Failure
+3. Action / Motion Failure
+4. Scene / Environment Failure
+5. Audio / Dialogue Failure
+6. Style / Aesthetic Failure
+7. Model Backend Failure
+8. Content Policy / Safety Block
+9. Continuity / Multi-Clip Failure
+10. General Wrongness
 
-- Change ONLY the variable that matches the symptom
-- KEEP all other variables identical
-- If user reaction is "face is wrong" → change character description + ref, keep camera/scene/action
-- If "camera moves too much" → change camera language section, keep character/scene/action
-- If "scene is wrong" → change scene description + scene ref, keep character/camera/action
-- If "pacing too fast" → change time-segmented action + RHYTHM track, keep camera/scene/character
-- If "mood off" → change Valence + Arousal phrasing, keep action/camera/scene
-- If "color wrong" → change color spec, keep all other layers
-- If "audio wrong" → change Sound line, keep all other layers
+For continuation/sequence failures, check `seedance-failure-atlas.md` first.
 
-### Step 5: Regenerate
+### Step 4: Apply the one-variable rule
 
-Submit the modified prompt. Do NOT change multiple variables in one retake.
+Change exactly one thing:
 
-### Step 6: Verify
+- one prompt clause, OR
+- seed, OR
+- mode/backend, OR
+- one reference asset / reference role.
 
-If still wrong after 3 retakes on the SAME variable, surface to user before burning budget.
+Never change several at once. If the new take improves, you know why. If it fails, you know what did not work.
+
+### Step 5: Produce the repair
+
+Rewrite only the failing section plus a full retake prompt. Preserve all unchanged variables verbatim.
+
+### Step 6: Log the retake
+
+Use this one-line log:
+
+```text
+Take N · changed: [one variable] · seed: [same/new] · verdict: [keep/post/edit/reroll/rewrite] · evidence: [one sentence]
+```
+
+Two takes with the same flaw = rewrite, not another lucky reroll.
 
 ---
 
 ## Output Format
 
-```markdown
+````markdown
 # /s2s troubleshoot — Diagnosis Report
 
 ## Symptom
-[user description of what's wrong]
+[user description]
+
+## Triage Verdict
+**Verdict:** Keep / Fix in post / Edit / Re-roll / Rewrite
+**Why:** [one sentence]
 
 ## Diagnosis
-**Category:** [1-10]
-**Failure Mode:** [specific mode name]
-**Likely Cause:** [single-line cause]
+**Category:** [1-10 or Failure Atlas]
+**Dominant mechanism:** [attention / familiar prior / negation / trajectory / compounding / reference overlap / capacity / audio-video constraint]
+**Likely cause:** [single-line cause]
 
-## Repair
-**Variable to change:** [face / camera / scene / pacing / mood / color / audio]
-**Old prompt section:**
+## One-Variable Repair
+**Variable to change:** [seed / camera clause / action endpoint / reference role / duration / mode / etc.]
+
+**Old section:**
 ```
-[verbatim section to replace]
+[verbatim]
 ```
 
-**New prompt section:**
+**New section:**
 ```
-[replacement with repair pattern applied]
+[replacement]
 ```
 
 ## Retake Prompt
 ```
-[full regenerated prompt with ONLY the changed variable]
+[full prompt with only the one variable changed]
 ```
 
-## Verification
-After 3 retakes on the same variable, escalate to user.
-```
+## Shot Log
+`Take N · changed: ... · seed: ... · verdict: ... · evidence: ...`
+
+## Stop Condition
+[attempt budget / when to stop / post-production fallback]
+````
 
 ---
 
-## Common Patterns (Cheat Sheet)
+## Cheat Sheet
 
-| User Says                              | Likely Category | Repair Pattern Reference |
-|----------------------------------------|-----------------|--------------------------|
-| "Face looks different from ref"        | 1. Identity     | `seedance-troubleshooting.md` § 1.A        |
-| "Face looks plastic/AI"                | 1. Identity     | § 1.B realism texture pack                 |
-| "Hand has extra fingers"               | 1. Identity     | § 1.C hand-specific                        |
-| "Camera doesn't match what I asked"    | 2. Camera       | § 2.C extra moves                          |
-| "Shots blend into each other"          | 2. Camera       | § 2.B HARD CUT marker                      |
-| "Camera moves when it shouldn't"       | 2. Camera       | § 2.C locked qualifier                     |
-| "Motion is too slow/fast"              | 3. Action       | § 3.A time-segmented                       |
-| "Subject freezes mid-action"           | 3. Action       | § 3.B endpoint                              |
-| "Background has random props"          | 4. Scene        | § 4.A scene specificity                    |
-| "Room is different between clips"      | 4. Scene        | § 4.C geography flip / Spatial Continuity Lock |
-| "No sound"                             | 5. Audio        | § 5.A duration + audio cue                 |
-| "Looks too AI / generic"               | 6. Style        | § 6.A style anchors                        |
-| "Codex returned nothing"               | 7. Backend      | § 7.A Codex quota pitfall (SKILL.md main file) |
-| "Veo hallucinated face"                | 7. Backend      | § 7.B Veo failure                          |
-| "Generation was blocked"               | 8. Safety       | § 8.A face block / § 8.B sensitive content |
-| "Clothes change between clips"         | 9. Continuity   | § 9.A wardrobe lock                        |
-| "Object (phone/wallet) appears/disappears" | 9. Continuity | § 9.B prop state                          |
-| "Output doesn't feel right at all"     | 10. General     | Re-prompt with 1-2 disambiguating questions |
-
----
-
-## Cross-Reference
-
-- `references/seedance-troubleshooting.md` — full taxonomy (10 categories × multiple modes each)
-- `references/seedance-camera-language.md` — camera failure repair patterns
-- `references/seedance-motion-vocabulary.md` — anti-slop lexicon + realism texture pack
-- `references/seedance-reference-syntax.md` — role binding fixes (attachment ambiguity)
-- `references/seedance-no-character-ref-pov-workflow.md` — POV / hands-only fallback
-- SKILL.md main file: "Pitfalls (Top 12)" + "Codex Backend Quota Pitfall" + "Sensitive Content Safety Guardrails"
+| User says | Likely diagnosis | First repair |
+|---|---|---|
+| "Face different from ref" | Identity drift / compounding | Re-anchor original character ref; keep identity phrase verbatim |
+| "Looks plastic" | Style realism gap | Add concrete texture/light/environment anchors, not `realistic` alone |
+| "Camera moves too much" | Extra camera verbs | One camera move with endpoint; add `camera locked` if static |
+| "Action skipped" | No trajectory | One cause, visible consequence, explicit end state |
+| "Object floats" | Physics missing | Name weight/gravity/contact/settle |
+| "Background random" | Scene under-specified | Add scene anchors; remove vague setting adjectives |
+| "No sound" | No audio cue / unsupported surface | Add one explicit sound line or move audio to post |
+| "Lip sync bad" | Audio-video overload | One speaker, <8 words, stable face, less camera motion |
+| "Looks AI generic" | Attention diluted by slop | Cut empty evaluators; name observable details |
+| "Continuation restarts" | Parent observed state missing | Begin from observed end state; mark completed beat |
+| "Future event appears early" | Event density leak | Remove reserved future beat from prompt |
+| "Reference brought wrong look" | Reference role contamination | Add transfer + ignore clause |
 
 ---
 
 ## Related Commands
 
-- After repair applied, user may want to re-run `/s2s motion` with the updated prompt
-- If multiple outputs were bundled, run `/s2s bundle` to regenerate the bundle file
-- If the repair reveals a gap in references, suggest creating a new reference or updating existing one
+- `/s2s motion` — regenerate motion prompt after repair
+- `/s2s ads` — rebuild ad prompt with lower event density
+- `/s2s bundle` — rebundle accepted prompt + retake log
