@@ -1,7 +1,7 @@
 ---
 name: storyboard-to-seedance-suite
-description: "Modular AI video production skill library — collection of references, capabilities, and entry points for Seedance 2.0 / Veo 3.1 / Kling 3.0 / GPT Image 2. Use when you need any combination of: creative brief intake (vague idea → structured brief), storyboard prompts, character references, product references, cinematic compositions, motion prompts, @-role binding, camera language, troubleshooting, video reverse-engineering, hook brainstorming, or pattern-library modes (extend/edit/fuse/beat-sync/dialogue/one-take). Use `/s2s ads` for product/brand/UGC/e-commerce content (embeds dexhunter's 12-pattern library). Each capability is independently invokable — there is no fixed pipeline. Commands: /s2s interview, /s2s storyboard, /s2s character-ref, /s2s product-ref, /s2s motion, /s2s cinematic-variations, /s2s analyze, /s2s hook, /s2s troubleshoot, /s2s compose-pattern (extend/edit/fuse/beat-sync/dialogue/one-take), /s2s bundle."
-version: 1.10.0
+description: "Modular AI video production skill library — collection of references, capabilities, and entry points for Seedance 2.0 / Veo 3.1 / Kling 3.0 / GPT Image 2 / ElevenLabs v3. Use when you need any combination of: creative brief intake (vague idea → structured brief), storyboard prompts, character references, product references, cinematic compositions, motion prompts, @-role binding, camera language, troubleshooting, video reverse-engineering, hook brainstorming, or pattern-library modes (extend/edit/fuse/beat-sync/dialogue/one-take), or ElevenLabs v3 voiceover scripts. Use `/s2s ads` for product/brand/UGC/e-commerce content (embeds dexhunter's 12-pattern library), `/s2s vo-v3` for ElevenLabs v3 inline audio-tagged VO scripts. Each capability is independently invokable — there is no fixed pipeline. Commands: /s2s interview, /s2s storyboard, /s2s character-ref, /s2s product-ref, /s2s motion, /s2s cinematic-variations, /s2s analyze, /s2s hook, /s2s troubleshoot, /s2s compose-pattern (extend/edit/fuse/beat-sync/dialogue/one-take), /s2s bundle, /s2s vo-v3."
+version: 1.11.0
 author: Hermes Agent
 license: MIT
 triggers:
@@ -45,6 +45,16 @@ triggers:
   - "TikTok shop"
   - "Shopee"
   - "Tokopedia"
+  - "elevenlabs v3"
+  - "eleven v3"
+  - "v3 audio tags"
+  - "v3 voice"
+  - "v3 pause"
+  - "expressive voice v3"
+  - "elevenlabs v3 script"
+  - "voice acting v3"
+  - "v3 inline tags"
+  - "bikin script eleven v3"
   # Capability keywords
   - "storyboard prompt"
   - "12-section storyboard"
@@ -186,6 +196,7 @@ Output: copy-paste-ready prompts, references, or analysis
 | Have video file, want to reverse-engineer         | Analyze           | `/s2s analyze`           | `video-analysis-template.md` + `tiktok-analyzer-system-prompt.md` |
 | Want hook variants for short-form                 | Hook              | `/s2s hook`              | `hook-brainstorming-social-issue.md`                   |
 | Want product/brand/UGC ad prompt                  | Ads               | `/s2s ads`               | `dexhunter-patterns-ads.md` + `seedance-reference-syntax.md` |
+| Want VO script for ElevenLabs v3 (inline audio tags) | VO v3            | `/s2s vo-v3`             | `elevenlabs-vo-v3-tags.md`                                |
 | Generated video wrong, need repair                | Troubleshoot      | `/s2s troubleshoot`      | `seedance-troubleshooting.md`                          |
 | Want all artifacts bundled into one file          | Bundle            | `/s2s bundle`            | (assembles from prior outputs)                         |
 | Have a vague idea (no full brief yet)            | Interview         | `/s2s interview`           | `references/creative-brief-intake.md`                   |
@@ -243,6 +254,12 @@ All references live in `references/`. Pick the ones you need; ignore the rest.
 |---------------------------------|-----------------------------------------------------------|
 | `dexhunter-patterns-ads.md`     | 12-pattern library from dexhunter annotated for ads (Product Showcase default, Beat-Sync, FX Replication, Multi-Cut Assembly) |
 
+### Voiceover / ElevenLabs v3 References (v1.11.0 — added for `/s2s vo-v3`)
+
+| File                                              | Use                                                   |
+|---------------------------------------------------|-------------------------------------------------------|
+| `elevenlabs-vo-v3-tags.md`                        | Full Eleven v3 audio tag reference (verified against `elevenlabs.io/blog/v3-audiotags` + 4 official blog posts June 2026) + v2 SSML→v3 migration table |
+
 ### Composition & Style References
 
 | File                                              | Use                                                   |
@@ -296,6 +313,7 @@ Each command in `commands/` is a **single capability spec** — invocable indepe
 | `/s2s troubleshoot`           | Troubleshoot      | (uses `seedance-troubleshooting.md` directly) |
 | `/s2s bundle`                 | Bundle            | (composes from prior outputs into single markdown file) |
 | `/s2s ads`                    | Ads               | `commands/ads.md`             |
+| `/s2s vo-v3`                  | VO v3             | `commands/vo-v3.md`            |
 
 **Backward compat:**
 - `/s2s pipeline` still works as alias for "storyboard + character-ref + motion in sequence, with checkpoints" (see `commands/pipeline.md`). It is NOT default behavior — only invoke if user explicitly requests the chained pipeline.
@@ -691,6 +709,19 @@ In this skill:
 ---
 
 ## Version History
+
+- **1.11.0** (2026-06-30) — **/s2s vo-v3 command + ElevenLabs v3 inline audio-tagged VO**
+  - **NEW**: `commands/vo-v3.md` — `/s2s vo-v3` capability (Eleven v3 plain-text VO scripts with inline `[lowercase_tags]`, ready to paste into ElevenLabs Studio v3 input or POST to `/v1/text-to-speech` with `model_id: "eleven_v3"`)
+  - **NEW**: `references/elevenlabs-vo-v3-tags.md` — verified v3 audio tag list (emotions, delivery, reactions, pacing/cognitive) + v2 SSML→v3 migration table. Verified against official sources: `elevenlabs.io/blog/v3-audiotags`, `blog/eleven-v3-audio-tags-expressing-emotional-context-in-ai-speech`, `blog/eleven-v3-audio-tags-precision-delivery-control-for-ai-speech`, `blog/eleven-v3`, `help.elevenlabs.io/hc/en-us/articles/35869142561297`
+  - **NEW**: `assets/vo-script-template-v3.txt` — blank plain-text template (4-segment UGC arc pre-tagged)
+  - **NEW**: `slash-commands/s2s-vo-v3.md` — `/s2s vo-v3` slash command entry
+  - **UPDATED**: Capability Router adds "VO v3" row after Ads
+  - **UPDATED**: Reference Library adds "Voiceover / ElevenLabs v3 References" subsection
+  - **UPDATED**: Commands table adds `/s2s vo-v3` entry
+  - **UPDATED**: Triggers expanded +10 keywords: `elevenlabs v3`, `eleven v3`, `v3 audio tags`, `v3 voice`, `v3 pause`, `expressive voice v3`, `elevenlabs v3 script`, `voice acting v3`, `v3 inline tags`, `bikin script eleven v3`
+  - **UPDATED**: SKILL frontmatter description adds ElevenLabs v3 to backend list + `/s2s vo-v3` to commands list
+  - **GOAL**: complete the audio side of the production loop. `/s2s motion` covers video; `/s2s ads` covers ad motion; `/s2s vo-v3` covers Eleven v3 voiceover. Pairs with `/s2s bundle` to ship complete ad package.
+  - **WHY v3-only**: PVC optimization pending, IVC/Voice Design preferred per official blog. v3 is the most expressive model — `[whispers]`, `[laughs]`, `[sighs]`, `[pause]`, `[emphasized]`, `[short pause]`, `[long pause]` etc. enable voice-acting quality that v2 SSML cannot reach. Tested with sub-agent worker against 3 tone variants (casual mom / hype UGC / calm expert) — all valid, all pass QC, ~40 spoken words per 15s script.
 
 - **1.10.0** (2026-06-18) — **/s2s ads command + dexhunter-patterns-ads.md reference**
   - **NEW**: `commands/ads.md` — `/s2s ads` capability (product/brand/UGC/e-commerce motion prompts, embeds dexhunter's 12-pattern library)

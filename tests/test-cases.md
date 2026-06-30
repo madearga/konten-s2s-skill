@@ -243,3 +243,34 @@ This is **manual verification only** in v1.3.0. Future versions could add:
 - Cost + time tracking per pipeline run
 
 Track these as future work — not in scope for v1.0.
+
+---
+
+## TC7: `/s2s vo-v3` (ElevenLabs v3 inline audio tags — added v1.11.0)
+
+**Input:** `/s2s vo-v3` + "Pigeon straw 240ml, 15 detik, casual mom, Indonesian, light audio events"
+
+**Expected Output:**
+- Single `.txt` file at `~/Downloads/vo_scripts/pigeon-straw-240ml-tiktok-15s-casual-mom-v3.txt`
+- Plain text (parses without error via `python3 -c "open('file').read()"`)
+- **NOT** valid XML or SSML — no `<speak>`, `<break>`, `<prosody>`, `<emphasis>` anywhere
+- 4-segment UGC arc with v3 inline tags: hook → problem → product → CTA
+- Each segment uses bracketed lowercase tags verified in `references/elevenlabs-vo-v3-tags.md`
+- Pause control via `[short pause]` / `[pause]` / `[long pause]` (NOT SSML `<break>`)
+- Numbers written as words (`dua ratus empat puluh mili`, not `240ml`)
+- No emoji in body
+- Word count for Indonesian 15s target: 30–38 spoken words (excluding tags)
+
+**Variants to verify:**
+- TC7a: Casual mom (default — tone = `[calm][cheerfully]` for hook + CTA, `[tired]` for problem, `[emphasized]` for benefit beat)
+- TC7b: Hype UGC (tone = `[excited][happily]`, `[rushed]`, reaction sounds `[laughs]`)
+- TC7c: Calm expert narrator (tone = `[calm]` + `[slows down]` for problem beat, `[calm][cheerfully]` close)
+
+**Edge cases:**
+- Numbers in input ("240ml") → MUST be written as words in output
+- Emoji in input → MUST be stripped before emitting
+- < 3 args from user → agent asks 5 questions or applies defaults
+- Existing `/s2s motion` output for same product → VO segments sync to motion timeline
+- User asks for real-time / conversational → route to `eleven_turbo_v2_5` or `eleven_flash_v2_5` (NOT v3)
+- User asks for PVC voice → reject per official blog (PVC not optimized for v3)
+- Indonesian wpm correction applied (~130 wpm effective, ~85–90% of English 150 wpm baseline)
