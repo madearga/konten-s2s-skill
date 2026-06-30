@@ -1,6 +1,6 @@
 # Creative Brief Intake — Vague Idea → Structured Brief
 
-**Source:** Adopted from `Emily2040/seedance-2.0` v5.5.2 (`seedance-interview` sub-skill) + s2s internal accumulated intake patterns from "multi-clip fate-grid pattern" + "Gaji 3 Detik" + "bystander PSA pattern v2" sessions.
+**Source:** Adopted from `Emily2040/seedance-2.0` v5.5.2 (`seedance-interview` sub-skill) + s2s internal accumulated intake patterns from multi-clip social-issue sessions.
 
 Activated when user arrives with a vague idea — no full brief, no locked character, no script. Bridges to `/s2s storyboard`, `/s2s motion`, or `/s2s hook` after intake.
 
@@ -69,7 +69,7 @@ Best when user gives topic + audience but no specifics:
 
 ### Mode 3: Hybrid (Recommended for Indonesian PSA)
 
-Agent generates brief based on Indonesian PSA conventions (validated patterns from "multi-clip fate-grid pattern" + "bystander PSA pattern"), asks for 1-2 key overrides.
+Agent generates brief based on Indonesian PSA conventions (validated patterns from multi-clip social-issue workflows), asks for 1-2 key overrides.
 
 Best when topic = social issue / PSA / competition.
 
@@ -283,7 +283,7 @@ Output brief → feeds into:
 ## Reference
 
 - Emily2040/seedance-2.0 — v5.5.2 — `skills/seedance-interview/` (creative brief intake sub-skill)
-- s2s internal — accumulated intake patterns from "multi-clip fate-grid pattern", "Gaji 3 Detik", "bystander PSA pattern v2"
+- s2s internal — accumulated intake patterns from reusable multi-clip social-issue workflows
 - s2s internal — `references/cinematic-composition-vocabulary.md` (19 styles for energy/format)
 - s2s internal — `references/hook-brainstorming-social-issue.md` (social-issue intake patterns)
 - s2s internal — `templates/oak-no-character-pov-workflow.md` (Indonesian PSA defaults)

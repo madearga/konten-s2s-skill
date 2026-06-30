@@ -1,5 +1,9 @@
 # Version History
 
+- **1.13.5** (2026-06-30) — **Project-provenance cleanup**
+  - Removed stale multi-clip project-provenance phrase from model-facing files.
+  - Kept reusable multi-clip, public-safety, hook, and monochrome storyboard patterns intact.
+
 - **1.13.4** (2026-06-30) — **/s2s vo-v3 placeholder tag cleanup**
   - Replaced bracketed placeholder examples (`[tag]`, `[lowercase_tags]`) with real v3-compatible tags or prose.
   - Reworded the custom-tag anti-pattern so validators do not treat the intentionally bad example as an allowed paste-block tag.

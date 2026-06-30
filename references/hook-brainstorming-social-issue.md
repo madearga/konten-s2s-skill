@@ -1,6 +1,6 @@
 # Hook Brainstorming for Social-Issue AI Videos
 
-Reference for generating, evaluating, and locking visual hooks for competition submissions, PSAs, and social-issue / public-safety AI videos. Built from the "multi-clip fate-grid pattern" (competition / competition organizer 2026) workflow.
+Reference for generating, evaluating, and locking visual hooks for competition submissions, PSAs, and social-issue / public-safety AI videos. Built from reusable multi-clip social-issue and public-safety workflows.
 
 ## When to use
 

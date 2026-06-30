@@ -1,7 +1,7 @@
 ---
 name: storyboard-to-seedance-suite
 description: "AI video production router for Seedance/Veo/Kling/GPT Image 2/ElevenLabs v3. Use for brief intake, storyboard prompts, character/product refs, cinematic variations, motion prompts, asset binding, troubleshooting/retake triage, video analysis, hook brainstorming, product/UGC ads, ElevenLabs v3 VO scripts, command help, and pattern modes: extend/edit/fuse/beat-sync/dialogue/one-take. Commands: /s2s help, interview, storyboard, character-ref, product-ref, cinematic-variations, motion, compose-pattern, analyze, hook, troubleshoot, bundle, ads, vo-v3."
-version: 1.13.4
+version: 1.13.5
 author: Hermes Agent
 license: MIT
 triggers:
@@ -206,7 +206,6 @@ Output: copy-paste-ready prompts, references, or analysis
 | Want VO script for ElevenLabs v3 (inline audio tags) | VO v3            | `/s2s vo-v3`             | `elevenlabs-vo-v3-tags.md`                                |
 | Generated video wrong, need repair / retake triage | Troubleshoot      | `/s2s troubleshoot`      | `seedance-retake-protocol.md` + `seedance-model-mechanics.md` + `seedance-failure-atlas.md` + `seedance-troubleshooting.md` |
 | Want all artifacts bundled into one file          | Bundle            | `/s2s bundle`            | (assembles from prior outputs)                         |
-| Have a vague idea (no full brief yet)            | Interview         | `/s2s interview`           | `references/creative-brief-intake.md`                   |
 
 ---
 
@@ -279,7 +278,6 @@ All references live in `references/`. Pick the ones you need; ignore the rest.
 | `director-strip-7-track.md`                       | RHYTHM + ESCALATION vocabulary (7 tracks)            |
 | `koda-ivanna-patterns-2026-06.md`                 | 4 patterns reverse-engineered from Koda + Ivanna prompts |
 | `seedance-no-character-ref-pov-workflow.md`       | No-character-reference POV workflow + cyberbullying safety |
-| `cinematic-composition-vocabulary.md`             | (also listed above — style anchor for cinematic)      |
 
 ### Continuity & Pattern References
 
@@ -402,7 +400,7 @@ Validated structure: **7×15s = 1:45**
 
 ---
 
-## Style Lock: Monochrome Sepia/Amber (Validated 2026-06-14, "multi-clip fate-grid pattern" the protagonist)
+## Style Lock: Monochrome Sepia/Amber
 
 > Full style DNA, cell narrative map, and validated pitfalls: see `references/storyboard-style-monochrome-4x3.md`
 
@@ -547,7 +545,7 @@ These are real failure modes validated across sessions. Apply prophylactically w
 
 **1. Treating storyboard image as the signal** — the image is documentation. The text in the motion prompt (director strip + panel beats) is the contract. Always include the text, not just the image attachment.
 
-**1a. Triptych/3-panel default for multi-clip storyboards** — Agent default is to generate a "3 panels = 3 scenes" image per clip. WRONG. For a multi-clip narrative with shared character + setting, each storyboard is a 12-panel *sequence* (4×3 grid, P01-P12) of the SAME scene with progressive beats. 1 clip = 1 storyboard = 12 panels of one room + close-ups. See `references/storyboard-style-monochrome-4x3.md` for the validated monochrome 4×3 12-panel style used in 5-clip "multi-clip fate-grid pattern" project.
+**1a. Triptych/3-panel default for multi-clip storyboards** — Agent default is to generate a "3 panels = 3 scenes" image per clip. WRONG. For a multi-clip narrative with shared character + setting, each storyboard is a 12-panel *sequence* (4×3 grid, P01-P12) of the SAME scene with progressive beats. 1 clip = 1 storyboard = 12 panels of one room + close-ups. See `references/storyboard-style-monochrome-4x3.md` for the reusable monochrome 4×3 12-panel style.
 
 **1b. Don't loop director profile for batch image generation** — Director profile is for prompt CRAFTING (1 call per prompt). After prompt is crafted, generate directly via `image_generate` tool. Director profile adds 2-3 min per call vs ~30s direct, and times out at 5min on long prompts. For multi-clip batches (5-7 storyboards), the workflow is: write prompt once → `image_generate` × N.
 

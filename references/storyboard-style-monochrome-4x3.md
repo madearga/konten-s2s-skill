@@ -1,6 +1,6 @@
 # Monochrome 4×3 12-Panel Storyboard Style — Complete Guide
 
-> **Validated 2026-06-14** for a multi-clip fate-grid pattern project. Single source of truth — replaces the earlier `monochrome-storyboard-style.md` (merged 2026-06-15).
+> **Validated 2026-06-14** for a multi-clip public-safety storyboard project. Single source of truth — replaces the earlier `monochrome-storyboard-style.md` (merged 2026-06-15).
 >
 > Reference anchor: `/root/.hermes/image_cache/img_c67e2b5bfb94.jpg` — use `vision_analyze` to lock style before generating.
 
@@ -170,7 +170,7 @@ For batch multi-clip storyboards:
 
 ## Provenance
 
-- Validated end-to-end on a multi-clip fate-grid pattern project
+- Validated end-to-end on a multi-clip public-safety storyboard project
 - 5 storyboard images generated 2026-06-14 via Director profile + Codex GPT Image 2 medium
 - User explicitly corrected: "Harusnya generate sesuai skill s2s kita dengan persona director" + "Harusnya langsung 1 storyboard???" — both corrected to monochrome 4x3 grid per this reference
 

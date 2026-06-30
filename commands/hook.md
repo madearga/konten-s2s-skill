@@ -36,7 +36,7 @@ If user gives full brief, fill 3-4 directly. If vague, ask minimum.
 
 ### Step 1: Load Hook Reference
 
-Read `references/hook-brainstorming-social-issue.md` (canonical 5 hook tiers + 6 evaluation criteria + worked example from "multi-clip fate-grid pattern" social-issue session).
+Read `references/hook-brainstorming-social-issue.md` (canonical 5 hook tiers + 6 evaluation criteria + worked example from a reusable multi-clip social-issue session).
 
 ### Step 2: Generate 5 Hook Variants
 
