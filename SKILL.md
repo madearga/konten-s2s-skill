@@ -1,7 +1,7 @@
 ---
 name: storyboard-to-seedance-suite
-description: "Modular AI video production skill library — collection of references, capabilities, and entry points for Seedance 2.0 / Veo 3.1 / Kling 3.0 / GPT Image 2 / ElevenLabs v3. Use when you need any combination of: creative brief intake (vague idea → structured brief), storyboard prompts, character references, product references, cinematic compositions, motion prompts, @-role binding, camera language, troubleshooting, retake triage, video reverse-engineering, hook brainstorming, or pattern-library modes (extend/edit/fuse/beat-sync/dialogue/one-take), or ElevenLabs v3 voiceover scripts. Use `/s2s ads` for product/brand/UGC/e-commerce content (embeds dexhunter's 12-pattern library), `/s2s vo-v3` for ElevenLabs v3 inline audio-tagged VO scripts. Each capability is independently invokable — there is no fixed pipeline. Commands: /s2s interview, /s2s storyboard, /s2s character-ref, /s2s product-ref, /s2s motion, /s2s cinematic-variations, /s2s analyze, /s2s hook, /s2s troubleshoot, /s2s compose-pattern (extend/edit/fuse/beat-sync/dialogue/one-take), /s2s bundle, /s2s vo-v3."
-version: 1.12.0
+description: "Modular AI video production skill library — collection of references, capabilities, and entry points for Seedance 2.0 / Veo 3.1 / Kling 3.0 / GPT Image 2 / ElevenLabs v3. Use when you need any combination of: creative brief intake (vague idea → structured brief), storyboard prompts, character references, product references, cinematic compositions, motion prompts, @-role binding, camera language, troubleshooting, retake triage, video reverse-engineering, hook brainstorming, or pattern-library modes (extend/edit/fuse/beat-sync/dialogue/one-take), or ElevenLabs v3 voiceover scripts. Use `/s2s help` to explain commands and route users. Use `/s2s ads` for product/brand/UGC/e-commerce content (embeds dexhunter's 12-pattern library), `/s2s vo-v3` for ElevenLabs v3 inline audio-tagged VO scripts. Each capability is independently invokable — there is no fixed pipeline. Commands: /s2s interview, /s2s storyboard, /s2s character-ref, /s2s product-ref, /s2s motion, /s2s cinematic-variations, /s2s analyze, /s2s hook, /s2s troubleshoot, /s2s compose-pattern (extend/edit/fuse/beat-sync/dialogue/one-take), /s2s bundle, /s2s vo-v3, /s2s help."
+version: 1.13.0
 author: Hermes Agent
 license: MIT
 triggers:
@@ -33,6 +33,7 @@ triggers:
   - "/s2s compose-pattern"
   - "/s2s bundle"
   - "/s2s ads"
+  - "/s2s help"
   - "iklan"
   - "product video"
   - "produk video"
@@ -60,6 +61,11 @@ triggers:
   - "fix in post"
   - "keep or regenerate"
   - "continuation failed"
+  - "s2s help"
+  - "s2s commands"
+  - "fungsi s2s"
+  - "cara pakai s2s"
+  - "command apa"
   # Capability keywords
   - "storyboard prompt"
   - "12-section storyboard"
@@ -190,6 +196,7 @@ Output: copy-paste-ready prompts, references, or analysis
 
 | User Intent                                       | Capability        | Command                  | Required References                                    |
 |---------------------------------------------------|-------------------|--------------------------|--------------------------------------------------------|
+| Need command guide or routing                     | Help              | `/s2s help`              | `commands/help.md`                                    |
 | Have a vague idea, need a structured brief       | Interview         | `/s2s interview`         | `creative-brief-intake.md`                                |
 | Have a brief, want storyboard image               | Storyboard        | `/s2s storyboard`        | `storyboard-prompt-template.md` + `cinematic-composition-vocabulary.md` |
 | Want 10 composition options for one key moment    | Pre-visualization | `/s2s cinematic-variations` | `cinematic-composition-vocabulary.md` + `cinematic-variations-script-mode.md` |
@@ -310,6 +317,7 @@ Each command in `commands/` is a **single capability spec** — invocable indepe
 | Command                       | Capability        | Spec File                  |
 |-------------------------------|-------------------|----------------------------|
 | `/s2s interview`              | Interview (intake)| `commands/interview.md`    |
+| `/s2s help`                   | Help              | `commands/help.md`         |
 | `/s2s storyboard`             | Storyboard        | `commands/storyboard.md`   |
 | `/s2s character-ref`          | Character Ref     | `commands/character-ref.md` |
 | `/s2s product-ref`            | Product Ref       | `commands/product-ref.md`  |
@@ -720,6 +728,14 @@ In this skill:
 ---
 
 ## Version History
+
+- **1.13.0** (2026-06-30) — **/s2s help command guide + router**
+  - **NEW**: `commands/help.md` — command map, route-by-goal table, and specific explanations for every `/s2s` command.
+  - **NEW**: `slash-commands/s2s-help.md` — portable `/s2s-help` wrapper for Pi/OpenCode-style command menus.
+  - **UPDATED**: Capability Router adds Help row at the top.
+  - **UPDATED**: Commands table adds `/s2s help`.
+  - **UPDATED**: Triggers expanded +5: `s2s help`, `s2s commands`, `fungsi s2s`, `cara pakai s2s`, `command apa`.
+  - **GOAL**: users can ask what a command does, describe a goal, and get routed to the smallest matching `/s2s` capability.
 
 - **1.12.0** (2026-06-30) — **/s2s troubleshoot retake triage + model-mechanics diagnosis**
   - **NEW**: `references/seedance-retake-protocol.md` — adopted from `Emily2040/seedance-2.0` (`retake-protocol.md`, MIT, commit `7659cbd`). Adds five verdicts: Keep / Fix in post / Edit / Re-roll / Rewrite, one-variable rule, attempt budget, shot log, and sequence canon.

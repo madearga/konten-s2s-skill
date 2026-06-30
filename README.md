@@ -31,10 +31,11 @@ Also supports the reverse direction:
 Existing video → /s2s analyze → reverse-engineered brief/prompt → optional /s2s pipeline
 ```
 
-## Slash commands (7)
+## Slash commands
 
 | Command | Step | When to use |
 |---------|------|-------------|
+| `/s2s help` | guide | Explain commands + route to the right capability |
 | `/s2s storyboard` | 1 | Need storyboard image |
 | `/s2s character-ref` | 2a | Human in video, need identity sheet |
 | `/s2s product-ref` | 2b | Product in video (FMCG, beauty, etc.) |
@@ -42,6 +43,10 @@ Existing video → /s2s analyze → reverse-engineered brief/prompt → optional
 | `/s2s pipeline` | 1+2+3 | Have brief, want full workflow |
 | `/s2s cinematic-variations` | pre | Explore 10 composition options first |
 | `/s2s analyze` | 0 | Reverse-engineer existing video into prompts |
+| `/s2s ads` | ad | Product/brand/UGC/e-commerce ad prompt |
+| `/s2s troubleshoot` | repair | Diagnose failed output + one-variable retake repair |
+| `/s2s vo-v3` | audio | ElevenLabs v3 plain-text VO script with `[tags]` |
+| `/s2s bundle` | package | Combine artifacts into one deliverable |
 
 Notes:
 - `/s2s motion` is still the only Step 3 command
@@ -99,6 +104,7 @@ storyboard-to-seedance-suite/
 │   ├── tiktok-analyzer-system-prompt.md # reverse-engineering companion note
 │   └── video-analysis-template.md     # reverse-engineering template
 ├── commands/
+│   ├── help.md                        # /s2s help
 │   ├── storyboard.md                  # /s2s storyboard
 │   ├── character-ref.md               # /s2s character-ref
 │   ├── product-ref.md                 # /s2s product-ref
@@ -138,6 +144,7 @@ cd konten-s2s-skill
 ./install.sh
 
 # 2. Use (in your agent of choice)
+# Hermes:      /s2s help
 # Hermes:      /s2s pipeline Indonesian girl in kitchen making banana bread, 15s
 # Claude Code: "use storyboard-to-seedance-suite to make a banana bread video"
 # OpenCode:    same as Claude Code — natural language trigger

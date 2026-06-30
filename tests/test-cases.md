@@ -301,3 +301,26 @@ Track these as future work — not in scope for v1.0.
 - Repair prompt starts from observed parent end state, not planned ending.
 - Repair excludes already-completed action.
 - No unrelated rewrite of style, camera, aspect ratio, product, or character identity.
+
+---
+
+## TC9: `/s2s help` command guide (v1.13.0)
+
+**Input A:** `/s2s help`
+
+**Expected:**
+- Shows compact command map.
+- Includes at least: help, interview, storyboard, character-ref, product-ref, motion, ads, analyze, troubleshoot, vo-v3, bundle, pipeline.
+- Gives 3–5 example invocations.
+
+**Input B:** `/s2s help vo-v3`
+
+**Expected:**
+- Explains only `/s2s vo-v3`.
+- Includes: use when, inputs needed, output `.txt` with `[lowercase_tags]`, example, next command.
+
+**Input C:** `fungsi s2s buat iklan produk apa?`
+
+**Expected:**
+- Routes to `/s2s ads` as smallest matching command.
+- Does not start full pipeline unless user asks for full workflow.
