@@ -1,6 +1,6 @@
 ---
 name: vo-v3
-description: "/s2s vo-v3 — Convert a topic, brief, ad prompt, or Seedance motion prompt into an ElevenLabs v3 voiceover script. Outputs a VO context card plus plain-text [lowercase_tags] paste block for ElevenLabs Studio v3 or POST /v1/text-to-speech with model_id=eleven_v3."
+description: "/s2s vo-v3 — Convert a topic, brief, ad prompt, or Seedance motion prompt into an ElevenLabs v3 voiceover script. Outputs a VO context card plus plain-text lowercase bracketed audio tags for ElevenLabs Studio v3 or POST /v1/text-to-speech with model_id=eleven_v3."
 ---
 
 # /s2s vo-v3 — Voiceover Script (ElevenLabs v3 Inline Audio Tags)
@@ -266,9 +266,9 @@ Paste block format:
 
 ```text
 ELEVENLABS V3 PASTE BLOCK
-[tag] Spoken line. [pause]
+[calm] Spoken line. [pause]
 
-[tag] Next spoken line.
+[cheerfully] Next spoken line.
 ```
 
 Minimal example:
@@ -351,7 +351,7 @@ Pair with other s2s capabilities:
 - [ ] No `<speak>`, `<break>`, `<prosody>`, `<emphasis>` anywhere
 - [ ] Numbers spelled as words (`dua ratus empat puluh mili`, not `240ml`)
 - [ ] No emoji in body
-- [ ] All tags lowercase `[lowercase]`
+- [ ] All tags are lowercase, e.g. `[calm]`, `[pause]`, `[cheerfully]`
 - [ ] Tag reference is in the verified v3 list (see `references/elevenlabs-vo-v3-tags.md`)
 - [ ] Word count within duration budget (English ~150 wpm, Indonesian ~130 wpm effective)
 - [ ] Total chars ≤ 3,000 (v3 limit)
@@ -370,7 +370,7 @@ Pair with other s2s capabilities:
 | `<prosody>` rate/pitch | SSML, not in v3 | Replace with `[rushed]` / `[slows down]` / `[drawn out]` |
 | Raw digits like `240` | Multilingual can't disambiguate | Write as words |
 | Emoji in body | Breaks model | Strip |
-| Custom tag `[fluttering eyelashes]` | Made-up, ignored | Use only verified list |
+| Custom tag like "fluttering eyelashes" | Made-up, ignored | Use only verified list |
 | Using PVC for v3 | "Not fully optimized for v3" per blog | Switch to IVC or Voice Design |
 | 4,000+ char script | v3 has 3,000 char limit | Split into 2 requests or trim |
 | `model_id: "eleven_multilingual_v2"` | Won't pick up v3 audio tags | Set to `"eleven_v3"` |

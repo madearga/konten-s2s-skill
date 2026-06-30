@@ -1,5 +1,5 @@
 ---
-description: "Voiceover script for ElevenLabs v3 inline audio tags — input brief or product/duration, output .txt file with [lowercase_tags] ready for ElevenLabs Studio v3 input or /v1/text-to-speech API with model_id=eleven_v3"
+description: "Voiceover script for ElevenLabs v3 inline audio tags — input brief or product/duration, output .txt file with lowercase bracketed audio tags ready for ElevenLabs Studio v3 input or /v1/text-to-speech API with model_id=eleven_v3"
 argument-hint: "[hook] [product] [duration] [tone] [language] [audio event intent]"
 ---
 

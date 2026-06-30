@@ -1,5 +1,10 @@
 # Version History
 
+- **1.13.4** (2026-06-30) — **/s2s vo-v3 placeholder tag cleanup**
+  - Replaced bracketed placeholder examples (`[tag]`, `[lowercase_tags]`) with real v3-compatible tags or prose.
+  - Reworded the custom-tag anti-pattern so validators do not treat the intentionally bad example as an allowed paste-block tag.
+  - Kept the Seedance prompt → VO compiler behavior unchanged.
+
 - **1.13.3** (2026-06-30) — **Seedance prompt to ElevenLabs v3 VO compiler**
   - Extended `/s2s vo-v3` to accept raw ideas, briefs, ad prompts, and Seedance motion prompts.
   - Added the Seedance Prompt → VO Compiler rule: extract duration, first visual action, emotion, product role, camera pacing, silent beats, and safety context before writing VO.
