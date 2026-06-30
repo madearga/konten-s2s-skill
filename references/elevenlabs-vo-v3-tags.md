@@ -48,9 +48,9 @@ Eleven v3 reads inline `[lowercase]` tags in plain text — **no SSML, no XML wr
 ### Combining (works)
 ```
 [hesitant][nervous] I... I'm not sure this is going to work.
-[whispering][pause] Did you hear that? [rushed] Hide! Now!
+[whispers][pause] Did you hear that? [rushed] Hide! Now!
 [whispers][breathes] Something's coming... [sighs] I can feel it.
-[tired] I've been working 14 hours. [sigh] My hands are numb.
+[tired] I've been working fourteen hours. [sighs] My hands are numb.
 [happily][shouts] We did it! [laughs]
 ```
 
@@ -82,8 +82,8 @@ Note: `(laughs)` style `(parenthetical)` works in dialogue mode, distinct from `
 | `<break time="0.3s" />` | `[short pause]` |
 | `<break time="1.0s" />` | `[pause]` |
 | `<break time="2.0s" />` | `[long pause]` |
-| `<prosody rate="0.95">` | `[slows down]` ... `[continues normal pace]` |
-| `<prosody rate="1.05">` | `[rushed]` ... `[continues normal pace]` |
+| `<prosody rate="0.95">` | `[slows down]` then continue with normal prose |
+| `<prosody rate="1.05">` | `[rushed]` then continue with normal prose |
 | `<emphasis level="strong">` | `[emphasized]` |
 | `—` (em-dash) | `[short pause]` or `[pause]` |
 | `--` | `[long pause]` |

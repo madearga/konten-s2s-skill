@@ -9,12 +9,13 @@ Generates plain-text voiceover scripts with Eleven v3 inline audio tags (`[whisp
 
 ## Step 1 — Locate s2s skill
 
-```bash
-find ~/.pi ~/.config/opencode ~/.opencode ~/.claude ~/.codex \
-  -maxdepth 4 -type d -name konten-s2s-skill 2>/dev/null | head -1
+Use the canonical Hermes skill path first:
+
+```text
+~/.hermes/skills/mlops/ai-video-production/storyboard-to-seedance-suite
 ```
 
-Remember as `SKILL`.
+If this slash command runs from a symlinked Claude/OpenCode/Codex install, resolve the skill directory that contains this file and use its parent skill root as `SKILL`.
 
 ## Step 2 — Load the v3 command spec
 

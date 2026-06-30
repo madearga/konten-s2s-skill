@@ -1,6 +1,18 @@
 # Version History
 
-- **1.13.1** (2026-06-30) — **Prune completed project references + router trim**
+- **1.13.3** (2026-06-30) — **Seedance prompt to ElevenLabs v3 VO compiler**
+  - Extended `/s2s vo-v3` to accept raw ideas, briefs, ad prompts, and Seedance motion prompts.
+  - Added the Seedance Prompt → VO Compiler rule: extract duration, first visual action, emotion, product role, camera pacing, silent beats, and safety context before writing VO.
+  - Added required output split: VO Context Card for review + ElevenLabs v3 Paste Block for direct copy-paste.
+  - Cleaned remaining completed-project provenance from reusable storyboard references.
+
+- **1.13.2** (2026-06-30) — **/s2s vo-v3 routing and tag hygiene fix**
+  - Added explicit `/s2s vo-v3` trigger to SKILL frontmatter.
+  - Fixed slash-command helper path: use canonical `storyboard-to-seedance-suite`, not stale `konten-s2s-skill` lookup.
+  - Removed nonexistent `/s2s vo` handoff from v3 command docs.
+  - Replaced invalid example audio tags with verified v3-compatible wording.
+
+- **1.13.1** (2026-06-30) — **Pruned completed project refs after remote v1.13 merge**
   - Removed completed project names, CTAs, and case-study anchors from model-facing S2S text.
   - Deleted obsolete project snapshot references.
   - Moved cross-platform install and version history details behind reference pointers.

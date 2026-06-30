@@ -1,7 +1,7 @@
 ---
 name: storyboard-to-seedance-suite
 description: "AI video production router for Seedance/Veo/Kling/GPT Image 2/ElevenLabs v3. Use for brief intake, storyboard prompts, character/product refs, cinematic variations, motion prompts, asset binding, troubleshooting/retake triage, video analysis, hook brainstorming, product/UGC ads, ElevenLabs v3 VO scripts, command help, and pattern modes: extend/edit/fuse/beat-sync/dialogue/one-take. Commands: /s2s help, interview, storyboard, character-ref, product-ref, cinematic-variations, motion, compose-pattern, analyze, hook, troubleshoot, bundle, ads, vo-v3."
-version: 1.13.1
+version: 1.13.3
 author: Hermes Agent
 license: MIT
 triggers:
@@ -34,6 +34,7 @@ triggers:
   - "/s2s bundle"
   - "/s2s ads"
   - "/s2s help"
+  - "/s2s vo-v3"
   - "iklan"
   - "product video"
   - "produk video"

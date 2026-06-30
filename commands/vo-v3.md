@@ -1,11 +1,11 @@
 ---
 name: vo-v3
-description: "/s2s vo-v3 — Voiceover script for ElevenLabs v3 inline audio tags. Plain-text output with [lowercase_tags] ready to paste into ElevenLabs Studio v3 input or POST to /v1/text-to-speech with model_id=eleven_v3."
+description: "/s2s vo-v3 — Convert a topic, brief, ad prompt, or Seedance motion prompt into an ElevenLabs v3 voiceover script. Outputs a VO context card plus plain-text [lowercase_tags] paste block for ElevenLabs Studio v3 or POST /v1/text-to-speech with model_id=eleven_v3."
 ---
 
 # /s2s vo-v3 — Voiceover Script (ElevenLabs v3 Inline Audio Tags)
 
-Generates a **voiceover script in plain text with Eleven v3 inline audio tags** (`[laughs]`, `[whispers]`, `[sighs]`, `[pause]`, emotions, accents). Strict v3-only — no SSML, no XML, no `<break>`, no `<prosody>`.
+Converts a **topic, brief, ad prompt, or Seedance motion prompt** into a voiceover script in plain text with Eleven v3 inline audio tags (`[laughs]`, `[whispers]`, `[sighs]`, `[pause]`, emotions, accents). Strict v3-only — no SSML, no XML, no `<break>`, no `<prosody>`.
 
 **Capability:** VO Script for ElevenLabs v3
 **Trigger:** `/s2s vo-v3`, or auto-detect: "eleven v3", "v3 audio tags", "expressive voice v3", "elevenlabs v3 script", "voice acting v3", "bikin script eleven v3", "v3 pause tags"
@@ -15,7 +15,7 @@ Generates a **voiceover script in plain text with Eleven v3 inline audio tags** 
 ## When to Use
 
 - User wants v3-specific voiceover (most expressive model)
-- User has or wants expressive delivery: `[whispers]`, `[laughs]`, `[sighs]`, `[angrily]`, etc.
+- User has or wants expressive delivery: `[whispers]`, `[laughs]`, `[sighs]`, `[angry]`, etc.
 - User wants fine-grained pause control: `[pause]` / `[short pause]` / `[long pause]`
 - Target: 15s TikTok ads, brand films, audiobooks, immersive storytelling
 - Language: any of 70+ supported (Indonesian, English, etc.)
@@ -23,7 +23,7 @@ Generates a **voiceover script in plain text with Eleven v3 inline audio tags** 
 ## When NOT to Use
 
 - User wants plain vanilla TTS — use `eleven_multilingual_v2` (more stable, no tags)
-- User wants SSML `<break>` or `<prosody>` syntax — v3 doesn't support; use `/s2s vo` (SSML v2)
+- User wants SSML `<break>` or `<prosody>` syntax — v3 doesn't support; use an ElevenLabs v2 SSML workflow outside `/s2s vo-v3`
 - User wants real-time / conversational (<200ms latency) — v3 is too slow, use `eleven_turbo_v2_5` or `eleven_flash_v2_5`
 - User needs Professional Voice Clone (PVC) — v3 doesn't optimize PVCs yet, use IVC or Voice Design
 - User has no audio context yet — start with `/s2s interview` first
@@ -49,6 +49,43 @@ Gather these before writing. If user says "you decide", apply defaults in bracke
 | Tone baseline | casual mom / calm expert / hype UGC / narrator / corporate | Required |
 | Language | Indonesian / English / multilingual | Required |
 | Audio event intent | none / light (1-2 emotion tags) / full (with reactions [laughs] [sighs]) | Recommended |
+
+---
+
+## Accepted Input Modes
+
+| Input mode | What the user gives | What this command must do |
+|---|---|---|
+| Raw idea | Topic/product + rough goal | Ask or infer the five minimum inputs, then draft VO |
+| Brief | Creative/ad/PSA brief | Extract hook, promise, tone, duration, CTA |
+| `/s2s ads` output | Product ad prompt | Convert sales arc into VO beats, keep benefit language |
+| `/s2s motion` / Seedance prompt | Timeline, camera, action, visual beats | Compile visual context into speakable narration synced to the motion beats |
+
+For Seedance prompt input, do **not** narrate the camera directions. Convert them into audience-facing meaning.
+
+```text
+Bad: "Camera dolly pushes into the mother holding the bottle."
+Good: "[calm] Kalau anak lagi belajar minum sendiri, yang penting botolnya gak gampang tumpah."
+```
+
+---
+
+## Seedance Prompt → VO Compiler Rule
+
+When the input is a Seedance motion prompt, build this internal map before writing the final script:
+
+| Extract from Seedance prompt | Convert into VO decision |
+|---|---|
+| Clip duration / timestamp | Word budget per beat |
+| First visual action | Hook line, 0-3s |
+| Character emotion / body language | Delivery tag: `[calm]`, `[nervous]`, `[tired]`, `[happily]`, etc. |
+| Product / topic role | Benefit or message line |
+| Camera movement | Pacing only, not spoken literally |
+| On-screen text / CTA | Avoid duplicate wording unless it is the final spoken CTA |
+| Silent visual beat | Insert `[pause]` or `[long pause]` |
+| Safety-sensitive visual | Use indirect wording, never graphic description |
+
+The VO is an **off-screen audio layer**, not a caption track. Say what the viewer needs to understand or feel, not everything already visible.
 
 ---
 
@@ -86,7 +123,9 @@ Under-budget is fine — v3 fills the time with delivery variation. Over-budget:
 
 ### Step 1: Pull context
 
-If user has prior `/s2s motion` output or `/s2s ads` brief, **read it first** — the VO needs to sync with the video timeline. Map each motion beat (0–3s, 3–7s, etc.) to one VO segment.
+If user has prior `/s2s motion` output, Seedance prompt, storyboard, or `/s2s ads` brief, **read it first** — the VO needs to sync with the video timeline. Map each motion beat (0-3s, 3-7s, etc.) to one VO segment.
+
+If the user only pasted a Seedance prompt, infer missing fields from the prompt instead of asking unless duration, language, or speaker type is impossible to determine.
 
 If user starts fresh, ask the 5 minimum inputs above.
 
@@ -99,6 +138,16 @@ HOOK (0-3s) → problem expansion (3-7s) → product intro + benefit (7-11s) →
 ```
 
 Tone per user input. Cut to fit budget.
+
+For Seedance prompts, first write a private VO beat map:
+
+```text
+0-3s visual: <what happens on screen>
+0-3s VO job: <hook / context / contrast>
+0-3s spoken idea: <one sentence>
+```
+
+Then collapse the beat map into the final paste block.
 
 ### Step 3: Apply v3 inline tags
 
@@ -168,7 +217,7 @@ Always end with:
   Body:
   {
     "model_id": "eleven_v3",
-    "text": "<plain text with [tags]>",
+    "text": "<plain text with bracketed v3 tags>",
     "voice_settings": {
       "stability": 0.50,
       "similarity_boost": 0.75,
@@ -196,7 +245,31 @@ For cinematic / emotional high: stability 0.35–0.45 (more variable re-rolls).
 
 ## Output Format
 
-Plain text with inline `[lowercase tags]`. Save as `.txt`. **Not XML, not SSML.**
+Return two blocks:
+
+1. **VO Context Card** — for the user to review, not pasted into ElevenLabs.
+2. **ElevenLabs v3 Paste Block** — plain text with inline bracketed v3 tags. This is the only block the user copies into ElevenLabs. Save as `.txt`. **Not XML, not SSML.**
+
+Context card format:
+
+```text
+VO CONTEXT CARD
+Duration: <15s / 30s / 60s>
+Language: <Indonesian / English / ...>
+Speaker: <casual mom / narrator / calm expert / ...>
+Emotional arc: <hook → problem → relief → CTA>
+Sync source: <Seedance prompt / storyboard / ad brief / raw idea>
+Do not paste this card into ElevenLabs.
+```
+
+Paste block format:
+
+```text
+ELEVENLABS V3 PASTE BLOCK
+[tag] Spoken line. [pause]
+
+[tag] Next spoken line.
+```
 
 Minimal example:
 
@@ -267,7 +340,7 @@ Pair with other s2s capabilities:
 | Get full motion prompt first | `/s2s motion` | video prompt |
 | Get storyboard first | `/s2s storyboard` | storyboard image |
 | Get VO script for v3 | `/s2s vo-v3` (this) | `.txt` with v3 tags |
-| Get VO script for v2 SSML | `/s2s vo` | `.xml` with SSML |
+| Get VO script for v2 SSML | Not handled by this command | `.xml` with SSML |
 | Bundle everything into one file | `/s2s bundle` | combined markdown |
 
 ---

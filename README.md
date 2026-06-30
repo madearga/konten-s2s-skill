@@ -45,7 +45,7 @@ Existing video → /s2s analyze → reverse-engineered brief/prompt → optional
 | `/s2s analyze` | 0 | Reverse-engineer existing video into prompts |
 | `/s2s ads` | ad | Product/brand/UGC/e-commerce ad prompt |
 | `/s2s troubleshoot` | repair | Diagnose failed output + one-variable retake repair |
-| `/s2s vo-v3` | audio | ElevenLabs v3 plain-text VO script with `[tags]` |
+| `/s2s vo-v3` | audio | ElevenLabs v3 plain-text VO script with bracketed v3 tags |
 | `/s2s bundle` | package | Combine artifacts into one deliverable |
 
 Notes:
