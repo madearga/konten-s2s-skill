@@ -118,7 +118,7 @@ right hand grips phone, lifts, rotates 180° face-down on table, hold 2s
 | `curtain drawn, room darkens`                            | Choice, withdrawal            |
 | `sunlight creeps across wall as time passes`             | Time passage                  |
 
-### Money / Wallet / Phone (gambling PSA pattern)
+### Money / Wallet / Phone (harmful behavior PSA pattern)
 
 | Action Pattern                                          | Read                          |
 |----------------------------------------------------------|-------------------------------|
@@ -179,7 +179,7 @@ For **scripted comedy, dialogue-heavy content, or multi-character choreography**
 - Slow cinematic, landscape, contemplative
 - Travel / transformation sequences
 - Single sustained mood with minimal cuts
-- PSA / OAK macro work (validated pattern for Kreafest)
+- PSA / OAK macro work (validated pattern for competition)
 
 **When to use micro-blocks (sub-1s):**
 - Reaction shots within a beat

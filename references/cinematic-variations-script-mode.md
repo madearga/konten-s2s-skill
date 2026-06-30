@@ -1,7 +1,7 @@
 # Cinematic Variations: Script-Mode + Character Consistency
 
 **Created:** 2026-06-15 (v1.6.3)
-**Source:** Anti-judi-online competition video session (5 clip × 15s, "Gaji 3 Detik")
+**Source:** Social-issue competition video session (5 clips × 15s, anonymized case)
 
 ---
 
@@ -60,7 +60,7 @@ Generating a 10-image cinematic sweep (or script-mode batch) WITHOUT a character
 
 **Validated 2026-06-15:**
 - 20 images generated across 2 sets (10 per clip)
-- Same character description (Rizky, 28, Indonesian-Javanese) in every prompt
+- Same character description (the protagonist, 28, Indonesian-Javanese) in every prompt
 - Result: 20 different faces. Zero consistency.
 - User caught it: "itu semuanya berubah ubah sepertinya"
 

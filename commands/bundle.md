@@ -10,7 +10,7 @@ Bundles all artifacts from a session into a single markdown file for archival, N
 ## When to Use
 
 - User wants all prompts + outputs from a session in one file
-- User is preparing for competition submission (Kreafest etc.)
+- User is preparing for competition submission (competition etc.)
 - User wants to upload to Notion as a single page block
 - User wants a portable artifact (copy-paste anywhere)
 - Multi-clip narrative (5-7 clips) needs all 35 artifacts in one file
@@ -253,7 +253,7 @@ To troubleshoot any output:
 
 ## 9. Submission Checklist (Competition)
 
-If submitting to competition (Kreafest etc.):
+If submitting to competition (competition etc.):
 
 - [ ] All 7 clips generated and reviewed
 - [ ] Multi-clip continuity verified
@@ -281,7 +281,7 @@ s2s-bundle-YYYYMMDD-HHMMSS.md
 
 Examples:
 s2s-bundle-20260618-143022.md
-s2s-bundle-kreafest-saksi-di-layar-v2-20260618.md (project-name variant)
+s2s-bundle-social-psa-v2-20260618.md (project-name variant)
 ```
 
 ---

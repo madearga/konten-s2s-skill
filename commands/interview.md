@@ -31,7 +31,7 @@ Identify which mode fits the user's message:
 | Mode | Trigger                                            | Approach                          |
 |------|----------------------------------------------------|------------------------------------|
 | 1    | Pure vague ("bikin video AI dong")                 | Question-First — ask 3-4 Qs         |
-| 2    | Topic-given ("PSA anti judi online")              | Brief-First — auto-generate + confirm |
+| 2    | Topic-given ("PSA social-issue")              | Brief-First — auto-generate + confirm |
 | 3    | Topic + audience ("bikinin buat tugas sekolah")   | Hybrid — Indonesian defaults + 1-2 overrides |
 
 **Rule:** If user provides ≥ 3 of 5 core fields, switch to Brief-First (skip intake). If < 3, use Question-First.
@@ -157,23 +157,23 @@ After user confirms brief, the brief becomes input for the next capability. To r
 
 ## Special Cases
 
-### Sensitive Content (PSA, Cyberbullying, Self-Harm, Gambling)
+### Sensitive Content (PSA, Cyberbullying, Self-Harm, Harmful behavior)
 
 Apply 6-point Sensitive Content Safety Guardrails (SKILL.md main file) AT INTAKE STAGE, not later. Surface help-line CTA in suggested next capability output.
 
 ### Indonesian PSA / Social Issue Defaults
 
-For topics like "anti judi online", "cyberbullying", "mental health", "road safety" — auto-fill:
+For topics like "social-issue", "cyberbullying", "mental health", "road safety" — auto-fill:
 - **Character:** POV / hands only (no face)
 - **Location:** Indonesian setting (kos-kosan, warung, sekolah, angkot)
 - **Style:** OAK macro cinematic + natural Indonesian lighting
 - **Safety:** 6-point guardrails applied
 - **Help line:** 119 ext 8 (Into The Light) / @janganbunuhdiri / Yayasan Pulih
 
-### Competition Submission (Kreafest etc.)
+### Competition Submission (competition etc.)
 
 Auto-fill:
-- **Duration:** 120s (8 clip × 15s) — Kreafest standard
+- **Duration:** 90-120s (6-8 clips × 15s) — adapt to competition brief
 - **Format:** 9:16 vertical
 - **Multi-clip:** yes
 - **Hook:** required — suggest `/s2s hook` as next step
@@ -209,7 +209,7 @@ Auto-fill:
 **Questions:**
 ```
 Q1: Mau bikin video tentang apa?
-    A) PSA / social issue (cyberbullying, judi online, mental health, dll)
+    A) PSA / social issue (cyberbullying, social issue, mental health, dll)
     B) Produk / UGC
     C) Kompetisi / lomba
     D) Tugas sekolah / presentasi
@@ -234,8 +234,8 @@ Q2: Untuk platform mana?
 # Creative Brief — Anti Cyberbullying PSA
 
 ## Core
-- **Concept:** POV bystander witnessing bullying, choosing to act (LAPORKAN/TEMANI/DENGARKAN)
-- **Character:** POV / hands only (no face shown — applies SAKSI DI LAYAR v2 style)
+- **Concept:** POV bystander witnessing bullying, choosing to act (REPORT/SUPPORT/LISTEN)
+- **Character:** POV / hands only (no face shown — applies bystander PSA pattern v2 style)
 - **Location:** Indonesian SMA — koridor, kelas, kantin
 - **Duration:** 120s (8 clip × 15s)
 - **Energy:** Brutal hook → intimate slow → decisive slow → restorative
@@ -249,7 +249,7 @@ Q2: Untuk platform mana?
 ## Safety Guardrails
 - 6-point OAK guardrails applied (no face, no method, no blood)
 - Help line: 119 ext 8 (Into The Light) / @janganbunuhdiri / Yayasan Pulih
-- End card: LAPORKAN / TEMANI / DENGARKAN
+- End card: REPORT / SUPPORT / LISTEN
 
 ## Style Lock
 - OAK macro cinematic

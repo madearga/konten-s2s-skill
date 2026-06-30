@@ -1,6 +1,6 @@
 # Creative Brief Intake — Vague Idea → Structured Brief
 
-**Source:** Adopted from `Emily2040/seedance-2.0` v5.5.2 (`seedance-interview` sub-skill) + s2s internal accumulated intake patterns from "16 Putaran" + "Gaji 3 Detik" + "SAKSI DI LAYAR v2" sessions.
+**Source:** Adopted from `Emily2040/seedance-2.0` v5.5.2 (`seedance-interview` sub-skill) + s2s internal accumulated intake patterns from "multi-clip fate-grid pattern" + "Gaji 3 Detik" + "bystander PSA pattern v2" sessions.
 
 Activated when user arrives with a vague idea — no full brief, no locked character, no script. Bridges to `/s2s storyboard`, `/s2s motion`, or `/s2s hook` after intake.
 
@@ -11,7 +11,7 @@ Activated when user arrives with a vague idea — no full brief, no locked chara
 Most AI video requests start vague:
 - "Bikin video AI buat tugas sekolah"
 - "I want something viral"
-- "Bikinin PSA tentang judi online"
+- "Bikinin PSA tentang social issue"
 - "Cinematic opening buat company profile"
 
 Without intake, the agent guesses and produces a generic prompt. With intake, the agent gets a structured creative brief that prevents drift.
@@ -65,11 +65,11 @@ Best when user explicitly vague: "bikin video AI dong" / "bantu bikinin sesuatu"
 Agent generates creative brief from common patterns + keywords, surfaces it for confirmation.
 
 Best when user gives topic + audience but no specifics:
-- "Bikinin PSA anti judi online buat remaja Indonesia" → agent generates full brief, asks for adjustment
+- "Bikinin PSA social-issue buat remaja Indonesia" → agent generates full brief, asks for adjustment
 
 ### Mode 3: Hybrid (Recommended for Indonesian PSA)
 
-Agent generates brief based on Indonesian PSA conventions (validated patterns from "16 Putaran" + "SAKSI DI LAYAR"), asks for 1-2 key overrides.
+Agent generates brief based on Indonesian PSA conventions (validated patterns from "multi-clip fate-grid pattern" + "bystander PSA pattern"), asks for 1-2 key overrides.
 
 Best when topic = social issue / PSA / competition.
 
@@ -158,7 +158,7 @@ After intake, output this structured brief. User can edit before passing to next
 - [color palette: e.g., "warm amber + cool blue"]
 
 ## Safety Guardrails (if sensitive content)
-- [content type: cyberbullying / self-harm / gambling / etc]
+- [content type: cyberbullying / self-harm / harmful behavior / etc]
 - [6-point guardrails applied: yes / no]
 - [help line CTA: 119 ext 8 / @janganbunuhdiri / etc]
 
@@ -212,14 +212,14 @@ Q4: Berapa detik target?
 
 ### Example 2: Topic-First → Brief
 
-**User input:** "PSA anti judi online buat remaja Indonesia"
+**User input:** "PSA social-issue buat remaja Indonesia"
 
 **Intake (Mode 3, Hybrid — Indonesian PSA defaults):**
 
 Agent auto-generates brief based on validated patterns:
 
 ```markdown
-# Creative Brief — Anti Judi Online PSA (Auto-Generated)
+# Creative Brief — Anti social issue PSA (Auto-Generated)
 
 ## Core
 - **Concept:** "30 hari cari nafkah, 3 detik menghancurkan" — gaji masuk → deposit → balance drop → kehidupan runtuh
@@ -283,7 +283,7 @@ Output brief → feeds into:
 ## Reference
 
 - Emily2040/seedance-2.0 — v5.5.2 — `skills/seedance-interview/` (creative brief intake sub-skill)
-- s2s internal — accumulated intake patterns from "16 Putaran", "Gaji 3 Detik", "SAKSI DI LAYAR v2"
+- s2s internal — accumulated intake patterns from "multi-clip fate-grid pattern", "Gaji 3 Detik", "bystander PSA pattern v2"
 - s2s internal — `references/cinematic-composition-vocabulary.md` (19 styles for energy/format)
 - s2s internal — `references/hook-brainstorming-social-issue.md` (social-issue intake patterns)
 - s2s internal — `templates/oak-no-character-pov-workflow.md` (Indonesian PSA defaults)

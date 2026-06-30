@@ -1,10 +1,10 @@
 # Monochrome 4×3 12-Panel Storyboard Style — Complete Guide
 
-> **Validated 2026-06-14** for "16 Putaran" project (KreafestPoldaJatim 2026, Rizky narrative). Single source of truth — replaces the earlier `monochrome-storyboard-style.md` (merged 2026-06-15).
+> **Validated 2026-06-14** for "multi-clip fate-grid pattern" project (competitionPoldaJatim 2026, the protagonist narrative). Single source of truth — replaces the earlier `monochrome-storyboard-style.md` (merged 2026-06-15).
 >
 > Reference anchor: `/root/.hermes/image_cache/img_c67e2b5bfb94.jpg` — use `vision_analyze` to lock style before generating.
 
-A **validated visual style lock** for multi-clip AI video storyboards. Source: 5-clip narrative project ("16 Putaran" — Indonesian gambling addiction / life-arc storyboard) generated end-to-end on 2026-06-14, anchored to user reference image `img_c67e2b5bfb94.jpg`.
+A **validated visual style lock** for multi-clip AI video storyboards. Source: 5-clip narrative project ("multi-clip fate-grid pattern" — Indonesian harmful behavior addiction / life-arc storyboard) generated end-to-end on 2026-06-14, anchored to user reference image `img_c67e2b5bfb94.jpg`.
 
 ## When to Use This Style
 
@@ -62,7 +62,7 @@ A **validated visual style lock** for multi-clip AI video storyboards. Source: 5
 - Unlit cards stay dim grey rectangles
 - Glow color shifts: warm amber (early) → cool clinical (mid) → colder redder (climax) → unified held (resolution)
 
-## Cells Narrative Map (16 Putaran Rizky)
+## Cells Narrative Map (generic fate-grid)
 
 | Cell | Indonesian Context | Visual Iconography |
 |------|--------------------|---------------------|
@@ -122,7 +122,7 @@ Indonesian words, no watermarks, no frame numbers, only tiny numerals 1
 through [N] inside the glowing cards, the other [16-N] cards blank or dim.
 ```
 
-## Worked Example (Clip 1 of "16 Putaran")
+## Worked Example (Clip 1, generic fate-grid)
 
 - **CARRY_OVER**: none (this is the first clip)
 - **NEW_CELLS**: cards 1-3 (Masa Kecil, Ayah, Ibu)
@@ -170,13 +170,12 @@ For batch multi-clip storyboards:
 
 ## Provenance
 
-- Validated end-to-end on "16 Putaran" project (KreafestPoldaJatim 2026)
+- Validated end-to-end on "multi-clip fate-grid pattern" project (competitionPoldaJatim 2026)
 - 5 storyboard images generated 2026-06-14 via Director profile + Codex GPT Image 2 medium
 - User explicitly corrected: "Harusnya generate sesuai skill s2s kita dengan persona director" + "Harusnya langsung 1 storyboard???" — both corrected to monochrome 4x3 grid per this reference
 
 ## Related References
 
-- `references/competition-deliverable-blueprint.md` — full Kreafest 2026 case study that uses this style for 7 clips
 - `references/cinematic-composition-vocabulary.md` — alternative photoreal styles (use only when photoreal is requested)
 - `references/storyboard-prompt-template.md` — generic 12-section template, can be adapted to this monochrome style
 - `references/storyboard-motion-prompt-review-notes.md` — review checklist, realism-lock phrases

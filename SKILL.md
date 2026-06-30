@@ -1,7 +1,7 @@
 ---
 name: storyboard-to-seedance-suite
-description: "Modular AI video production skill library — collection of references, capabilities, and entry points for Seedance 2.0 / Veo 3.1 / Kling 3.0 / GPT Image 2 / ElevenLabs v3. Use when you need any combination of: creative brief intake (vague idea → structured brief), storyboard prompts, character references, product references, cinematic compositions, motion prompts, @-role binding, camera language, troubleshooting, retake triage, video reverse-engineering, hook brainstorming, or pattern-library modes (extend/edit/fuse/beat-sync/dialogue/one-take), or ElevenLabs v3 voiceover scripts. Use `/s2s help` to explain commands and route users. Use `/s2s ads` for product/brand/UGC/e-commerce content (embeds dexhunter's 12-pattern library), `/s2s vo-v3` for ElevenLabs v3 inline audio-tagged VO scripts. Each capability is independently invokable — there is no fixed pipeline. Commands: /s2s interview, /s2s storyboard, /s2s character-ref, /s2s product-ref, /s2s motion, /s2s cinematic-variations, /s2s analyze, /s2s hook, /s2s troubleshoot, /s2s compose-pattern (extend/edit/fuse/beat-sync/dialogue/one-take), /s2s bundle, /s2s vo-v3, /s2s help."
-version: 1.13.0
+description: "AI video production router for Seedance/Veo/Kling/GPT Image 2/ElevenLabs v3. Use for brief intake, storyboard prompts, character/product refs, cinematic variations, motion prompts, asset binding, troubleshooting/retake triage, video analysis, hook brainstorming, product/UGC ads, ElevenLabs v3 VO scripts, command help, and pattern modes: extend/edit/fuse/beat-sync/dialogue/one-take. Commands: /s2s help, interview, storyboard, character-ref, product-ref, cinematic-variations, motion, compose-pattern, analyze, hook, troubleshoot, bundle, ads, vo-v3."
+version: 1.13.1
 author: Hermes Agent
 license: MIT
 triggers:
@@ -100,7 +100,6 @@ triggers:
   - "compose pattern"
   - "extend video"
   - "video extension"
-  - "extend video"
   - "video edit"
   - "edit existing video"
   - "video fusion"
@@ -118,7 +117,6 @@ triggers:
   - "visual hook"
   - "hook brainstorming"
   - "social issue video"
-  - "anti-judi-online hook"
   - "PSA hook"
   - "competition hook"
   - "data-driven hook"
@@ -131,7 +129,6 @@ triggers:
   - "assign composition per panel"
   - "buat storyboard"
   - "bikinin prompt video"
-  - "bikin video AI"
   - "AI video pipeline"
   - "Seedance 2.0 prompt"
   - "pregnancy safe"
@@ -150,13 +147,10 @@ triggers:
   - "kedua referensi"
   - "competition submission"
   - "lomba AI video"
-  - "Kreafest"
   - "public safety video"
-  - "Polda Jatim"
-  - "AI for public safety"
   - "Indonesian public service"
-  - "16 Putaran"
   - "social impact video"
+
   - "grid fate video"
   - "split fate video"
   - "multi-clip storyboard"
@@ -224,7 +218,6 @@ When intent is ambiguous, ask the user the **minimum disambiguating questions**:
 | Do you have a video to analyze, or a brief for new? | `analyze` (have video) ↔ `storyboard` / `motion` (have brief)  |
 | Is there a human in the video?                      | Yes → `character-ref` first; No → skip                          |
 | Is there a product?                                 | Yes → `product-ref` first; No → skip                            |
-| Is the video > 30s or multi-beat narrative?         | Yes → multi-clip mode (see `references/competition-deliverable-blueprint.md`) |
 | Do you already have a storyboard image?             | Yes → skip `storyboard`, go to `motion`                         |
 | Are you extending/editing existing video?           | Yes → `compose-pattern` (extend/edit/fuse)                     |
 | Did the previous output fail or look wrong?         | Yes → `troubleshoot` first, then retake                        |
@@ -281,7 +274,7 @@ All references live in `references/`. Pick the ones you need; ignore the rest.
 |---------------------------------------------------|-------------------------------------------------------|
 | `cinematic-composition-vocabulary.md`             | 19 cinematic styles + texture pack + script-to-storyboard table |
 | `cinematic-variations-script-mode.md`             | Script-mode variant of cinematic-variations + character-consistency ordering |
-| `storyboard-style-monochrome-4x3.md`              | Monochrome graphite+amber 4×3 12-panel DNA (validated for "16 Putaran") |
+| `storyboard-style-monochrome-4x3.md`              | Monochrome graphite+amber 4×3 12-panel DNA (validated for multi-clip PSA workflows) |
 | `director-strip-7-track.md`                       | RHYTHM + ESCALATION vocabulary (7 tracks)            |
 | `koda-ivanna-patterns-2026-06.md`                 | 4 patterns reverse-engineered from Koda + Ivanna prompts |
 | `seedance-no-character-ref-pov-workflow.md`       | No-character-reference POV workflow + cyberbullying safety |
@@ -294,7 +287,6 @@ All references live in `references/`. Pick the ones you need; ignore the rest.
 | `seedance-asset-binding.md`                       | Legacy `@`-style role binding (still supported)        |
 | `seedance-pattern-library.md`                     | 6 patterns: extend / edit / fuse / beat-sync / dialogue / one-take |
 | `notion-prompt-alignment.md`                      | Canonical storyboard vs motion prompt hygiene in Notion |
-| `competition-deliverable-blueprint.md`            | Full Kreafest 2026 "16 Putaran" case study + v2 patches |
 | `hook-brainstorming-social-issue.md`              | Hook brainstorming for social-issue / competition videos |
 
 ### Validation / Worked Examples
@@ -306,7 +298,6 @@ All references live in `references/`. Pick the ones you need; ignore the rest.
 | `seedance-2-best-practices-2026.md`               | Broader Seedance research (June 2026)                  |
 | `seedance-best-practices.md`                      | General Seedance best practices                        |
 | `tiktok-analyzer-system-prompt.md`                | Reverse-engineering competitor videos                  |
-| `git-sync-state-and-ecosystem-2026-06-15.md`      | Ecosystem snapshot                                     |
 
 ---
 
@@ -323,11 +314,11 @@ Each command in `commands/` is a **single capability spec** — invocable indepe
 | `/s2s product-ref`            | Product Ref       | `commands/product-ref.md`  |
 | `/s2s cinematic-variations`   | Pre-visualization | `commands/cinematic-variations.md` |
 | `/s2s motion`                 | Motion            | `commands/motion.md`       |
-| `/s2s compose-pattern`        | Pattern (extend/edit/fuse/beat-sync/dialogue/one-take) | `commands/motion.md` (pattern mode) |
+| `/s2s compose-pattern`        | Pattern (extend/edit/fuse/beat-sync/dialogue/one-take) | `commands/compose-pattern.md` |
 | `/s2s analyze`                | Analyze           | `commands/analyze.md`      |
-| `/s2s hook`                   | Hook              | `commands/cinematic-variations.md` (hook mode) — or prompt user to use hook ref |
+| `/s2s hook`                   | Hook              | `commands/hook.md` |
 | `/s2s troubleshoot`           | Troubleshoot      | `commands/troubleshoot.md` + retake/model/failure refs |
-| `/s2s bundle`                 | Bundle            | (composes from prior outputs into single markdown file) |
+| `/s2s bundle`                 | Bundle            | `commands/bundle.md` |
 | `/s2s ads`                    | Ads               | `commands/ads.md`             |
 | `/s2s vo-v3`                  | VO v3             | `commands/vo-v3.md`            |
 
@@ -389,7 +380,6 @@ User Request
 
 For videos > 30s, multi-beat narratives, or competition submissions, see:
 
-- `references/competition-deliverable-blueprint.md` — Kreafest 2026 "16 Putaran" case study (7×15s, 16-fate grid, Indonesian context, $5 budget, 1:45 duration)
 - SKILL.md sections below: "Multi-Clip Storyboards", "Style Lock: Monochrome Sepia/Amber", "Script-to-Storyboard Workflow"
 
 Validated structure: **7×15s = 1:45**
@@ -401,7 +391,6 @@ Validated structure: **7×15s = 1:45**
 | 6    | 1:15-1:30 | Climax | Chaos / glitch / freeze        |
 | 7    | 1:30-1:45 | Resolution | End card, text only, silence |
 
-**Key multi-clip rules** (full list in `references/competition-deliverable-blueprint.md`):
 1. Same `@[character ref]` in every clip's motion prompt (prevents face drift)
 2. Spatial Continuity Lock MUST carry across clips (same room, geography, screen direction)
 3. Director strip RHYTHM TRACK escalates monotonically (`hold` → `pause` → `build` → `burst` → `pause` → `rest`)
@@ -412,7 +401,7 @@ Validated structure: **7×15s = 1:45**
 
 ---
 
-## Style Lock: Monochrome Sepia/Amber (Validated 2026-06-14, "16 Putaran" Rizky)
+## Style Lock: Monochrome Sepia/Amber (Validated 2026-06-14, "multi-clip fate-grid pattern" the protagonist)
 
 > Full style DNA, cell narrative map, and validated pitfalls: see `references/storyboard-style-monochrome-4x3.md`
 
@@ -504,7 +493,7 @@ For motion prompts involving self-harm, suicide, cyberbullying, or graphic viole
 **Language pattern for the prompt (use verbatim):**
 > "CRITICAL: Hand only. DO NOT show face, body, full posture, or method of [harm type]. DO NOT show victim in frame beyond hand/partial body. [Environment] intact, [symbol] stopped, [symbol] on wall. Bedroom preserved. Implied framing only."
 
-This pattern was developed and tested on the Layar Terakhir (anti-cyberbullying) project — 7 motion prompts + 7 storyboards, all passed downstream review for an Indonesian public-service film brief.
+This pattern was developed and tested on the sensitive-content PSA workflow — 7 motion prompts + 7 storyboards, all passed downstream review for an Indonesian public-service film brief.
 
 ---
 
@@ -557,7 +546,7 @@ These are real failure modes validated across sessions. Apply prophylactically w
 
 **1. Treating storyboard image as the signal** — the image is documentation. The text in the motion prompt (director strip + panel beats) is the contract. Always include the text, not just the image attachment.
 
-**1a. Triptych/3-panel default for multi-clip storyboards** — Agent default is to generate a "3 panels = 3 scenes" image per clip. WRONG. For a multi-clip narrative with shared character + setting, each storyboard is a 12-panel *sequence* (4×3 grid, P01-P12) of the SAME scene with progressive beats. 1 clip = 1 storyboard = 12 panels of one room + close-ups. See `references/storyboard-style-monochrome-4x3.md` for the validated monochrome 4×3 12-panel style used in 5-clip "16 Putaran" project.
+**1a. Triptych/3-panel default for multi-clip storyboards** — Agent default is to generate a "3 panels = 3 scenes" image per clip. WRONG. For a multi-clip narrative with shared character + setting, each storyboard is a 12-panel *sequence* (4×3 grid, P01-P12) of the SAME scene with progressive beats. 1 clip = 1 storyboard = 12 panels of one room + close-ups. See `references/storyboard-style-monochrome-4x3.md` for the validated monochrome 4×3 12-panel style used in 5-clip "multi-clip fate-grid pattern" project.
 
 **1b. Don't loop director profile for batch image generation** — Director profile is for prompt CRAFTING (1 call per prompt). After prompt is crafted, generate directly via `image_generate` tool. Director profile adds 2-3 min per call vs ~30s direct, and times out at 5min on long prompts. For multi-clip batches (5-7 storyboards), the workflow is: write prompt once → `image_generate` × N.
 
@@ -575,7 +564,6 @@ These are real failure modes validated across sessions. Apply prophylactically w
 
 **5. Forgetting screen direction in location** — without explicit screen direction (window left, oven right), Seedance flips geometry between shots. Always include screen direction in LOCATION.
 
-**6. Text inside grid cells** — Seedance + Pixazo hallucinate text (random letters, Arabic-looking glyphs, misspellings). Never put text labels in any AI-generated frame except the closing line / hashtag in the end card. Use visual iconography + Indonesian context words instead. See `references/competition-deliverable-blueprint.md` § "NO TEXT IN GRID CELLS" for the validated translation table.
 
 ### Second-Tier (6-12)
 
@@ -626,72 +614,7 @@ For full POV / hands-only workflow without character ref, see `references/seedan
 
 ## Cross-Platform Install
 
-This skill works in **Hermes Agent**, **Claude Code**, **OpenCode**, and **Codex CLI** — they all share the same `SKILL.md` standard. One canonical source, symlinked to each platform.
-
-### Install (run once per machine)
-
-```bash
-cd /root/.hermes/skills/mlops/ai-video-production/storyboard-to-seedance-suite
-./install.sh            # creates symlinks in ~/.claude/skills/, ~/.opencode/skills/, ~/.codex/skills/
-```
-
-This creates:
-
-| Platform | Path | Status |
-|----------|------|--------|
-| Hermes Agent | `~/.hermes/skills/mlops/ai-video-production/storyboard-to-seedance-suite/` | canonical source |
-| Claude Code | `~/.claude/skills/storyboard-to-seedance-suite` | symlink |
-| OpenCode (home) | `~/.opencode/skills/storyboard-to-seedance-suite` | symlink |
-| OpenCode (xdg) | `~/.config/opencode/skills/storyboard-to-seedance-suite` | symlink |
-| Codex CLI | `~/.codex/skills/storyboard-to-seedance-suite` | symlink |
-
-### Verify
-
-```bash
-./install.sh --check
-```
-
-Output: `[OK]` for each platform if linked correctly.
-
-### Remove
-
-```bash
-./install.sh --remove   # removes symlinks only, keeps canonical source intact
-```
-
-### Why symlinks (not copies)
-
-- **One source of truth** — edit SKILL.md once in Hermes, all platforms see the update
-- **No drift** — Claude Code, OpenCode, Hermes all read the same file
-- **Idempotent** — `install.sh` is safe to re-run
-- **Easy rollback** — `./install.sh --remove` cleans up
-
-### Why this works (format compatibility)
-
-| Field | Hermes | Claude Code | OpenCode | Codex |
-|-------|--------|-------------|----------|-------|
-| `name` | required | required | required | required |
-| `description` | required (auto-trigger) | required | required | required |
-| `triggers` | used | ignored | ignored | ignored |
-| `version`, `author`, `license` | optional | ignored | ignored | ignored |
-| `references/`, `commands/`, `tests/` | loaded | loaded as supporting material | loaded as supporting material | loaded as supporting material |
-
-Hermes-specific `triggers` field is **extra metadata** — Claude Code / OpenCode / Codex ignore it (use `description` for auto-trigger). All other fields are common.
-
-### Slash command differences
-
-| System | Syntax | How to invoke |
-|--------|--------|---------------|
-| Hermes | `/s2s <capability> [args]` | Slash command parser reads markdown specs under `commands/` |
-| Claude Code | `/s2s-<capability> [args]` | One file per slash command, named after file |
-| OpenCode | `/s2s-<capability> [args]` | Same as Claude Code |
-| Codex CLI | `/s2s-<capability> [args]` | Same as Claude Code |
-
-In Claude Code / OpenCode / Codex, the slash commands aren't auto-registered like Hermes. To invoke, either:
-1. Reference the skill by name in natural language: "use the storyboard-to-seedance-suite skill to make a banana bread video"
-2. The agent will auto-load it when trigger keywords appear (e.g., "storyboard prompt", "video motion prompt")
-
-For Hermes users, the explicit `/s2s <capability>` slash commands work as documented in `commands/`.
+See `references/cross-platform-install.md`.
 
 ---
 
@@ -718,10 +641,9 @@ In this skill:
 - `references/seedance-retake-protocol.md` — **keep/fix/edit/reroll/rewrite triage + one-variable retake rule**
 - `references/seedance-model-mechanics.md` — **8-mechanism diagnosis model for root-cause prompt repair**
 - `references/seedance-failure-atlas.md` — **sequence/continuation failure table with primary repair variable**
-- `references/storyboard-style-monochrome-4x3.md` — monochrome graphite + amber/sepia 4×3 12-panel storyboard style used for the "16 Putaran" project. Single source of truth for the monochrome style.
+- `references/storyboard-style-monochrome-4x3.md` — monochrome graphite + amber/sepia 4×3 12-panel storyboard style used for multi-clip PSA workflows. Single source of truth for the monochrome style.
 - `references/notion-prompt-alignment.md` — checklist for keeping one current storyboard prompt and one current motion prompt on the page; delete stale drafts after review.
 - `references/koda-ivanna-patterns-2026-06.md` — 4 high-value patterns (Director Strip augmented, Spatial Continuity Lock, HARD CUT marker, NEGATIVE PROMPT block) reverse-engineered from published Koda `@aimikoda` + Ivanna `@ivanka_humeniuk` prompts.
-- `references/competition-deliverable-blueprint.md` — full Kreafest 2026 "16 Putaran" case study (7×15s, 16-fate grid, Indonesian context, $5 budget) PLUS v2 patches.
 - `references/hook-brainstorming-social-issue.md` — hook generation workflow for social-issue / competition AI videos.
 - `references/cinematic-variations-script-mode.md` — script-mode variant of `/s2s cinematic-variations` + character-consistency ordering rule.
 
@@ -729,105 +651,7 @@ In this skill:
 
 ## Version History
 
-- **1.13.0** (2026-06-30) — **/s2s help command guide + router**
-  - **NEW**: `commands/help.md` — command map, route-by-goal table, and specific explanations for every `/s2s` command.
-  - **NEW**: `slash-commands/s2s-help.md` — portable `/s2s-help` wrapper for Pi/OpenCode-style command menus.
-  - **UPDATED**: Capability Router adds Help row at the top.
-  - **UPDATED**: Commands table adds `/s2s help`.
-  - **UPDATED**: Triggers expanded +5: `s2s help`, `s2s commands`, `fungsi s2s`, `cara pakai s2s`, `command apa`.
-  - **GOAL**: users can ask what a command does, describe a goal, and get routed to the smallest matching `/s2s` capability.
-
-- **1.12.0** (2026-06-30) — **/s2s troubleshoot retake triage + model-mechanics diagnosis**
-  - **NEW**: `references/seedance-retake-protocol.md` — adopted from `Emily2040/seedance-2.0` (`retake-protocol.md`, MIT, commit `7659cbd`). Adds five verdicts: Keep / Fix in post / Edit / Re-roll / Rewrite, one-variable rule, attempt budget, shot log, and sequence canon.
-  - **NEW**: `references/seedance-model-mechanics.md` — adopted from `Emily2040/seedance-2.0` (`model-mechanics.md`, MIT, commit `7659cbd`). Adds eight practical mechanisms: attention budget, familiar prior, negation, trajectory, compounding, reference overlap, detail capacity, joint audio-video.
-  - **NEW**: `references/seedance-failure-atlas.md` — adopted from `Emily2040/seedance-2.0` (`failure-atlas.md`, MIT, commit `7659cbd`). Adds sequence/continuation-specific repair table.
-  - **UPDATED**: `commands/troubleshoot.md` now triages before regenerating, maps symptom → mechanism → one-variable repair, and outputs a shot log + stop condition.
-  - **UPDATED**: Capability Router points `/s2s troubleshoot` at all four troubleshoot references.
-  - **UPDATED**: Triggers expanded +5: `retake`, `reroll`, `fix in post`, `keep or regenerate`, `continuation failed`.
-  - **GOAL**: stop wasteful blind regenerations. Diagnose first, change one variable, and know when to keep, post-fix, edit, reroll, rewrite, or stop.
-
-- **1.11.0** (2026-06-30) — **/s2s vo-v3 command + ElevenLabs v3 inline audio-tagged VO**
-  - **NEW**: `commands/vo-v3.md` — `/s2s vo-v3` capability (Eleven v3 plain-text VO scripts with inline `[lowercase_tags]`, ready to paste into ElevenLabs Studio v3 input or POST to `/v1/text-to-speech` with `model_id: "eleven_v3"`)
-  - **NEW**: `references/elevenlabs-vo-v3-tags.md` — verified v3 audio tag list (emotions, delivery, reactions, pacing/cognitive) + v2 SSML→v3 migration table. Verified against official sources: `elevenlabs.io/blog/v3-audiotags`, `blog/eleven-v3-audio-tags-expressing-emotional-context-in-ai-speech`, `blog/eleven-v3-audio-tags-precision-delivery-control-for-ai-speech`, `blog/eleven-v3`, `help.elevenlabs.io/hc/en-us/articles/35869142561297`
-  - **NEW**: `assets/vo-script-template-v3.txt` — blank plain-text template (4-segment UGC arc pre-tagged)
-  - **NEW**: `slash-commands/s2s-vo-v3.md` — `/s2s vo-v3` slash command entry
-  - **UPDATED**: Capability Router adds "VO v3" row after Ads
-  - **UPDATED**: Reference Library adds "Voiceover / ElevenLabs v3 References" subsection
-  - **UPDATED**: Commands table adds `/s2s vo-v3` entry
-  - **UPDATED**: Triggers expanded +10 keywords: `elevenlabs v3`, `eleven v3`, `v3 audio tags`, `v3 voice`, `v3 pause`, `expressive voice v3`, `elevenlabs v3 script`, `voice acting v3`, `v3 inline tags`, `bikin script eleven v3`
-  - **UPDATED**: SKILL frontmatter description adds ElevenLabs v3 to backend list + `/s2s vo-v3` to commands list
-  - **GOAL**: complete the audio side of the production loop. `/s2s motion` covers video; `/s2s ads` covers ad motion; `/s2s vo-v3` covers Eleven v3 voiceover. Pairs with `/s2s bundle` to ship complete ad package.
-  - **WHY v3-only**: PVC optimization pending, IVC/Voice Design preferred per official blog. v3 is the most expressive model — `[whispers]`, `[laughs]`, `[sighs]`, `[pause]`, `[emphasized]`, `[short pause]`, `[long pause]` etc. enable voice-acting quality that v2 SSML cannot reach. Tested with sub-agent worker against 3 tone variants (casual mom / hype UGC / calm expert) — all valid, all pass QC, ~40 spoken words per 15s script.
-
-- **1.10.0** (2026-06-18) — **/s2s ads command + dexhunter-patterns-ads.md reference**
-  - **NEW**: `commands/ads.md` — `/s2s ads` capability (product/brand/UGC/e-commerce motion prompts, embeds dexhunter's 12-pattern library)
-  - **NEW**: `references/dexhunter-patterns-ads.md` — full 12-pattern spec annotated for ads (Pattern 9 E-commerce default, Pattern 3 FX Replication, Pattern 6 Beat-Sync, Pattern 12 Multi-Cut Assembly)
-  - **UPDATED**: Capability Router adds "Ads" row
-  - **UPDATED**: Reference Library adds "Ad Patterns" subsection
-  - **UPDATED**: Commands table adds `/s2s ads` entry
-  - **UPDATED**: Triggers expanded +13 keywords: `iklan`, `product video`, `produk video`, `brand content`, `e-commerce`, `showcase`, `promo`, `campaign video`, `UGC ad`, `TikTok shop`, `Shopee`, `Tokopedia`
-  - **GOAL**: when user asks for product/brand/e-commerce ad, agent auto-loads dexhunter's quick-prompt patterns instead of generic motion template. Default to Pattern 9 (Product Showcase), escalate to Pattern 6/3/12 when user wants dynamic style.
-
-- **1.9.0** (2026-06-18) — **Voice consistency + 2-3s beat grid + Seam-lock extend pattern**
-  - **NEW**: `references/seedance-voice-consistency.md` — `@audio1/2/3` voice reference pattern for multi-clip series with same speaker. 4 patterns (Dialogue Series, Narration, Singing, Accent-Only Carry). Validated from James Sismanes (@JamesSismanes) Jun 2026 Brooklyn gelato truck workflow using `Use @audio2 to reference [Character]'s established voice and broken English accent`.
-  - **UPDATED**: `references/seedance-pattern-library.md` § Pattern 2 Extend — added **Hard Frame Match — Seam-Lock Extension** subpattern (first frame of new clip = last frame of @video1 EXACTLY) + **Audio Carry-Over Specification** (3 layers: BGM/dialogue/foley). Validated from same James Sismanes workflow.
-  - **UPDATED**: `references/seedance-motion-vocabulary.md` § Block Sizes — added **Fine-Grain Beat Grid (2-3s segments)** option alongside existing 5s default. For scripted comedy, dialogue, character performance. Documented when-to-use matrix.
-  - **GOAL**: incorporate 3 non-trivial techniques from real production workflows. Voice consistency enables series-quality continuity; seam-lock extend enables seamless multi-clip narrative; 2-3s beat grid enables comedic timing precision.
-
-- **1.8.0** (2026-06-18) — **Creative brief intake capability (interview)**
-  - **NEW**: `commands/interview.md` — `/s2s interview` command (vague idea → structured brief)
-  - **NEW**: `references/creative-brief-intake.md` — 5 core fields (concept/character/location/duration/energy) + 7 extended fields, 3 intake modes (Question-First / Brief-First / Hybrid), Indonesian PSA defaults, OAK workflow defaults, sensitive content guardrails at intake stage
-  - **UPDATED**: Capability Router adds "Interview" row at top
-  - **UPDATED**: Decision Flowchart routes vague input → `/s2s interview` first
-  - **UPDATED**: Reference Library adds "Intake Reference" subsection
-  - **UPDATED**: Commands table adds `/s2s interview` entry
-  - **UPDATED**: Triggers expanded with 16 new keywords: `bikin video AI`, `bantuin bikin video`, `bikinin video`, `bikinin sesuatu`, `you decide`, `kamu yang tentukan`, `bebas`, `terserah kamu`, `creative brief`, `brief intake`, `vague idea`, `interview video`, `wawancara video`, `PSA kompetisi`, `tugas sekolah video`
-  - **GOAL**: adopt Emily's `seedance-interview` sub-skill as first-class capability in s2s. Activates when user has incomplete brief — bridges to other capabilities after intake.
-
-- **1.7.0** (2026-06-18) — **Library restructure: pipeline → capability router**
-  - **BREAKING (mental model only, not file structure)**: skill is no longer framed as a 3-step pipeline. New **Capability Router** section maps user intent → references → commands. Each capability is independently invocable.
-  - **NEW**: `references/seedance-reference-syntax.md` — adopted from `dexhunter/seedance2-skill` (MIT) — canonical `@`-role binding system with s2s semantic layer (`@[character ref]`, `@[storyboard ref]`, `@[camera ref video]`, etc.)
-  - **NEW**: `references/seedance-camera-language.md` — adopted from `dexhunter/seedance2-skill` + `Emily2040/seedance-2.0` v5.5.2 — basic + advanced camera moves, shot sizes, lens vocabulary, POV rules, one-take patterns, time-segmented camera direction, failure modes, cross-model compatibility.
-  - **NEW**: `references/seedance-motion-vocabulary.md` — adopted from `Emily2040/seedance-2.0` v5.5.2 — body-part action verbs, object interaction patterns (phone/door/light/wallet), rhythm + beat vocabulary, escalation curves, valence + arousal, cinematic imperfect realism texture pack, anti-slop lexicon, continuity lock vocabulary.
-  - **NEW**: `references/seedance-troubleshooting.md` — adopted from `Emily2040/seedance-2.0` v5.5.2 (`seedance-troubleshoot` + `model-mechanics` + `retake-protocol` sub-skills) — 10-category failure-mode taxonomy (identity/camera/action/scene/audio/style/backend/safety/continuity), repair patterns, one-variable retake protocol.
-  - **UPDATED**: SKILL.md description now reads "Modular AI video production skill library" instead of "3-step procedural workflow".
-  - **UPDATED**: description + triggers in frontmatter expanded to expose new entry points (`/s2s hook`, `/s2s troubleshoot`, `/s2s compose-pattern`, `/s2s bundle`).
-  - **UPDATED**: "When to Use" table replaced with full Capability Router + Routing Questions + Decision Flowchart.
-  - **BACKWARD COMPAT**: `/s2s pipeline` still works as legacy chained mode (explicit user request only). All existing commands + references unchanged.
-
-- **1.6.5** (2026-06-16) — Sensitive content guardrails + Codex quota + A/B hook pattern
-  - NEW section: "Sensitive Content Safety Guardrails" — 6-point production standard for self-harm / suicide / cyberbullying / graphic violence motion prompts.
-  - NEW section: "Codex Backend Quota Pitfall" — `gpt-image-2-medium` soft hourly quota, NOT 429. Symptom + 4-step recovery.
-  - NEW section: "A/B Hook Variant Pattern" — generate 3 frozen-first-3-seconds storyboard images (one per hook strategy) before committing to motion generation.
-  - Learning source: 16 Jun 2026 Layar Terakhir + 16 Putaran A/B hook sessions.
-
-- **1.6.3** (2026-06-15) — Character consistency ordering + script-mode cinematic variations + composite script
-  - NEW: Pitfall #11 — generating cinematic-variations images WITHOUT character ref first = every image has a different face.
-  - NEW: `references/cinematic-variations-script-mode.md`.
-  - NEW: `scripts/storyboard_composite.py`.
-
-- **1.6.2** (2026-06-15) — Two-layer style system clarification + script-to-storyboard workflow
-  - NEW: Pitfall #9 — two-layer style system confusion.
-  - NEW: Pitfall #10 — writing motion prompts without generating Steps 1-2 first.
-  - NEW: Script-to-Storyboard Workflow section.
-
-- **1.6.1** (2026-06-14) — Notion prompt alignment + current/final hygiene.
-
-- **1.6.0** (2026-06-14) — Monochrome 4×3 12-panel storyboard style validated.
-
-- **1.5.0** (2026-06-13) — 2026-06-13 v2 patches from Kreafest validation.
-
-- **1.4.0** (2026-06-13) — Multi-clip storyboards + competition deliverable pattern.
-
-- **1.3.0** (2026-06-11) — Koda + Ivanna pattern adoption.
-
-- **1.2.0** (2026-06-08) — Video reverse-engineering + Edge cases & safety + Product sheet variant.
-
-- **1.2.0** (2026-06-07) — Edge cases & safety.
-
-- **1.1.0** (2026-06-07) — Cinematic composition vocabulary.
-
-- **1.0.0** (2026-06-07) — Initial release.
+See `references/version-history.md`.
 
 ---
 

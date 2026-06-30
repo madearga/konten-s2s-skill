@@ -29,7 +29,7 @@ If the user wants focus on cyberbullying + victim, keep the narrative human-cent
 5. POV victim: hands/phone/breath/room, no face, no self-harm.
 6. Human intervention: one person stops watching and goes for help.
 7. Support: friend/teacher/parent presence, phone put down.
-8. CTA: Laporkan. Temani. Dengarkan.
+8. CTA: Report. Support. Listen.
 
 If contest theme mentions AI, AI can be the production method. Do not force AI/dashboard into the story if the user asks to focus on victim and cyberbullying.
 

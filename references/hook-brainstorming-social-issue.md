@@ -1,11 +1,11 @@
 # Hook Brainstorming for Social-Issue AI Videos
 
-Reference for generating, evaluating, and locking visual hooks for competition submissions, PSAs, and anti-judi-online / public-safety AI videos. Built from the "16 Putaran" (Kreafest / Polda Jatim 2026) workflow.
+Reference for generating, evaluating, and locking visual hooks for competition submissions, PSAs, and social-issue / public-safety AI videos. Built from the "multi-clip fate-grid pattern" (competition / competition organizer 2026) workflow.
 
 ## When to use
 
 - User asks for "hook yang engaging", "hook paling ngena", "alternatif hook", "hook out of the box", or any hook brainstorming for social-issue / competition videos.
-- User wants a hook for anti-judi-online, anti-pinjol, mental health, road safety, or other Indonesian public-service topics.
+- User wants a hook for social-issue, anti-pinjol, mental health, road safety, or other Indonesian public-service topics.
 - Need to integrate real national statistics into the hook.
 
 ## Workflow
@@ -14,10 +14,10 @@ Reference for generating, evaluating, and locking visual hooks for competition s
 
 Before brainstorming hooks, gather 3-5 real signals:
 
-| Signal | Where to find | Example (judi online) |
+| Signal | Where to find | Example (social issue) |
 |---|---|---|
 | Scale / victims | PPATK, Komdigi, BSSN, OJK, BPS | 3,1 juta pemain; 12,3 juta pernah deposit |
-| Money flow | PPATK, GoodStats, Katadata | Rp286 triliun transaksi 2025 |
+| Money flow | Public statistics sources | Large transaction volume |
 | Human impact | Kompas, Detik, regional news | utang → pinjol → bunuh diri; kejahasan akibat judol |
 | Government response | Komdigi, BSSN, Polri | 8,1 juta konten perjudian diblokir |
 | Demographic | Universitas (UGM, Unisa), DPR | 60% pemain milenial/Gen Z; anak 10-16 tahun deposit |
@@ -53,7 +53,7 @@ Tier 5 — Surreal / poetic metaphor
 |---|---|---|
 | Clarity in 3s | Can a stranger understand it in 3 seconds? | High |
 | Visual AI-ability | Can Seedance / Kling / Veo render it without heavy text? | High |
-| Relevance | Is it unmistakably about the target issue (e.g. judi online)? | High |
+| Relevance | Is it unmistakably about the target issue (e.g. social issue)? | High |
 | Emotional hit | Does it create fear, guilt, empathy, or shock? | High |
 | Uniqueness | Has this visual been done to death? | Medium |
 | Continuity | Can it transition naturally into the 12-panel storyboard body? | Medium |
@@ -81,7 +81,7 @@ Example (Rolling Jackpot Counter):
 
 When statistics exist, lead with the number in the hook:
 
-- Weak: "Banyak orang hancur karena judi online."
+- Weak: "Banyak orang hancur karena social issue."
 - Strong: "3,1 juta orang Indonesia. Satu tap. 16 hidup hancur."
 
 Numbers give the audience permission to care — they prove this is not fiction.
@@ -89,7 +89,7 @@ Numbers give the audience permission to care — they prove this is not fiction.
 ## Common hook pitfalls
 
 1. **Hook terlalu abstrak** — audience swipes sebelum mengerti.
-2. **Hook tidak jelas issue-nya** — 3 detik pertama harus mengatakan "ini tentang judi online / pinjol / X".
+2. **Hook tidak jelas issue-nya** — 3 detik pertama harus mengatakan "ini tentang social issue / pinjol / X".
 3. **Hook bergantung pada teks** — Seedance hallucinasi teks; jangan pakai tagline panjang di dalam frame.
 4. **Hook tidak nyambung ke body** — 16 cell grid / narasi utama harus muncul di P03-P04, bukan di akhir.
 5. **Hook hanya emosional tanpa data** — PSAs kompetisi dinilai pada dampak sosial; data memperkuat credibility.
@@ -131,14 +131,14 @@ Temptation -> Euphoria -> Glitch -> Dread -> Shock -> Unresolved
 - Katadata Databoks: https://databoks.katadata.co.id
 - OJK / regional OJK (DIY, dll)
 
-## Example hooks generated for "16 Putaran" anti-judi-online
+## Example hooks for social-issue fate-grid videos
 
 Selected and documented during 2026-06-14 session:
 
 ### Approved hook — Rolling Jackpot Counter
 Visual: HP → tap → angka naik → MEGA WIN → glitch -100JT → 16 cell meledak.
 Tagline: "Dia loading kemenangan. Yang terdownload hutang."
-Why approved: clear, AI-able, unmistakably judi online, data-friendly, transitions into 16-cell body.
+Why approved: clear, AI-able, unmistakably social issue, data-friendly, transitions into 16-cell body.
 
 ### Runner-up hooks
 - **Deposit Button Pulse**: UI paling ikonik judol, tapi lebih umum.
@@ -146,7 +146,7 @@ Why approved: clear, AI-able, unmistakably judi online, data-friendly, transitio
 - **Withdrawal Ghost**: ironi "dana cair", cocok untuk bagian tengah narasi.
 
 ### Rejected hooks
-- **Chatbot Confession**: terlalu meta, tidak jelas judi online.
+- **Chatbot Confession**: terlalu meta, tidak jelas social issue.
 - **Rupiah Origami**: poetis tapi transisi ke grid sulit.
 - **Sleep Paralysis Demon**: visual beda tapi tidak jelas issue.
 

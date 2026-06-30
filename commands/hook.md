@@ -3,7 +3,7 @@
 Generates 3-5 hook variants for the first 3 seconds of a 9:16 vertical narrative short. Evaluates each against the 6-criterion scoring matrix. Returns ranked hooks + recommended frozen-first-3s storyboard image prompt.
 
 **Capability:** Hook
-**Trigger:** `/s2s hook` or auto-detect: "hook engaging", "alternatif hook", "hook paling ngena", "hook out of the box", "visual hook", "hook brainstorming", "social issue video", "anti-judi-online hook", "PSA hook", "competition hook", "data-driven hook", "Indonesian statistics hook", "hook viral video"
+**Trigger:** `/s2s hook` or auto-detect: "hook engaging", "alternatif hook", "hook paling ngena", "hook out of the box", "visual hook", "hook brainstorming", "social issue video", "social-issue hook", "PSA hook", "competition hook", "data-driven hook", "Indonesian statistics hook", "hook viral video"
 
 ---
 
@@ -36,7 +36,7 @@ If user gives full brief, fill 3-4 directly. If vague, ask minimum.
 
 ### Step 1: Load Hook Reference
 
-Read `references/hook-brainstorming-social-issue.md` (canonical 5 hook tiers + 6 evaluation criteria + worked example from "16 Putaran" anti-judi-online session).
+Read `references/hook-brainstorming-social-issue.md` (canonical 5 hook tiers + 6 evaluation criteria + worked example from "multi-clip fate-grid pattern" social-issue session).
 
 ### Step 2: Generate 5 Hook Variants
 
@@ -122,9 +122,8 @@ When user wants "data-driven hook" or "Indonesian statistics hook":
 - Format: "1 dari X [kelompok] mengalami [masalah]" or "X% [populasi] [aksi]"
 - Pair with visual iconography (NOT text in frame per pitfall #6)
 
-### Competition Submission (Kreafest, etc.)
+### Competition Submission (competition, etc.)
 
-See `references/competition-deliverable-blueprint.md` § "Hook Retention Pattern" for validated 12-panel v2 structure with retention math (~75% at 3s vs ~60% without).
 
 ---
 
@@ -179,7 +178,6 @@ Does #1 hook set up rest of clip without spoiling? **Yes** — viewer wonders wh
 
 - `references/hook-brainstorming-social-issue.md` — full hook reference (5 tiers, 6 criteria, worked example)
 - `references/storyboard-style-monochrome-4x3.md` — visual style anchor if monochrome project
-- `references/competition-deliverable-blueprint.md` § "Hook Retention Pattern" — 12-panel v2 structure
 - `references/seedance-no-character-ref-pov-workflow.md` — POV / hands-only if face must not be shown
 - SKILL.md main file: "A/B Hook Variant Pattern" + "Sensitive Content Safety Guardrails"
 
