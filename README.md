@@ -36,6 +36,7 @@ Existing video → /s2s analyze → reverse-engineered brief/prompt → optional
 | Command | Step | When to use |
 |---------|------|-------------|
 | `/s2s help` | guide | Explain commands + route to the right capability |
+| `/s2s worldbuild` | pre-0 | Have a spark/mood/place, want a 9-still world bible (companion: `kuka-worldbuilder` skill) |
 | `/s2s storyboard` | 1 | Need storyboard image |
 | `/s2s character-ref` | 2a | Human in video, need identity sheet |
 | `/s2s product-ref` | 2b | Product in video (FMCG, beauty, etc.) |
