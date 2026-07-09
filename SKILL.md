@@ -1,12 +1,13 @@
 ---
 name: storyboard-to-seedance-suite
-description: "AI video production router for Seedance/Veo/Kling/GPT Image 2/ElevenLabs v3. Use for brief intake, storyboard prompts, character/product refs, cinematic variations, motion prompts, asset binding, troubleshooting/retake triage, video analysis, hook brainstorming, product/UGC ads, ElevenLabs v3 VO scripts, command help, and pattern modes: extend/edit/fuse/beat-sync/dialogue/one-take. Commands: /s2s help, interview, storyboard, character-ref, product-ref, cinematic-variations, motion, compose-pattern, analyze, hook, troubleshoot, bundle, ads, vo-v3."
-version: 1.13.5
+description: "AI video production router for Seedance/Veo/Kling/GPT Image 2/ElevenLabs v3. Use for brief intake, storyboard prompts, character/product refs, cinematic variations, motion prompts, asset binding, troubleshooting/retake triage, video analysis, hook brainstorming, product/UGC ads, ElevenLabs v3 VO scripts, command help, and pattern modes: extend/edit/fuse/beat-sync/dialogue/one-take. Companion: kuka-worldbuilder skill handles upstream /s2s worldbuild pre-step (9-aspect world bible from one-line spark). Commands: /s2s help, interview, worldbuild, storyboard, character-ref, product-ref, cinematic-variations, motion, compose-pattern, analyze, hook, troubleshoot, bundle, ads, vo-v3."
+version: 1.14.0
 author: Hermes Agent
 license: MIT
 triggers:
   # Entry points / slash commands
   - "/s2s interview"
+  - "/s2s worldbuild"
   - "/s2s storyboard"
   - "/s2s character-ref"
   - "/s2s product-ref"
@@ -193,6 +194,7 @@ Output: copy-paste-ready prompts, references, or analysis
 |---------------------------------------------------|-------------------|--------------------------|--------------------------------------------------------|
 | Need command guide or routing                     | Help              | `/s2s help`              | `commands/help.md`                                    |
 | Have a vague idea, need a structured brief       | Interview         | `/s2s interview`         | `creative-brief-intake.md`                                |
+| Have a spark/place/mood, want a 9-still world bible | Worldbuild      | `/s2s worldbuild`        | companion: `kuka-worldbuilder` (Hermes skill) → see `references/companion-worldbuilder.md` |
 | Have a brief, want storyboard image               | Storyboard        | `/s2s storyboard`        | `storyboard-prompt-template.md` + `cinematic-composition-vocabulary.md` |
 | Want 10 composition options for one key moment    | Pre-visualization | `/s2s cinematic-variations` | `cinematic-composition-vocabulary.md` + `cinematic-variations-script-mode.md` |
 | Need human character reference image              | Character Ref     | `/s2s character-ref`     | `character-ref-prompt.md`                              |
@@ -307,6 +309,7 @@ Each command in `commands/` is a **single capability spec** — invocable indepe
 | Command                       | Capability        | Spec File                  |
 |-------------------------------|-------------------|----------------------------|
 | `/s2s interview`              | Interview (intake)| `commands/interview.md`    |
+| `/s2s worldbuild`             | Worldbuild        | `commands/worldbuild.md` (companion: kuka-worldbuilder) |
 | `/s2s help`                   | Help              | `commands/help.md`         |
 | `/s2s storyboard`             | Storyboard        | `commands/storyboard.md`   |
 | `/s2s character-ref`          | Character Ref     | `commands/character-ref.md` |
