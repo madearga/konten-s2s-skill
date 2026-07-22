@@ -38,6 +38,7 @@ If user describes a goal instead of a command, route them to the smallest matchi
 | `/s2s help` | Need command guide or routing | Command explanation + suggested next command |
 | `/s2s interview` | Idea is vague / user says "you decide" | Structured creative brief |
 | `/s2s storyboard` | Need storyboard image prompt | 12-section storyboard prompt |
+| `/s2s depth-map` | Have a normal storyboard; want composition-only depth control | Depth conversion prompt + Seedance role binding |
 | `/s2s character-ref` | Need consistent human/character identity | Character reference-sheet prompt |
 | `/s2s product-ref` | Need consistent product image | Product reference prompt |
 | `/s2s cinematic-variations` | Need 10 composition options | Shot/composition variants |
@@ -60,6 +61,7 @@ If user describes a goal instead of a command, route them to the smallest matchi
 | "Aku punya ide tapi belum jelas" | `/s2s interview` |
 | "Bikin iklan produk" | `/s2s ads` |
 | "Bikin storyboard" | `/s2s storyboard` |
+| "Pisahkan komposisi dari style / depth-map storyboard" | `/s2s depth-map` |
 | "Lock karakter / wajah konsisten" | `/s2s character-ref` |
 | "Lock produk" | `/s2s product-ref` |
 | "Prompt video Seedance" | `/s2s motion` |
@@ -83,6 +85,11 @@ Example: `/s2s interview bikin iklan botol minum anak 15 detik`
 Creates a storyboard image prompt, usually 12-panel / director-strip style.
 
 Example: `/s2s storyboard from this brief: ...`
+
+### `/s2s depth-map`
+Converts an approved normal storyboard/contact sheet into a neutral depth-map storyboard. It preserves the exact grid and framing, then binds depth to composition only and a separate tone reference to final look only.
+
+Example: `/s2s depth-map storyboard.png tone=look.jpg character=character.png`
 
 ### `/s2s character-ref`
 Creates a consistent character reference prompt. Use before video generation if a human/character must stay consistent.

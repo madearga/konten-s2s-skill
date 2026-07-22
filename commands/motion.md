@@ -17,7 +17,9 @@ If user has no storyboard yet, redirect to `/s2s storyboard` (Step 1).
 
 | Input | Source | Required? |
 |-------|--------|-----------|
-| Storyboard image path/URL | Step 1 output | Required |
+| Storyboard image path/URL | Step 1 output | Required unless a depth map storyboard replaces it |
+| Depth map storyboard path/URL | `/s2s depth-map` output | Optional replacement for normal storyboard when composition/style decoupling is desired |
+| Tone + visual-style reference | User / look development | Required when using a depth map storyboard |
 | Character ref path/URL | Step 2a output | Required if video has human |
 | Product ref path/URL | Step 2b output | Required if video has product |
 | Brief (duration, energy, audio) | User | Required |
@@ -32,6 +34,8 @@ Use only when they solve a specific problem:
 | First-frame still | lock exact opening state |
 | Last-frame still | lock exact landing state |
 | Camera reference video | borrow camera behavior only |
+| Depth map storyboard | borrow camera placement, framing, scale, and spatial layout only |
+| Tone + visual-style reference | borrow final color, lighting, texture, material, and mood only |
 | Action reference video | borrow choreography only |
 | FX reference video | borrow transition/VFX grammar only |
 | Rhythm reference video | borrow pacing/cut density only |
@@ -124,23 +128,24 @@ v1.2.0 ships with pregnancy safety as the canonical example.
 2. Load `../references/seedance-motion-prompt.md` (the 5-part spine)
 3. Load `../references/director-strip-7-track.md` (vocabulary)
 4. Load `../references/seedance-asset-binding.md` when 3+ assets or mixed media roles are involved
-5. Load `../references/seedance-pattern-library.md` when the user wants extend/edit/fuse/beat-sync/dialogue/one-take behavior
-6. Load `../references/seedance-2-best-practices-2026.md` (broader context)
-7. Pull **director strip text + panel beats from Step 1 output** (the real signal — storyboard image alone is unreadable at panel resolution)
-8. If needed, add an **ASSET ROLE BINDING** block to state what each attachment controls and what to ignore
-9. If needed, switch into the correct **mode override**: standard / extend / edit / fuse / beat-sync / dialogue / one-take
-10. Build the 5-part spine:
+5. Load `../references/depth-map-storyboard.md` when a depth map storyboard is attached; enforce depth=composition only, tone ref=look only, character/product sheet=identity only
+6. Load `../references/seedance-pattern-library.md` when the user wants extend/edit/fuse/beat-sync/dialogue/one-take behavior
+7. Load `../references/seedance-2-best-practices-2026.md` (broader context)
+8. Pull **director strip text + panel beats from Step 1 output** (the real signal — storyboard image alone is unreadable at panel resolution)
+9. If needed, add an **ASSET ROLE BINDING** block to state what each attachment controls and what to ignore
+10. If needed, switch into the correct **mode override**: standard / extend / edit / fuse / beat-sync / dialogue / one-take
+11. Build the 5-part spine:
    - **SUBJECT** (1-2 sentences, identity)
    - **ACTION** (2-4 sentences, story in prose)
    - **CAMERA** (per-panel P## / focal length / shot type)
    - **STYLE** (visual signature)
    - **CONSTRAINTS** (what to avoid)
-11. Add **Emotional Guidance 2-axis** (Valence + Arousal)
-12. Add **Audio strategy** (default: silent, diegetic foley only)
-13. Add **Panel beats per P##** with shot + motion + foley + emotional beat + audio cue
-14. Add **Negative prompts** (no music, no logo, no text, no watermark, no frame numbers)
-15. Run QC checklist (11 base items + optional v1.3.0 checks)
-16. Output: copy-paste-ready prompt + checklist + attachment list
+12. Add **Emotional Guidance 2-axis** (Valence + Arousal)
+13. Add **Audio strategy** (default: silent, diegetic foley only)
+14. Add **Panel beats per P##** with shot + motion + foley + emotional beat + audio cue
+15. Add **Negative prompts** (no music, no logo, no text, no watermark, no frame numbers)
+16. Run QC checklist (11 base items + optional role-binding checks)
+17. Output: copy-paste-ready prompt + checklist + attachment list
 
 ---
 
@@ -171,6 +176,7 @@ v1.2.0 ships with pregnancy safety as the canonical example.
 - [✓] `@[storyboard ref]` referenced at top
 - [✓] `@[character ref]` or `@[product ref]` referenced
 - [✓] Extra attachments named with explicit roles (if any)
+- [✓] Depth storyboard controls composition only; tone reference controls look only (if depth workflow)
 - [✓] Subject line (1-2 sentences) — identity
 - [✓] Action line (2-4 sentences) — story in prose
 - [✓] Camera line — per-panel P## / focal length / shot type
@@ -183,6 +189,8 @@ v1.2.0 ships with pregnancy safety as the canonical example.
 
 ## Attachments Needed
 - @[storyboard ref]: <path or URL>
+- @[depth storyboard]: <path or URL> [use instead of normal storyboard when applicable]
+- @[tone visual reference]: <path or URL> [required with depth storyboard]
 - @[character ref]: <path or URL>  [if applicable]
 - @[product ref]: <path or URL>    [if applicable]
 

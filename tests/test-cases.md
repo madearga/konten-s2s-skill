@@ -1,6 +1,6 @@
 # Test Cases — storyboard-to-seedance-suite
 
-7 grouped test cases covering the command surface plus the new non-breaking Step 3 enhancement layer. Some groups include multiple scenario variants (for example TC2a/TC2b and TC3/TC3b). Manual verification only — each test produces a real prompt that the user sends to GPT Image 2 / Seedance 2.0.
+8 grouped test cases covering the command surface plus optional enhancement layers. Some groups include multiple scenario variants (for example TC2a/TC2b and TC3/TC3b). Manual verification only — each test produces a real prompt that the user sends to GPT Image 2 / Seedance 2.0.
 
 ---
 
@@ -189,6 +189,27 @@
 - No new command required
 - Existing `/s2s motion` command handles the variant by changing wording only
 - Standard users who do not need these modes see unchanged behavior
+
+---
+
+## TC8: `/s2s depth-map` revised conversion workflow
+
+**Input:** `/s2s depth-map storyboard.png tone=look.jpg character=character.png`
+
+**Expected Output:**
+- Normal storyboard is treated as immutable source geometry
+- Paste-ready monocular grayscale conversion prompt
+- Layout contract records canvas, aspect ratio, grid, panel count, dividers, and reading order
+- Canonical depth convention: white nearest, near-black farthest, black dividers
+- Seedance role binding: depth=composition, tone=look, character=identity
+- Text-to-image-only backend returns an honest blocker instead of claiming conversion
+
+**Pass criteria:**
+- Workflow order is normal storyboard → depth conversion, never direct depth generation by default
+- Prompt preserves exact framing, perspective, composition, silhouettes, and objects
+- Prompt bans RGB, lighting, texture, reflection, fog, blur, AO, halos, labels, and layout changes
+- QC blocks handoff if panel count/layout/composition changed
+- Each attached asset has exactly one primary role
 
 ---
 

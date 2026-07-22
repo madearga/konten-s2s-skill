@@ -158,7 +158,9 @@ These are placeholders for future expansion. v1.2.0 ships with pregnancy safety 
 - Total Step 1: ~5 min
 
 ## Suggested Next Step
-Run `/s2s character-ref` (if your video has a human) OR `/s2s product-ref` (if product-only) — then `/s2s motion` to wrap up.
+If you want composition and visual style controlled by separate references, approve the normal storyboard first, then run `/s2s depth-map` before motion.
+
+Otherwise run `/s2s character-ref` (if your video has a human) OR `/s2s product-ref` (if product-only) — then `/s2s motion` to wrap up.
 
 Or run `/s2s pipeline` to do all 3 steps with checkpoints.
 ```

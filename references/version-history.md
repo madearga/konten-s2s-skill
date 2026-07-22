@@ -1,5 +1,12 @@
 # Version History
 
+- **1.15.0** (2026-07-22) — **Depth Map Storyboard capability**
+  - **NEW**: `/s2s depth-map` (`/s2s depth-storyboard` alias) converts an approved normal storyboard/contact sheet into a neutral grayscale depth-map storyboard prompt.
+  - **NEW**: `references/depth-map-storyboard.md` preserves the revised normal-storyboard-first workflow, canonical white-near/black-far conversion prompt, exact-layout contract, purity QC, failure atlas, and strict Seedance role binding.
+  - **NEW**: `references/depth-map-user-flow.md` documents normal, blocked-backend, handoff, and retake flows.
+  - **UPDATED**: `/s2s motion --bind` understands depth storyboard = composition only, tone reference = look only, character/product sheet = identity only.
+  - **RULE**: direct depth-only storyboard generation is legacy/experimental; normal storyboard → depth conversion is canonical.
+
 - **1.13.5** (2026-06-30) — **Project-provenance cleanup**
   - Removed stale multi-clip project-provenance phrase from model-facing files.
   - Kept reusable multi-clip, public-safety, hook, and monochrome storyboard patterns intact.

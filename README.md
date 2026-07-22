@@ -38,6 +38,7 @@ Existing video → /s2s analyze → reverse-engineered brief/prompt → optional
 | `/s2s help` | guide | Explain commands + route to the right capability |
 | `/s2s worldbuild` | pre-0 | Have a spark/mood/place, want a 9-still world bible (companion: `kuka-worldbuilder` skill) |
 | `/s2s storyboard` | 1 | Need storyboard image |
+| `/s2s depth-map` | spatial | Convert approved normal storyboard to composition-only depth map |
 | `/s2s character-ref` | 2a | Human in video, need identity sheet |
 | `/s2s product-ref` | 2b | Product in video (FMCG, beauty, etc.) |
 | `/s2s motion` | 3 | Have storyboard + reference, need motion prompt |
@@ -92,6 +93,8 @@ storyboard-to-seedance-suite/
 ├── LICENSE                           # MIT
 ├── references/
 │   ├── storyboard-prompt-template.md  # 12-Section fill-in template
+│   ├── depth-map-storyboard.md        # revised normal-storyboard-first depth conversion
+│   ├── depth-map-user-flow.md         # depth-map capability UX + failure flows
 │   ├── character-ref-prompt.md        # 3-angle character sheet template
 │   ├── product-ref-prompt.md          # 3 variants: hero, multi-angle, lifestyle
 │   ├── seedance-motion-prompt.md      # 5-part spine + worked example
@@ -107,6 +110,7 @@ storyboard-to-seedance-suite/
 ├── commands/
 │   ├── help.md                        # /s2s help
 │   ├── storyboard.md                  # /s2s storyboard
+│   ├── depth-map.md                   # /s2s depth-map
 │   ├── character-ref.md               # /s2s character-ref
 │   ├── product-ref.md                 # /s2s product-ref
 │   ├── motion.md                      # /s2s motion
@@ -119,7 +123,7 @@ storyboard-to-seedance-suite/
 │   ├── s2s-ads.md
 │   └── ... (one per capability; symlinked into ~/.pi/agent/prompts and ~/.config/opencode/command)
 └── tests/
-    └── test-cases.md                  # 7 grouped test cases (TC1-TC7)
+    └── test-cases.md                  # 8 grouped test cases (TC1-TC8)
 ```
 
 ## Cost & time
