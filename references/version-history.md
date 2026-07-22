@@ -1,5 +1,12 @@
 # Version History
 
+- **1.17.0** (2026-07-22) — **Focused motion micro-intake + auto-fill**
+  - **NEW**: `references/seedance-motion-intake.md` resolves duration, action progression, audio, energy, and required reference roles before motion compilation.
+  - **UPDATED**: `/s2s motion` and `/s2s motion --bind` extract existing values first, ask at most two questions, and never restart the full creative interview when references already establish the project.
+  - **DEFAULT**: unspecified audio becomes synchronized diegetic sound and environmental ambience with no music; energy is inferred from action and beat density.
+  - **GATE**: compilation requires locked duration, locked action progression, verified required references, and explicit one-job-per-asset role binding.
+  - **TIMING**: 3×3 storyboard panels are merged into duration-appropriate visual beats instead of forcing nine unreadable hard cuts into short clips.
+
 - **1.16.0** (2026-07-22) — **Split depth converter from depth storyboard generator**
   - **CORRECTED**: `/s2s depth-map` is strictly a one-image physical linear-depth conversion capability.
   - **NEW**: `/s2s depth-storyboard` is a separate capability that consumes IMAGE 1 visual reference + IMAGE 2 depth reference and generates exactly one coherent 3×3 nine-shot depth-only storyboard.

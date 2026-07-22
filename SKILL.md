@@ -1,7 +1,7 @@
 ---
 name: storyboard-to-seedance-suite
 description: "AI video production router for Seedance/Veo/Kling/GPT Image 2/ElevenLabs v3. Use for brief intake, storyboard prompts, single-image depth-map conversion, direct 3x3 depth-only storyboards, character/product refs, cinematic variations, motion prompts, asset binding, troubleshooting, video analysis, hooks, ads, VO scripts, and extend/edit/fuse/beat-sync/dialogue/one-take modes. Companion: kuka-worldbuilder handles upstream worldbuilding. Commands: /s2s help, interview, worldbuild, storyboard, depth-map, depth-storyboard, character-ref, product-ref, cinematic-variations, motion, compose-pattern, analyze, hook, troubleshoot, bundle, ads, vo-v3."
-version: 1.16.0
+version: 1.17.0
 author: Hermes Agent
 license: MIT
 triggers:
@@ -80,6 +80,9 @@ triggers:
   - "separate style from composition"
   - "seedance prompt"
   - "video motion prompt"
+  - "motion intake"
+  - "depth storyboard ke video"
+  - "prompt dari depth storyboard"
   - "character reference"
   - "product reference"
   - "character sheet"
@@ -209,8 +212,8 @@ Output: copy-paste-ready prompts, references, or analysis
 | Want 10 composition options for one key moment    | Pre-visualization | `/s2s cinematic-variations` | `cinematic-composition-vocabulary.md` + `cinematic-variations-script-mode.md` |
 | Need human character reference image              | Character Ref     | `/s2s character-ref`     | `character-ref-prompt.md`                              |
 | Need product reference image                      | Product Ref       | `/s2s product-ref`       | `product-ref-prompt.md`                                |
-| Have storyboard + ref, need motion prompt         | Motion            | `/s2s motion`            | `seedance-motion-prompt.md` + `seedance-camera-language.md` + `seedance-motion-vocabulary.md` |
-| Have multiple assets, need role binding           | Motion (binding)  | `/s2s motion --bind`     | `seedance-reference-syntax.md` + `seedance-asset-binding.md` |
+| Have storyboard + ref, need motion prompt         | Motion            | `/s2s motion`            | `seedance-motion-intake.md` + `seedance-motion-prompt.md` + `seedance-camera-language.md` + `seedance-motion-vocabulary.md` |
+| Have multiple assets, need role binding           | Motion (binding)  | `/s2s motion --bind`     | `seedance-motion-intake.md` + `seedance-reference-syntax.md` + `seedance-asset-binding.md` |
 | Want to extend / edit / fuse / beat-sync / dialogue / one-take | Pattern | `/s2s compose-pattern`   | `seedance-pattern-library.md`                          |
 | Have video file, want to reverse-engineer         | Analyze           | `/s2s analyze`           | `video-analysis-template.md` + `tiktok-analyzer-system-prompt.md` |
 | Want hook variants for short-form                 | Hook              | `/s2s hook`              | `hook-brainstorming-social-issue.md`                   |
@@ -262,6 +265,7 @@ All references live in `references/`. Pick the ones you need; ignore the rest.
 | `character-ref-prompt.md`                         | 3-angle character sheet template                       |
 | `product-ref-prompt.md`                           | 5 variants: hero / multi-angle / lifestyle / in-use / sheet |
 | `seedance-motion-prompt.md`                       | 5-part spine for motion prompt                         |
+| `seedance-motion-intake.md`                       | Focused motion auto-fill, minimum-question gate, and Intake Card |
 | `video-analysis-template.md`                      | 10-section fill-in template for `/s2s analyze`         |
 
 ### Seedance Craft References (v1.7.0 — adopted from Emily2040 + dexhunter)

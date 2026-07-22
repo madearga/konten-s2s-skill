@@ -43,7 +43,7 @@ If user describes a goal instead of a command, route them to the smallest matchi
 | `/s2s character-ref` | Need consistent human/character identity | Character reference-sheet prompt |
 | `/s2s product-ref` | Need consistent product image | Product reference prompt |
 | `/s2s cinematic-variations` | Need 10 composition options | Shot/composition variants |
-| `/s2s motion` | Have brief/ref/storyboard, need video prompt | Seedance motion prompt |
+| `/s2s motion` | Have brief/ref/storyboard, need video prompt | Focused micro-intake + Seedance motion prompt |
 | `/s2s ads` | Product/brand/UGC/e-commerce ad | Ad-optimized motion prompt |
 | `/s2s compose-pattern` | Extend/edit/fuse/beat-sync/dialogue/one-take | Pattern-specific motion prompt |
 | `/s2s analyze` | Have reference video to reverse-engineer | Video analysis + prompt strategy |
@@ -109,7 +109,7 @@ Creates product reference prompt variants: hero, multi-angle, lifestyle, in-use,
 Example: `/s2s product-ref Pigeon straw bottle 240ml from uploaded product image`
 
 ### `/s2s motion`
-Creates the actual Seedance-ready video prompt from brief/storyboard/reference assets.
+Runs a focused micro-intake that auto-fills action, audio, and energy from existing artifacts, asks only for missing duration/action, then creates the Seedance-ready video prompt. Use `--bind` when depth storyboard, tone reference, and identity sheet have separate roles.
 
 Example: `/s2s motion 15s, 9:16, product demo, use @product_ref`
 

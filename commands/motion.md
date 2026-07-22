@@ -1,12 +1,12 @@
 # /s2s motion — Step 3: Seedance 2.0 Motion Prompt
 
-Generates a **complete Seedance 2.0 motion prompt** with 5-part spine, panel beats, director strip text, and audio strategy. Uses previously-saved storyboard + character/product references.
+Generates a **complete Seedance 2.0 motion prompt** with 5-part spine, panel beats, director strip text, and audio strategy. Uses previously-saved storyboard + character/product references. When assets already exist, runs a focused micro-intake instead of restarting the full creative interview.
 
 ---
 
 ## Trigger
 
-- Manual: `/s2s motion`
+- Manual: `/s2s motion` or `/s2s motion --bind`
 - Auto-detect: "motion prompt", "Seedance prompt", "video prompt", "bikinin prompt video"
 
 If user has no storyboard yet, redirect to `/s2s storyboard` (Step 1).
@@ -18,11 +18,14 @@ If user has no storyboard yet, redirect to `/s2s storyboard` (Step 1).
 | Input | Source | Required? |
 |-------|--------|-----------|
 | Storyboard image path/URL | Step 1 output | Required unless a depth map storyboard replaces it |
-| Depth map storyboard path/URL | `/s2s depth-map` output | Optional replacement for normal storyboard when composition/style decoupling is desired |
+| Depth map storyboard path/URL | `/s2s depth-map` or `/s2s depth-storyboard` output | Optional replacement for normal storyboard when composition/style decoupling is desired |
 | Tone + visual-style reference | User / look development | Required when using a depth map storyboard |
 | Character ref path/URL | Step 2a output | Required if video has human |
 | Product ref path/URL | Step 2b output | Required if video has product |
-| Brief (duration, energy, audio) | User | Required |
+| Duration | User / approved brief | Required; ask once if absent |
+| Action/story progression | Director strip / brief / storyboard plan | Required; ask once only if it cannot be derived reliably |
+| Audio strategy | User / scene-derived default | Optional; default to diegetic ambience, no music |
+| Energy | User / action inference | Optional; infer when absent |
 | Extra role-bound assets | User or analysis step | Optional |
 
 ### Optional extra assets (v1.3.0)
@@ -42,36 +45,21 @@ Use only when they solve a specific problem:
 | BGM/audio reference | borrow tempo/mood only |
 | Typography still | borrow title-card style only |
 
-**Q-template (only if not already in bundle from `/s2s pipeline`):**
+### Focused Motion Micro-Intake
 
-```
-Q1: Where are the images?
-    A) I'll provide paths (please paste)
-    B) I have URLs (please paste)
-    C) Use defaults from previous /s2s run
+Load `../references/seedance-motion-intake.md` before asking questions.
 
-Q2: Duration?
-    A) 4s (snappy)
-    B) 8s (smooth, recommended for product)
-    C) 12s (atmospheric)
-    D) 15s (full sequence)
+1. Extract existing values before asking.
+2. Build the Motion Intake Card.
+3. Ask at most two missing-field questions.
+4. Duration must be locked.
+5. Derive action from director strip, brief, normal storyboard plan, or depth-storyboard generation plan; ask only when no reliable textual progression exists.
+6. Default audio to natural synchronized diegetic sound and environmental ambience, with no music.
+7. Infer energy from action verbs and beat density.
+8. When depth storyboard + tone reference + character sheet already exist, never restart `/s2s interview`.
+9. Missing attachment paths are prerequisite requests, not creative-interview questions.
 
-Q3: Audio strategy?
-    A) Silent (diegetic foley only — RECOMMENDED for editability)
-    B) Music baked in (specify genre + BPM)
-
-Q4: Energy?
-    A) High-rhythm (smash cuts, loopable)
-    B) Mid-rhythm (build, cooking montage)
-    C) Slow cinematic (master + beauty)
-
-Q5: Optional attachment roles?  (only ask if user has 3+ assets or existing-video task)
-    A) No extra roles — use standard workflow
-    B) First frame / last frame lock
-    C) Camera / action / FX reference split
-    D) Rhythm / BGM reference split
-    E) Existing-video mode (extend / edit / fuse)
-```
+Compilation is blocked until duration, action progression, and required references are locked.
 
 ---
 
@@ -125,27 +113,28 @@ v1.2.0 ships with pregnancy safety as the canonical example.
 ## Behavior
 
 1. Verify image paths/URLs exist
-2. Load `../references/seedance-motion-prompt.md` (the 5-part spine)
-3. Load `../references/director-strip-7-track.md` (vocabulary)
-4. Load `../references/seedance-asset-binding.md` when 3+ assets or mixed media roles are involved
-5. Load `../references/depth-map-storyboard.md` when a depth map storyboard is attached; enforce depth=composition only, tone ref=look only, character/product sheet=identity only
-6. Load `../references/seedance-pattern-library.md` when the user wants extend/edit/fuse/beat-sync/dialogue/one-take behavior
-7. Load `../references/seedance-2-best-practices-2026.md` (broader context)
-8. Pull **director strip text + panel beats from Step 1 output** (the real signal — storyboard image alone is unreadable at panel resolution)
-9. If needed, add an **ASSET ROLE BINDING** block to state what each attachment controls and what to ignore
-10. If needed, switch into the correct **mode override**: standard / extend / edit / fuse / beat-sync / dialogue / one-take
-11. Build the 5-part spine:
+2. Load `../references/seedance-motion-intake.md`; extract, auto-fill, ask minimally, and lock the Motion Intake Card
+3. Load `../references/seedance-motion-prompt.md` (the 5-part spine)
+4. Load `../references/director-strip-7-track.md` (vocabulary)
+5. Load `../references/seedance-asset-binding.md` when 3+ assets or mixed media roles are involved
+6. Load `../references/depth-map-storyboard.md` when a depth map storyboard is attached; enforce depth=composition only, tone ref=look only, character/product sheet=identity only
+7. Load `../references/seedance-pattern-library.md` when the user wants extend/edit/fuse/beat-sync/dialogue/one-take behavior
+8. Load `../references/seedance-2-best-practices-2026.md` (broader context)
+9. Pull **director strip text + panel beats from Step 1 output** (the real signal — storyboard image alone is unreadable at panel resolution)
+10. If needed, add an **ASSET ROLE BINDING** block to state what each attachment controls and what to ignore
+11. If needed, switch into the correct **mode override**: standard / extend / edit / fuse / beat-sync / dialogue / one-take
+12. Build the 5-part spine:
    - **SUBJECT** (1-2 sentences, identity)
    - **ACTION** (2-4 sentences, story in prose)
    - **CAMERA** (per-panel P## / focal length / shot type)
    - **STYLE** (visual signature)
    - **CONSTRAINTS** (what to avoid)
-12. Add **Emotional Guidance 2-axis** (Valence + Arousal)
-13. Add **Audio strategy** (default: silent, diegetic foley only)
-14. Add **Panel beats per P##** with shot + motion + foley + emotional beat + audio cue
-15. Add **Negative prompts** (no music, no logo, no text, no watermark, no frame numbers)
-16. Run QC checklist (11 base items + optional role-binding checks)
-17. Output: copy-paste-ready prompt + checklist + attachment list
+13. Add **Emotional Guidance 2-axis** (Valence + Arousal)
+14. Add **Audio strategy** (default: synchronized diegetic sound + environmental ambience, no music)
+15. Add **Panel beats per P##** with shot + motion + foley + emotional beat + audio cue
+16. Add **Negative prompts** (no music, no logo, no text, no watermark, no frame numbers)
+17. Run QC checklist (11 base items + optional role-binding checks)
+18. Output: Motion Intake Card + copy-paste-ready prompt + checklist + attachment list
 
 ---
 
@@ -168,6 +157,16 @@ v1.2.0 ships with pregnancy safety as the canonical example.
 ## Output Format
 
 ```
+## Motion Intake Card
+
+| Field | Value | Source | Confidence |
+|---|---|---|---|
+| Duration | ... | ... | locked |
+| Action progression | ... | ... | locked |
+| Audio | ... | ... | locked / defaulted |
+| Energy | ... | ... | locked / defaulted |
+| References | ... | attachments | verified |
+
 ## Motion Prompt (Seedance 2.0)
 
 <prompt text — full 5-part spine + director strip + panel beats + emotional guidance + audio + negative>
@@ -219,6 +218,7 @@ v1.2.0 ships with pregnancy safety as the canonical example.
 | No panel beats in prompt | Image is unreadable at panel resolution | Force-write panel beats from Step 1's director strip |
 | "Use just the image, no text" | Director strip text is the actual signal | Re-explain: image = documentation, text = contract |
 | Many attachments but no role binding | Camera/action/style signals bleed together | Name each extra asset and state exactly what it controls |
+| Full `/s2s interview` restarted despite complete references | Repeats settled creative decisions | Run the motion micro-intake; ask only duration/action if actually missing |
 | Existing clip task treated as new generation | Continuity breaks | Switch to extend/edit/fuse mode wording |
 
 ---
@@ -236,6 +236,7 @@ If you skip writing the panel beats, the video will be generic, not match your s
 ## Related
 
 - `../references/seedance-motion-prompt.md` — full 5-part spine template
+- `../references/seedance-motion-intake.md` — focused auto-fill + minimum-question gate
 - `../references/director-strip-7-track.md` — vocabulary
 - `../references/seedance-asset-binding.md` — optional attachment role system
 - `../references/seedance-pattern-library.md` — optional extend/edit/fuse/dialogue/beat-sync modes

@@ -106,6 +106,36 @@
 
 ---
 
+## TC3c: `/s2s motion --bind` focused micro-intake (v1.17.0)
+
+**Input A:** depth storyboard + tone reference + character sheet are attached; action progression exists in the approved storyboard plan; duration is missing.
+
+**Expected Output A:**
+- Loads `references/seedance-motion-intake.md` before compiling.
+- Auto-fills action progression from the approved textual plan.
+- Defaults audio to synchronized diegetic sound and environmental ambience with no music.
+- Infers energy from action verbs and beat density.
+- Asks only one question: duration.
+- Does not restart `/s2s interview`.
+
+**Input B:** same references with explicit `15s` and a locked action sentence.
+
+**Expected Output B:**
+- Asks zero questions.
+- Produces a Motion Intake Card followed by the final Seedance prompt.
+- Binds depth storyboard to composition, tone reference to look, character sheet to identity, and text prompt to motion/audio.
+- Allows the full nine-panel progression at 15 seconds.
+
+**Pass criteria:**
+- At most two missing-field questions are asked.
+- Duration and action are locked before compilation.
+- Audio and energy may be defaulted but are labeled in the Intake Card.
+- Missing attachment paths are treated as prerequisite requests, not creative-interview questions.
+- At 4s use 3–4 essential beats; at 8s merge into 4–6; at 12s use 6–8; at 15s allow all nine.
+- No second generic creative brief is emitted.
+
+---
+
 ## TC4: `/s2s pipeline` (end-to-end)
 
 **Input:** `/s2s pipeline` + brief "Indonesian girl in kitchen making banana bread, 15s, high-rhythm smash cuts"

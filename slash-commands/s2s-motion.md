@@ -18,7 +18,7 @@ Remember the result as `SKILL`.
 
 ## Step 2 — Load and execute the capability
 
-Read `$SKILL/commands/motion.md` and follow its instructions exactly. Resolve every relative reference it points to (e.g. `references/*.md`, `[ref:...]`) against `$SKILL/`. Consult `$SKILL/SKILL.md` for the capability router / load map if needed.
+Read `$SKILL/commands/motion.md` and follow its instructions exactly. Load `$SKILL/references/seedance-motion-intake.md` first, then resolve every other relative reference it points to against `$SKILL/`. Consult `$SKILL/SKILL.md` for the capability router / load map if needed.
 
 ## Step 3 — Apply user arguments
 

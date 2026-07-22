@@ -102,6 +102,7 @@ storyboard-to-seedance-suite/
 │   ├── character-ref-prompt.md        # 3-angle character sheet template
 │   ├── product-ref-prompt.md          # 3 variants: hero, multi-angle, lifestyle
 │   ├── seedance-motion-prompt.md      # 5-part spine + worked example
+│   ├── seedance-motion-intake.md      # focused auto-fill + minimum-question motion intake
 │   ├── seedance-2-best-practices-2026.md # broader local Seedance companion
 │   ├── seedance-asset-binding.md      # optional attachment role system
 │   ├── seedance-best-practices.md     # concise general prompt guidance
@@ -165,6 +166,7 @@ cd konten-s2s-skill
 
 These are additive. Ignore them if you only want the standard flow.
 
+- **Focused motion micro-intake** — extracts duration/action/audio/energy from existing artifacts, asks at most two missing-field questions, and never restarts the full creative interview when references are complete
 - **Asset-role binding** — specify what each attachment controls
   - identity
   - product continuity
