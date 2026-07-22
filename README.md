@@ -38,7 +38,8 @@ Existing video → /s2s analyze → reverse-engineered brief/prompt → optional
 | `/s2s help` | guide | Explain commands + route to the right capability |
 | `/s2s worldbuild` | pre-0 | Have a spark/mood/place, want a 9-still world bible (companion: `kuka-worldbuilder` skill) |
 | `/s2s storyboard` | 1 | Need storyboard image |
-| `/s2s depth-map` | spatial | Convert approved normal storyboard to composition-only depth map |
+| `/s2s depth-map` | spatial | Convert one supplied image into a clean linear depth map |
+| `/s2s depth-storyboard` | spatial | Generate a new coherent 3×3 depth-only sequence from visual + depth refs |
 | `/s2s character-ref` | 2a | Human in video, need identity sheet |
 | `/s2s product-ref` | 2b | Product in video (FMCG, beauty, etc.) |
 | `/s2s motion` | 3 | Have storyboard + reference, need motion prompt |
@@ -93,8 +94,11 @@ storyboard-to-seedance-suite/
 ├── LICENSE                           # MIT
 ├── references/
 │   ├── storyboard-prompt-template.md  # 12-Section fill-in template
-│   ├── depth-map-storyboard.md        # revised normal-storyboard-first depth conversion
-│   ├── depth-map-user-flow.md         # depth-map capability UX + failure flows
+│   ├── depth-map-storyboard.md        # router for both distinct depth workflows
+│   ├── depth-map-user-flow.md         # converter + direct-storyboard user flows
+│   ├── depth-map-conversion.md         # exact one-image depth conversion prompt
+│   ├── depth-storyboard-conversion.md  # exact revised sheet-to-depth conversion prompt
+│   ├── depth-storyboard-system-prompt.md # complete 3×3 depth-only system prompt
 │   ├── character-ref-prompt.md        # 3-angle character sheet template
 │   ├── product-ref-prompt.md          # 3 variants: hero, multi-angle, lifestyle
 │   ├── seedance-motion-prompt.md      # 5-part spine + worked example
@@ -111,6 +115,7 @@ storyboard-to-seedance-suite/
 │   ├── help.md                        # /s2s help
 │   ├── storyboard.md                  # /s2s storyboard
 │   ├── depth-map.md                   # /s2s depth-map
+│   ├── depth-storyboard.md            # /s2s depth-storyboard
 │   ├── character-ref.md               # /s2s character-ref
 │   ├── product-ref.md                 # /s2s product-ref
 │   ├── motion.md                      # /s2s motion

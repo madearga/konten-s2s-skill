@@ -1,6 +1,15 @@
 # Version History
 
-- **1.15.0** (2026-07-22) — **Depth Map Storyboard capability**
+- **1.16.0** (2026-07-22) — **Split depth converter from depth storyboard generator**
+  - **CORRECTED**: `/s2s depth-map` is strictly a one-image physical linear-depth conversion capability.
+  - **NEW**: `/s2s depth-storyboard` is a separate capability that consumes IMAGE 1 visual reference + IMAGE 2 depth reference and generates exactly one coherent 3×3 nine-shot depth-only storyboard.
+  - **NEW**: `references/depth-map-conversion.md` preserves the exact compact converter prompt.
+  - **NEW**: `references/depth-storyboard-conversion.md` preserves the revised exact storyboard/contact-sheet conversion prompt.
+  - **NEW**: `references/depth-storyboard-system-prompt.md` preserves the complete eight-phase storyboard system prompt.
+  - **UPDATED**: workflow router documents both valid paths: direct depth-storyboard generation and revised normal-storyboard-sheet conversion.
+  - **REMOVED**: `/s2s depth-storyboard` is no longer treated as an alias or legacy behavior.
+
+- **1.15.0** (2026-07-22) — **Depth Map Storyboard capability** *(superseded by the corrected 1.16.0 split)*
   - **NEW**: `/s2s depth-map` (`/s2s depth-storyboard` alias) converts an approved normal storyboard/contact sheet into a neutral grayscale depth-map storyboard prompt.
   - **NEW**: `references/depth-map-storyboard.md` preserves the revised normal-storyboard-first workflow, canonical white-near/black-far conversion prompt, exact-layout contract, purity QC, failure atlas, and strict Seedance role binding.
   - **NEW**: `references/depth-map-user-flow.md` documents normal, blocked-backend, handoff, and retake flows.

@@ -1,89 +1,87 @@
-# Depth Map Storyboard — User Flow
-
-Companion flow for `/s2s depth-map`. It shows what the user types, what the skill does, and what artifact is returned.
+# Depth Capabilities — User Flow
 
 ---
 
-## Flow A — User Already Has a Normal Storyboard
+## Flow A — Convert One Image
 
 **USER**
 
 ```text
-/s2s depth-map /path/to/storyboard.png
-Tone reference: /path/to/look.jpg
-Character sheet: /path/to/character.png
+/s2s depth-map /path/to/image.png
 ```
 
 **SKILL**
 
-1. Verifies the normal storyboard exists.
-2. Inspects canvas, grid, panel count, dividers, reading order, framing, and object placement.
-3. Produces the canonical image-edit conversion prompt.
-4. If an image-edit backend is available, converts and validates the output.
-5. If not, states the backend limitation and returns a paste-ready prompt.
-6. Produces strict Seedance attachment-role binding.
+1. Verifies the image.
+2. Loads the exact physical linear-depth conversion prompt.
+3. Converts only when image-edit input is supported.
+4. Verifies geometry, silhouettes, boundaries, depth direction, and appearance removal.
 
-**USER RECEIVES**
-
-- source layout contract
-- depth-map conversion prompt
-- real converted image path when generation actually ran
-- pass/fail QC
-- Seedance attachment-role block
-- next command: `/s2s motion --bind`
+**OUTPUT:** one clean depth map or an honest paste-ready prompt if blocked.
 
 ---
 
-## Flow B — User Has a Brief but No Storyboard
+## Flow B — Build Direct 3×3 Depth Storyboard
 
 **USER**
 
 ```text
-/s2s depth-map librarian opens a history book and enters an old classroom
+/s2s depth-storyboard
+IMAGE 1: /path/to/visual-reference.png
+IMAGE 2: /path/to/depth-reference.png
 ```
 
 **SKILL**
 
-```text
-Depth conversion needs a normal storyboard first.
-Route: /s2s storyboard → approve image → /s2s depth-map
-```
+1. Loads the complete eight-phase system prompt.
+2. Uses IMAGE 1 for scene/identity/content.
+3. Uses IMAGE 2 for depth convention/layering/edge behavior.
+4. Generates exactly nine sequential shots in one 3×3 depth-only grid.
+5. Runs the 14-point QC gate.
 
-The skill does not generate a direct depth-only storyboard by default.
-
-**USER RECEIVES**
-
-- smallest required route
-- no fabricated depth-map artifact
+**OUTPUT:** one coherent 3×3 depth-map storyboard.
 
 ---
 
-## Flow C — Active Backend Is Text-to-Image Only
+## Flow C — Only Visual Reference Exists
 
 **USER**
 
 ```text
-/s2s depth-map storyboard.png
+I have visual-reference.png but no depth reference.
+```
+
+**SKILL ROUTE**
+
+```text
+/s2s depth-map visual-reference.png
+  ↓ generated depth-reference.png
+/s2s depth-storyboard visual-reference.png depth-reference.png
+```
+
+The first output becomes IMAGE 2. The original remains IMAGE 1.
+
+---
+
+## Flow D — Convert an Approved Normal Storyboard
+
+**USER**
+
+```text
+/s2s depth-map approved-storyboard.png
 ```
 
 **SKILL**
 
-```text
-Active backend cannot accept a source image, so conversion was not executed.
-Here is the paste-ready conversion prompt for an image-edit-capable surface.
-```
+Treats the full sheet as one source image and converts it exactly. It does not infer a different nine-shot sequence.
 
-**USER RECEIVES**
+Loads `depth-storyboard-conversion.md`, including exact canvas/grid/divider preservation and panel-specific depth rules.
 
-- honest blocker
-- paste-ready prompt
-- exact upload order
-- QC checklist
-- no claim that an output image was generated
+**OUTPUT:** depth version of the approved storyboard with identical canvas, grid, panel geometry, silhouettes, and occlusions.
 
 ---
 
-## Flow D — Seedance Handoff
+## Flow E — Seedance Handoff
 
 **USER**
 
@@ -95,54 +93,35 @@ Character: character-sheet.png
 Duration: 10s
 ```
 
-**SKILL**
-
-Writes:
+**ROLE BINDING**
 
 ```text
-Use @[depth storyboard] for composition/camera/spatial relationships only.
-Use @[tone visual reference] for final look only; do not copy its framing.
-Use @[character sheet] for identity only; do not copy its sheet pose/layout.
-Motion timing and camera movement follow this text prompt.
+Depth storyboard = composition/camera/spatial layout only.
+Tone reference = color/lighting/material/mood only.
+Character sheet = identity only.
+Motion text = action/timing/audio only.
 ```
-
-**USER RECEIVES**
-
-- Seedance-ready motion prompt
-- ordered attachment list
-- conflict-priority rules
-- QC confirming one primary job per asset
 
 ---
 
-## Flow E — Conversion Changed the Grid
+## Flow F — Backend Is Text-to-Image Only
 
-**USER**
+The skill returns:
 
-```text
-The converted depth map lost panel 7 and changed the close-up.
-```
+- exact prompt
+- exact attachment order
+- target-backend requirement
+- QC checklist
 
-**SKILL**
-
-1. Marks layout fidelity as failed.
-2. Does not proceed to Seedance.
-3. Retakes the conversion with one changed variable: stronger exact-layout contract.
-4. Rechecks panel count, composition, and dividers.
-
-**USER RECEIVES**
-
-- diagnosis: transformation drift
-- one-variable repair prompt
-- clear stop condition: every source panel preserved
+It does not claim a depth map or storyboard was generated.
 
 ---
 
 ## UX Rules
 
-- Ask only for the missing normal storyboard path when blocked.
-- Never ask the user to choose depth direction; canonical is white-near, black-far.
-- Never silently fall back to direct depth-storyboard generation.
-- Never claim image conversion when the backend rejected source-image input.
-- Never let the tone reference control composition.
-- Never let the depth map carry face, clothing texture, color, or material identity.
+- Never use `/s2s depth-map` to invent nine new shots.
+- Never use `/s2s depth-storyboard` for a plain one-image conversion.
+- Never treat the two command names as aliases.
+- If depth reference is missing, generate it from IMAGE 1 with `/s2s depth-map`.
+- Keep white-near and black-far across both capabilities.
+- Preserve the complete eight-phase system prompt when exact behavior is requested.

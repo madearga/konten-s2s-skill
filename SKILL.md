@@ -1,7 +1,7 @@
 ---
 name: storyboard-to-seedance-suite
-description: "AI video production router for Seedance/Veo/Kling/GPT Image 2/ElevenLabs v3. Use for brief intake, storyboard prompts, depth-map storyboards, character/product refs, cinematic variations, motion prompts, asset binding, troubleshooting/retake triage, video analysis, hooks, product/UGC ads, VO scripts, and extend/edit/fuse/beat-sync/dialogue/one-take modes. Companion: kuka-worldbuilder handles upstream worldbuilding. Commands: /s2s help, interview, worldbuild, storyboard, depth-map, character-ref, product-ref, cinematic-variations, motion, compose-pattern, analyze, hook, troubleshoot, bundle, ads, vo-v3."
-version: 1.15.0
+description: "AI video production router for Seedance/Veo/Kling/GPT Image 2/ElevenLabs v3. Use for brief intake, storyboard prompts, single-image depth-map conversion, direct 3x3 depth-only storyboards, character/product refs, cinematic variations, motion prompts, asset binding, troubleshooting, video analysis, hooks, ads, VO scripts, and extend/edit/fuse/beat-sync/dialogue/one-take modes. Companion: kuka-worldbuilder handles upstream worldbuilding. Commands: /s2s help, interview, worldbuild, storyboard, depth-map, depth-storyboard, character-ref, product-ref, cinematic-variations, motion, compose-pattern, analyze, hook, troubleshoot, bundle, ads, vo-v3."
+version: 1.16.0
 author: Hermes Agent
 license: MIT
 triggers:
@@ -203,7 +203,9 @@ Output: copy-paste-ready prompts, references, or analysis
 | Have a vague idea, need a structured brief       | Interview         | `/s2s interview`         | `creative-brief-intake.md`                                |
 | Have a spark/place/mood, want a 9-still world bible | Worldbuild      | `/s2s worldbuild`        | companion: `kuka-worldbuilder` (Hermes skill) → see `references/companion-worldbuilder.md` |
 | Have a brief, want storyboard image               | Storyboard        | `/s2s storyboard`        | `storyboard-prompt-template.md` + `cinematic-composition-vocabulary.md` |
-| Have a normal storyboard, want composition-only spatial control | Depth Map Storyboard | `/s2s depth-map` | `depth-map-storyboard.md` + `depth-map-user-flow.md` |
+| Have one image, want a clean linear depth map | Depth Converter | `/s2s depth-map` | `depth-map-conversion.md` + `depth-map-user-flow.md` |
+| Have visual + depth references, want a new coherent 3×3 depth sequence | Depth Storyboard | `/s2s depth-storyboard` | `depth-storyboard-system-prompt.md` + `depth-map-user-flow.md` |
+| Have an approved normal storyboard, want that exact sheet in depth | Depth Converter | `/s2s depth-map` | `depth-map-conversion.md` + `depth-map-storyboard.md` |
 | Want 10 composition options for one key moment    | Pre-visualization | `/s2s cinematic-variations` | `cinematic-composition-vocabulary.md` + `cinematic-variations-script-mode.md` |
 | Need human character reference image              | Character Ref     | `/s2s character-ref`     | `character-ref-prompt.md`                              |
 | Need product reference image                      | Product Ref       | `/s2s product-ref`       | `product-ref-prompt.md`                                |
@@ -229,7 +231,9 @@ When intent is ambiguous, ask the user the **minimum disambiguating questions**:
 | Is there a human in the video?                      | Yes → `character-ref` first; No → skip                          |
 | Is there a product?                                 | Yes → `product-ref` first; No → skip                            |
 | Do you already have a storyboard image?             | Yes → skip `storyboard`, go to `motion`                         |
-| Do you want composition decoupled from visual style? | Yes → normal `storyboard` first, then `depth-map`                |
+| Do you want to convert one existing image?            | Yes → `depth-map`                                                |
+| Do you want a new nine-shot sequence from visual + depth refs? | Yes → `depth-storyboard`                              |
+| Do you want an approved normal storyboard converted unchanged? | Yes → `depth-map`, then `motion --bind`              |
 | Are you extending/editing existing video?           | Yes → `compose-pattern` (extend/edit/fuse)                     |
 | Did the previous output fail or look wrong?         | Yes → `troubleshoot` first, then retake                        |
 
@@ -250,8 +254,11 @@ All references live in `references/`. Pick the ones you need; ignore the rest.
 | File                                              | Use                                                   |
 |---------------------------------------------------|-------------------------------------------------------|
 | `storyboard-prompt-template.md`                   | 12-section fill-in template for storyboard image prompt |
-| `depth-map-storyboard.md`                         | Normal-storyboard-first depth conversion, role binding, and QC |
-| `depth-map-user-flow.md`                          | Reproducible `/s2s depth-map` interaction and failure flows |
+| `depth-map-conversion.md`                         | Exact single-image physical linear-depth conversion prompt |
+| `depth-storyboard-conversion.md`                  | Exact revised storyboard/contact-sheet depth conversion prompt |
+| `depth-storyboard-system-prompt.md`               | Complete eight-phase 3×3 depth-only storyboard system prompt |
+| `depth-map-storyboard.md`                         | Router for the two distinct depth workflows + Seedance binding |
+| `depth-map-user-flow.md`                          | Reproducible converter, direct-storyboard, and handoff flows |
 | `character-ref-prompt.md`                         | 3-angle character sheet template                       |
 | `product-ref-prompt.md`                           | 5 variants: hero / multi-angle / lifestyle / in-use / sheet |
 | `seedance-motion-prompt.md`                       | 5-part spine for motion prompt                         |
@@ -323,7 +330,8 @@ Each command in `commands/` is a **single capability spec** — invocable indepe
 | `/s2s worldbuild`             | Worldbuild        | `commands/worldbuild.md` (companion: kuka-worldbuilder) |
 | `/s2s help`                   | Help              | `commands/help.md`         |
 | `/s2s storyboard`             | Storyboard        | `commands/storyboard.md`   |
-| `/s2s depth-map`              | Depth Map Storyboard | `commands/depth-map.md` |
+| `/s2s depth-map`              | Depth Converter    | `commands/depth-map.md` |
+| `/s2s depth-storyboard`       | Depth Storyboard   | `commands/depth-storyboard.md` |
 | `/s2s character-ref`          | Character Ref     | `commands/character-ref.md` |
 | `/s2s product-ref`            | Product Ref       | `commands/product-ref.md`  |
 | `/s2s cinematic-variations`   | Pre-visualization | `commands/cinematic-variations.md` |
@@ -365,6 +373,10 @@ User Request
   │    │
   │    ├─ Want composition separated from visual style?
   │    │   └─ Normal storyboard approved → /s2s depth-map
+  │    │
+  │    ├─ Want a NEW 3×3 depth-only sequence from references?
+  │    │   ├─ Have visual + depth refs → /s2s depth-storyboard
+  │    │   └─ Missing depth ref → /s2s depth-map, then /s2s depth-storyboard
   │    │
   │    ├─ Want motion prompt only (have refs)?
   │    │   ├─ New clip → /s2s motion

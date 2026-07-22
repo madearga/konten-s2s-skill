@@ -2,7 +2,7 @@ cff-version: 1.2.0
 message: "If you use this skill in research or production, please cite it as below."
 type: software
 title: "storyboard-to-seedance-suite"
-abstract: "A procedural workflow for AI video production: storyboard generation, optional depth-map storyboard conversion for composition/style decoupling, character or product reference generation, and motion prompt generation for Seedance 2.0. Cross-platform compatible with Hermes Agent, Claude Code, OpenCode, Codex CLI, and Pi."
+abstract: "A procedural workflow for AI video production: storyboard generation, single-image linear depth-map conversion, direct 3x3 depth-only storyboard generation from visual and depth references, character or product references, and motion prompts for Seedance 2.0. Cross-platform compatible with Hermes Agent, Claude Code, OpenCode, Codex CLI, and Pi."
 authors:
   - name: "madearga"
     email: "madearga.work@gmail.com"
@@ -18,4 +18,4 @@ keywords:
   - skill
   - cross-platform
 date-released: 2026-07-22
-version: 1.15.0
+version: 1.16.0

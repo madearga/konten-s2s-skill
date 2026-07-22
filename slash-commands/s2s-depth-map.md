@@ -1,6 +1,6 @@
 ---
-description: "Convert a normal storyboard into a composition-only depth map storyboard"
-argument-hint: "[storyboard path/URL] [optional tone/character/product refs]"
+description: "Convert one supplied image into a physically accurate grayscale linear depth map"
+argument-hint: "[source image path/URL]"
 ---
 
 Execute the **s2s depth-map** capability from the `storyboard-to-seedance-suite` skill.
@@ -18,10 +18,10 @@ Remember the result as `SKILL`.
 
 ## Step 2 — Load and execute the capability
 
-Read `$SKILL/commands/depth-map.md` and follow it exactly. Load `$SKILL/references/depth-map-storyboard.md` and `$SKILL/references/depth-map-user-flow.md`. Resolve relative paths against `$SKILL/`.
+Read `$SKILL/commands/depth-map.md` and follow it exactly. Load `$SKILL/references/depth-map-user-flow.md`, then select `$SKILL/references/depth-map-conversion.md` for a single image or `$SKILL/references/depth-storyboard-conversion.md` for a storyboard/contact sheet. Resolve relative paths against `$SKILL/`.
 
 ## Step 3 — Apply user arguments
 
 User arguments: `$ARGUMENTS`
 
-Preserve the revised order: normal storyboard first, then conversion. Never claim conversion succeeded without a real generated image artifact.
+Transform only the supplied source image. Do not invent a nine-shot sequence. Never claim conversion succeeded without a real generated artifact.

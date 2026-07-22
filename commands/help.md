@@ -38,7 +38,8 @@ If user describes a goal instead of a command, route them to the smallest matchi
 | `/s2s help` | Need command guide or routing | Command explanation + suggested next command |
 | `/s2s interview` | Idea is vague / user says "you decide" | Structured creative brief |
 | `/s2s storyboard` | Need storyboard image prompt | 12-section storyboard prompt |
-| `/s2s depth-map` | Have a normal storyboard; want composition-only depth control | Depth conversion prompt + Seedance role binding |
+| `/s2s depth-map` | Convert one existing image into a clean depth map | Exact physical linear-depth conversion prompt |
+| `/s2s depth-storyboard` | Have visual + depth refs; want a new nine-shot depth sequence | Complete 3×3 depth-only storyboard system prompt |
 | `/s2s character-ref` | Need consistent human/character identity | Character reference-sheet prompt |
 | `/s2s product-ref` | Need consistent product image | Product reference prompt |
 | `/s2s cinematic-variations` | Need 10 composition options | Shot/composition variants |
@@ -61,7 +62,8 @@ If user describes a goal instead of a command, route them to the smallest matchi
 | "Aku punya ide tapi belum jelas" | `/s2s interview` |
 | "Bikin iklan produk" | `/s2s ads` |
 | "Bikin storyboard" | `/s2s storyboard` |
-| "Pisahkan komposisi dari style / depth-map storyboard" | `/s2s depth-map` |
+| "Ubah gambar ini jadi depth map" | `/s2s depth-map` |
+| "Buat storyboard depth 3×3 dari visual + depth refs" | `/s2s depth-storyboard` |
 | "Lock karakter / wajah konsisten" | `/s2s character-ref` |
 | "Lock produk" | `/s2s product-ref` |
 | "Prompt video Seedance" | `/s2s motion` |
@@ -87,9 +89,14 @@ Creates a storyboard image prompt, usually 12-panel / director-strip style.
 Example: `/s2s storyboard from this brief: ...`
 
 ### `/s2s depth-map`
-Converts an approved normal storyboard/contact sheet into a neutral depth-map storyboard. It preserves the exact grid and framing, then binds depth to composition only and a separate tone reference to final look only.
+Converts one supplied image into a physically accurate grayscale linear depth map. It transforms existing geometry and does not invent new shots.
 
-Example: `/s2s depth-map storyboard.png tone=look.jpg character=character.png`
+Example: `/s2s depth-map visual-reference.png`
+
+### `/s2s depth-storyboard`
+Uses IMAGE 1 (visual reference) and IMAGE 2 (depth reference) to generate one coherent nine-shot depth-only storyboard in an exact 3×3 grid.
+
+Example: `/s2s depth-storyboard visual-reference.png depth-reference.png`
 
 ### `/s2s character-ref`
 Creates a consistent character reference prompt. Use before video generation if a human/character must stay consistent.

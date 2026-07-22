@@ -192,24 +192,51 @@
 
 ---
 
-## TC8: `/s2s depth-map` revised conversion workflow
+## TC8: Split depth capabilities
 
-**Input:** `/s2s depth-map storyboard.png tone=look.jpg character=character.png`
+### TC8a — `/s2s depth-map` single-image conversion
+
+**Input:** `/s2s depth-map visual-reference.png`
 
 **Expected Output:**
-- Normal storyboard is treated as immutable source geometry
-- Paste-ready monocular grayscale conversion prompt
-- Layout contract records canvas, aspect ratio, grid, panel count, dividers, and reading order
-- Canonical depth convention: white nearest, near-black farthest, black dividers
-- Seedance role binding: depth=composition, tone=look, character=identity
+- Exact compact physical linear-depth conversion prompt
+- One source image is transformed; no new shots or story are invented
+- Canonical depth convention: white nearest, black farthest
 - Text-to-image-only backend returns an honest blocker instead of claiming conversion
 
 **Pass criteria:**
-- Workflow order is normal storyboard → depth conversion, never direct depth generation by default
-- Prompt preserves exact framing, perspective, composition, silhouettes, and objects
-- Prompt bans RGB, lighting, texture, reflection, fog, blur, AO, halos, labels, and layout changes
-- QC blocks handoff if panel count/layout/composition changed
-- Each attached asset has exactly one primary role
+- Prompt preserves geometry, silhouettes, and occlusion boundaries
+- Prompt requires smooth depth gradients and crisp object edges
+- Prompt removes color, texture, lighting, shading, outlines, normals, and ambient occlusion
+- Output is only one clean depth map
+
+### TC8a.2 — `/s2s depth-map` storyboard/contact-sheet profile
+
+**Input:** `/s2s depth-map approved-storyboard.png`
+
+**Pass criteria:**
+- Selects the revised storyboard/contact-sheet prompt, not the compact single-image prompt
+- Preserves exact canvas, aspect ratio, panel layout, dividers, framing, perspective, composition, and silhouettes
+- Uses white/light gray/mid-gray/dark gray/near-black depth bands and black panel dividers
+- Adds no text, labels, objects, missing objects, or layout changes
+
+### TC8b — `/s2s depth-storyboard` direct 3×3 generation
+
+**Input:** `/s2s depth-storyboard visual-reference.png depth-reference.png`
+
+**Expected Output:**
+- Full eight-phase system prompt is loaded without collapsing phases
+- IMAGE 1 controls scene/content/identity
+- IMAGE 2 controls depth convention/layering/edge behavior
+- Exactly nine sequential depth-only shots in one 3×3 grid
+
+**Pass criteria:**
+- Shot order is establishing, intention, discovery, reaction, preparation, insert, action, consequence, resolution
+- All panels form one continuous event with stable identity, environment, and screen direction
+- White-near/black-far convention is consistent across the full grid
+- Per-panel grayscale normalization is forbidden
+- No RGB, texture, lighting, shading, AO, captions, labels, or numbering
+- `/s2s depth-storyboard` is not routed as an alias for `/s2s depth-map`
 
 ---
 
